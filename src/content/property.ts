@@ -61,10 +61,11 @@ export const property = {
     todo: "Confirm whether 84019 may be published.",
   },
   geo: {
-    latitude: null as number | null,
-    longitude: null as number | null,
-    status: "unknown" as FactStatus,
-    todo: "Add coordinates only if authorised for public use.",
+    latitude: 40.6637081,
+    longitude: 14.7150181,
+    /** Public pin supplied for the listing; opens the live map. */
+    mapsUrl: "https://maps.app.goo.gl/vvfs2Sp99ceQ8XZW9",
+    status: "supplied" as FactStatus,
   },
   internalArea: {
     squareMetres: 900,

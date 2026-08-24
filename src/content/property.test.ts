@@ -14,7 +14,9 @@ test("property facts stay within supplied information", () => {
   assert.equal(property.lemonGarden.treeCount, 8);
   assert.equal(property.heritage.paperMillYear, 1830);
   assert.equal(property.price.value, null);
-  assert.equal(property.geo.latitude, null);
+  assert.equal(property.geo.latitude, 40.6637081);
+  assert.equal(property.geo.longitude, 14.7150181);
+  assert.match(property.geo.mapsUrl, /^https:\/\/maps\.app\.goo\.gl\//);
   assert.equal(property.streetAddress.value, null);
   assert.equal(property.seller.name, null);
 });
@@ -34,6 +36,12 @@ test("english and italian copy both exist", () => {
   assert.equal(messages.it.gallery.emptyBody.length > 0, true);
   assert.equal(messages.en.investment.disclaimer.length > 0, true);
   assert.equal(messages.it.investment.disclaimer.length > 0, true);
+  assert.equal(messages.en.location.mapLabels.coast, "Costiera Amalfitana");
+  assert.equal(messages.it.location.mapLabels.coast, "Costiera Amalfitana");
+  assert.deepEqual(
+    Object.keys(messages.en.location.mapLabels),
+    Object.keys(messages.it.location.mapLabels),
+  );
 });
 
 test("visible metrics and fact rows derive from the property source", () => {
