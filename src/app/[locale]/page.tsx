@@ -28,14 +28,20 @@ export default async function HomePage({ params }: PageProps) {
   const hero = imageById("hero-cove-aerial");
   const terrace = imageById("terrace-dining-sea");
   const mosaic = imageById("corridor-mosaic");
-  const galleryPreview = imagesFor("gallery").slice(0, 4);
+  const galleryPreview = imagesFor("gallery").filter((image) => image.available).slice(0, 4);
 
   return (
     <main>
       <JsonLd data={buildJsonLd(locale, "")} />
-      <section className="grid min-h-[100svh] lg:grid-cols-[minmax(0,1.15fr)_minmax(22rem,0.85fr)]">
-        <div className="relative min-h-[70svh] bg-[var(--paper-deep)]">
-          {hero?.available ? (
+      <section
+        className={
+          hero?.available
+            ? "grid min-h-[100svh] lg:grid-cols-[minmax(0,1.15fr)_minmax(22rem,0.85fr)]"
+            : "min-h-[92svh]"
+        }
+      >
+        {hero?.available ? (
+          <div className="relative min-h-[70svh] bg-[var(--paper-deep)]">
             <Image
               src={hero.src}
               alt={hero.alt[locale]}
@@ -46,11 +52,15 @@ export default async function HomePage({ params }: PageProps) {
               className="object-cover"
               style={{ objectPosition: hero.objectPosition }}
             />
-          ) : (
-            <div className="photo-pending h-full min-h-[70svh]">{copy.gallery.pending}</div>
-          )}
-        </div>
-        <div className="flex flex-col justify-end gap-8 px-[clamp(1.25rem,4vw,3.5rem)] py-10 lg:py-16">
+          </div>
+        ) : null}
+        <div
+          className={
+            hero?.available
+              ? "flex flex-col justify-end gap-8 px-[clamp(1.25rem,4vw,3.5rem)] py-10 lg:py-16"
+              : "shell flex min-h-[92svh] flex-col justify-end gap-8 pb-16 pt-28"
+          }
+        >
           <p className="kicker">{copy.hero.eyebrow}</p>
           <h1 className="display m-0 text-[clamp(2.4rem,6vw,4.6rem)]">{copy.hero.title}</h1>
           <p className="lede m-0">{copy.hero.lead}</p>
@@ -84,7 +94,7 @@ export default async function HomePage({ params }: PageProps) {
             </p>
           ))}
         </div>
-        {terrace ? (
+        {terrace?.available ? (
           <Photo
             image={terrace}
             locale={locale}
@@ -121,7 +131,7 @@ export default async function HomePage({ params }: PageProps) {
       </section>
 
       <section className="shell section grid gap-10 md:grid-cols-2">
-        {mosaic ? (
+        {mosaic?.available ? (
           <Photo
             image={mosaic}
             locale={locale}
@@ -147,6 +157,7 @@ export default async function HomePage({ params }: PageProps) {
         </div>
       </section>
 
+      {galleryPreview.length > 0 ? (
       <section className="shell section">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -169,6 +180,7 @@ export default async function HomePage({ params }: PageProps) {
           ))}
         </div>
       </section>
+      ) : null}
 
       <section className="shell section grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div>

@@ -87,7 +87,9 @@ export function Gallery({
                           </span>
                 </button>
               ) : (
-                <div className="photo-pending aspect-[3/4]">{copy.pending}</div>
+                <div className="photo-pending aspect-[3/4]" role="img" aria-label={image.alt[locale]}>
+                  <span className="sr-only">{copy.pending}</span>
+                </div>
               )}
             </li>
           );
