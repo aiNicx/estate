@@ -19,8 +19,6 @@ type Copy = {
     request: string;
     requestDetails: string;
     requestInvestment: string;
-    privateDiscussion: string;
-    documentation: string;
   };
   hero: {
     eyebrow: string;
@@ -34,15 +32,18 @@ type Copy = {
     title: string;
     body: string[];
   };
-  metrics: { label: string; value: string; note?: string }[];
+  metrics: {
+    internalArea: string;
+    terraces: string;
+    units: string;
+    composition: string;
+  };
   property: {
     kicker: string;
     title: string;
     intro: string;
     compositionTitle: string;
     units: { label: string; detail: string }[];
-    includesTitle: string;
-    includes: string[];
   };
   spaces: {
     kicker: string;
@@ -67,8 +68,6 @@ type Copy = {
     presentTitle: string;
     present: string[];
     possibleTitle: string;
-    potentialLabel: string;
-    possibleNote: string;
     scenarios: { title: string; body: string }[];
     disclaimer: string;
   };
@@ -91,7 +90,22 @@ type Copy = {
   facts: {
     kicker: string;
     title: string;
-    rows: { term: string; value: string }[];
+    terms: {
+      locality: string;
+      municipality: string;
+      coast: string;
+      internalArea: string;
+      terraces: string;
+      units: string;
+      residentialUnits: string;
+      commercialUnits: string;
+      hospitality: string;
+      restaurant: string;
+      lemonGarden: string;
+      waterfront: string;
+      pontoon: string;
+      paperMill: string;
+    };
   };
   request: {
     kicker: string;
@@ -132,10 +146,7 @@ type Copy = {
     body: string[];
   };
   footer: {
-    dossier: string;
     geography: string;
-    notice: string;
-    rights: string;
   };
   diagram: {
     coveLabel: string;
@@ -182,8 +193,6 @@ export const messages: Record<Locale, Copy> = {
       request: "Request the private dossier",
       requestDetails: "View the estate",
       requestInvestment: "Explore strategic optionality",
-      privateDiscussion: "Private enquiry",
-      documentation: "Request the private dossier",
     },
     hero: {
       eyebrow: "Available for acquisition",
@@ -200,17 +209,17 @@ export const messages: Record<Locale, Copy> = {
     },
     overview: {
       kicker: "The estate",
-      title: "A singular waterfront holding between hillside and sea.",
+      title: "A waterfront holding between hillside and sea.",
       body: [
-        "Seven independent units bring together residential, hospitality and restaurant uses in a secluded cove at Marina d'Albori. Terraces, a historic limoneto and a seasonal landing / pontoon concession establish an unusually direct relationship with the sea.",
+        "Seven independent units bring together residential, hospitality and restaurant uses in a secluded cove at Marina d'Albori. Terraces, a historic limoneto and a seasonal landing / pontoon concession establish a direct relationship with the sea.",
       ],
     },
-    metrics: [
-      { label: "Internal area", value: "≈ 900 m²" },
-      { label: "Terraces", value: "≈ 300–350 m²" },
-      { label: "Independent units", value: "7" },
-      { label: "Residential / commercial", value: "5 + 2" },
-    ],
+    metrics: {
+      internalArea: "Internal area",
+      terraces: "Terraces",
+      units: "Independent units",
+      composition: "Residential / commercial",
+    },
     property: {
       kicker: "The acquisition",
       title: "A multi-building estate with existing mixed use.",
@@ -228,17 +237,6 @@ export const messages: Record<Locale, Copy> = {
           detail:
             "Commercial spaces forming part of the estate, including the existing restaurant activity.",
         },
-      ],
-      includesTitle: "Principal elements",
-      includes: [
-        "Approximately 900 m² of covered internal space",
-        "Approximately 300–350 m² of terraces",
-        "Existing hospitality / holiday accommodation activity",
-        "Existing restaurant activity",
-        "Historic lemon garden (limoneto), with approximately eight mature trees around seventy years old",
-        "A strong physical relationship with the sea and the Amalfi Coast landscape",
-        "A seasonal landing / pontoon concession associated with the property",
-        "A historic paper mill (cartiera) associated with the property, dating to 1830",
       ],
     },
     spaces: {
@@ -313,34 +311,27 @@ export const messages: Record<Locale, Copy> = {
         "Approximately 900 m² of covered internal area and 300–350 m² of terraces.",
         "Seasonal landing / pontoon concession associated with the property.",
       ],
-    possibleTitle: "Strategic optionality",
-    potentialLabel: "Subject to due diligence and applicable approvals",
-    possibleNote:
-      "The estate's composition supports several possible configurations.",
+      possibleTitle: "Strategic optionality",
       scenarios: [
         {
           title: "Private residence / family estate",
           body: "A single private holding with independent accommodation for family and guests.",
         },
         {
-          title: "Boutique hospitality",
-          body: "A focused hospitality proposition building on the existing accommodation use.",
-        },
-        {
           title: "Hospitality with food and beverage",
-          body: "An integrated destination combining accommodation with the existing restaurant activity.",
+          body: "A focused hospitality proposition combining accommodation with the existing restaurant activity.",
         },
         {
           title: "Mixed residential and hospitality asset",
           body: "A balance of private apartments, operated accommodation and commercial space.",
         },
         {
-          title: "Long-term trophy holding",
+          title: "Long-term estate holding",
           body: "A long-term hold defined by waterfront scarcity and the difficulty of replicating the setting.",
         },
       ],
       disclaimer:
-        "Future configurations are indicative only and remain subject to legal, cadastral and planning due diligence, applicable approvals and verification of the concession documentation.",
+        "All future configurations are indicative and subject to due diligence, applicable approvals and verification of concession documentation.",
     },
     heritage: {
       kicker: "Provenance",
@@ -381,22 +372,22 @@ export const messages: Record<Locale, Copy> = {
     facts: {
       kicker: "Acquisition schedule",
       title: "Principal facts",
-      rows: [
-        { term: "Locality", value: "Marina d'Albori" },
-        { term: "Municipality", value: "Vietri sul Mare" },
-        { term: "Coast", value: "Amalfi Coast (Costiera Amalfitana)" },
-        { term: "Covered internal space", value: "Approximately 900 m²" },
-        { term: "Terraces", value: "Approximately 300–350 m²" },
-        { term: "Units", value: "7 independent units" },
-        { term: "Residential units", value: "5" },
-        { term: "Commercial units", value: "2" },
-        { term: "Current hospitality use", value: "Yes — holiday accommodation activity" },
-        { term: "Restaurant", value: "Yes — existing activity" },
-        { term: "Lemon garden", value: "Yes — approximately 8 trees, around 70 years old" },
-        { term: "Sea relationship", value: "Yes — waterfront cove" },
-        { term: "Pontoon", value: "Seasonal landing / pontoon concession associated with the property" },
-        { term: "Historic paper mill", value: "Associated cartiera dated 1830" },
-      ],
+      terms: {
+        locality: "Locality",
+        municipality: "Municipality",
+        coast: "Coast",
+        internalArea: "Covered internal space",
+        terraces: "Terraces",
+        units: "Units",
+        residentialUnits: "Residential units",
+        commercialUnits: "Commercial units",
+        hospitality: "Current hospitality use",
+        restaurant: "Restaurant",
+        lemonGarden: "Lemon garden",
+        waterfront: "Sea relationship",
+        pontoon: "Pontoon",
+        paperMill: "Historic paper mill",
+      },
     },
     request: {
       kicker: "Private enquiry",
@@ -407,10 +398,8 @@ export const messages: Record<Locale, Copy> = {
         "Enquiries are handled discreetly.",
       topicsTitle: "Confidential materials",
       topics: [
-        "Technical documentation",
-        "Plans",
-        "Due diligence materials",
-        "Cadastral documentation",
+        "Technical, planning and cadastral documentation",
+        "Plans and due diligence materials",
         "Commercial information",
         "Concession and operating documentation",
       ],
@@ -459,10 +448,7 @@ export const messages: Record<Locale, Copy> = {
       ],
     },
     footer: {
-      dossier: "Private acquisition dossier",
       geography: "Marina d'Albori · Amalfi Coast · Italy",
-      notice: "By private enquiry",
-      rights: "All rights reserved.",
     },
     diagram: {
       coveLabel: "Marina d'Albori",
@@ -508,8 +494,6 @@ export const messages: Record<Locale, Copy> = {
       request: "Richiedi il dossier riservato",
       requestDetails: "Scopri la proprietà",
       requestInvestment: "Esplora le opzioni strategiche",
-      privateDiscussion: "Richiesta riservata",
-      documentation: "Richiedi il dossier riservato",
     },
     hero: {
       eyebrow: "Disponibile per l'acquisizione",
@@ -531,12 +515,12 @@ export const messages: Record<Locale, Copy> = {
         "Sette unità indipendenti riuniscono usi residenziali, ricettivi e di ristorazione in una cala appartata a Marina d'Albori. Terrazze, limoneto storico e concessione stagionale di approdo / pontile stabiliscono un rapporto insolitamente diretto con il mare.",
       ],
     },
-    metrics: [
-      { label: "Superficie interna", value: "≈ 900 m²" },
-      { label: "Terrazze", value: "≈ 300–350 m²" },
-      { label: "Unità indipendenti", value: "7" },
-      { label: "Residenziali / commerciali", value: "5 + 2" },
-    ],
+    metrics: {
+      internalArea: "Superficie interna",
+      terraces: "Terrazze",
+      units: "Unità indipendenti",
+      composition: "Residenziali / commerciali",
+    },
     property: {
       kicker: "L'acquisizione",
       title: "Una proprietà articolata, con uso misto esistente.",
@@ -554,17 +538,6 @@ export const messages: Record<Locale, Copy> = {
           detail:
             "Spazi commerciali parte della proprietà, inclusa l'attività di ristorazione esistente.",
         },
-      ],
-      includesTitle: "Elementi principali",
-      includes: [
-        "Circa 900 m² di superficie interna coperta",
-        "Circa 300–350 m² di terrazze",
-        "Attività ricettiva / di accoglienza per vacanze già in essere",
-        "Attività di ristorazione già in essere",
-        "Limoneto storico, con circa otto alberi maturi di circa settant'anni",
-        "Un rapporto fisico forte con il mare e il paesaggio della Costiera",
-        "Una concessione stagionale di approdo / pontile associata alla proprietà",
-        "Una cartiera storica associata alla proprietà, risalente al 1830",
       ],
     },
     spaces: {
@@ -640,21 +613,14 @@ export const messages: Record<Locale, Copy> = {
         "Concessione stagionale di approdo / pontile associata alla proprietà.",
       ],
       possibleTitle: "Opzioni strategiche",
-      potentialLabel: "Soggette a due diligence e alle autorizzazioni applicabili",
-      possibleNote:
-        "La composizione della proprietà consente diverse possibili configurazioni.",
       scenarios: [
         {
           title: "Residenza privata / tenuta di famiglia",
           body: "Un'unica proprietà privata con alloggi indipendenti per famiglia e ospiti.",
         },
         {
-          title: "Ospitalità boutique",
-          body: "Una proposta ricettiva focalizzata, costruita sull'uso di accoglienza già esistente.",
-        },
-        {
           title: "Ricettività e ristorazione",
-          body: "Una destinazione integrata tra accoglienza e attività di ristorazione esistente.",
+          body: "Una proposta ricettiva che unisce accoglienza e attività di ristorazione esistente.",
         },
         {
           title: "Asset misto residenziale e ricettivo",
@@ -666,7 +632,7 @@ export const messages: Record<Locale, Copy> = {
         },
       ],
       disclaimer:
-        "Le configurazioni future sono puramente indicative e restano soggette a due diligence legale, catastale e urbanistica, alle autorizzazioni applicabili e alla verifica della documentazione concessoria.",
+        "Ogni configurazione futura è indicativa e soggetta a due diligence, autorizzazioni applicabili e verifica della documentazione concessoria.",
     },
     heritage: {
       kicker: "Provenienza",
@@ -707,22 +673,22 @@ export const messages: Record<Locale, Copy> = {
     facts: {
       kicker: "Scheda di acquisizione",
       title: "Dati principali",
-      rows: [
-        { term: "Località", value: "Marina d'Albori" },
-        { term: "Comune", value: "Vietri sul Mare" },
-        { term: "Costa", value: "Costiera Amalfitana" },
-        { term: "Superficie interna coperta", value: "Circa 900 m²" },
-        { term: "Terrazze", value: "Circa 300–350 m²" },
-        { term: "Unità", value: "7 unità indipendenti" },
-        { term: "Unità residenziali", value: "5" },
-        { term: "Unità commerciali", value: "2" },
-        { term: "Uso ricettivo attuale", value: "Sì — attività di accoglienza per vacanze" },
-        { term: "Ristorante", value: "Sì — attività esistente" },
-        { term: "Limoneto", value: "Sì — circa 8 alberi, circa 70 anni" },
-        { term: "Rapporto con il mare", value: "Sì — cala fronte mare" },
-        { term: "Pontile", value: "Concessione stagionale di approdo / pontile associata alla proprietà" },
-        { term: "Cartiera storica", value: "Cartiera associata datata 1830" },
-      ],
+      terms: {
+        locality: "Località",
+        municipality: "Comune",
+        coast: "Costa",
+        internalArea: "Superficie interna coperta",
+        terraces: "Terrazze",
+        units: "Unità",
+        residentialUnits: "Unità residenziali",
+        commercialUnits: "Unità commerciali",
+        hospitality: "Uso ricettivo attuale",
+        restaurant: "Ristorante",
+        lemonGarden: "Limoneto",
+        waterfront: "Rapporto con il mare",
+        pontoon: "Pontile",
+        paperMill: "Cartiera storica",
+      },
     },
     request: {
       kicker: "Richiesta riservata",
@@ -733,10 +699,8 @@ export const messages: Record<Locale, Copy> = {
         "Le richieste sono gestite con discrezione.",
       topicsTitle: "Materiali riservati",
       topics: [
-        "Documentazione tecnica",
-        "Planimetrie",
-        "Materiali di due diligence",
-        "Documentazione catastale",
+        "Documentazione tecnica, urbanistica e catastale",
+        "Planimetrie e materiali di due diligence",
         "Informazioni commerciali",
         "Documentazione concessoria e gestionale",
       ],
@@ -785,10 +749,7 @@ export const messages: Record<Locale, Copy> = {
       ],
     },
     footer: {
-      dossier: "Dossier di acquisizione riservato",
       geography: "Marina d'Albori · Costiera Amalfitana · Italia",
-      notice: "Su richiesta riservata",
-      rights: "Tutti i diritti riservati.",
     },
     diagram: {
       coveLabel: "Marina d'Albori",

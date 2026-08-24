@@ -1,8 +1,10 @@
 import type { Locale } from "@/content/property";
 import { t } from "@/content/messages";
+import { getFactRows } from "@/content/facts";
 
 export function FactsTable({ locale }: { locale: Locale }) {
   const copy = t(locale).facts;
+  const rows = getFactRows(locale);
   return (
     <section aria-labelledby="facts-heading">
       <p className="kicker">{copy.kicker}</p>
@@ -11,7 +13,7 @@ export function FactsTable({ locale }: { locale: Locale }) {
       </h2>
       <table className="facts mt-8">
         <tbody>
-          {copy.rows.map((row) => (
+          {rows.map((row) => (
             <tr key={row.term}>
               <th scope="row">{row.term}</th>
               <td>{row.value}</td>

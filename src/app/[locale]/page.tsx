@@ -124,7 +124,6 @@ export default async function HomePage({ params }: PageProps) {
               <li key={item.name} className="border-t border-white/20 pt-4">
                 <span className="block text-xs tracking-[0.18em] uppercase opacity-70">{String(index + 1).padStart(2, "0")}</span>
                 <strong className="display text-2xl font-normal">{item.name}</strong>
-                <span className="mt-1 block text-sm text-[#d5e2e6]">{item.relation}</span>
               </li>
             ))}
           </ol>
@@ -150,11 +149,10 @@ export default async function HomePage({ params }: PageProps) {
           <p className="kicker">{copy.heritage.kicker}</p>
           <h2 className="display mt-0 text-4xl">{copy.heritage.title}</h2>
           <p className="lede">{copy.heritage.intro}</p>
-          <ul className="mt-6 space-y-4">
+          <ul className="mt-6 flex list-none flex-wrap gap-x-6 gap-y-2 p-0">
             {copy.heritage.items.slice(0, 2).map((item) => (
               <li key={item.title}>
-                <h3 className="mb-1 text-lg">{item.title}</h3>
-                <p className="m-0 text-[var(--ink-soft)]">{item.body}</p>
+                <span className="text-lg">{item.title}</span>
               </li>
             ))}
           </ul>
@@ -202,7 +200,6 @@ export default async function HomePage({ params }: PageProps) {
           {copy.investment.scenarios.slice(0, 4).map((scenario) => (
             <article key={scenario.title} className="border-t border-[var(--line)] pt-4">
               <h3 className="mt-0 text-xl">{scenario.title}</h3>
-              <p className="m-0 text-[var(--ink-soft)]">{scenario.body}</p>
             </article>
           ))}
         </div>
@@ -213,7 +210,6 @@ export default async function HomePage({ params }: PageProps) {
           <div>
             <p className="kicker">{copy.request.kicker}</p>
             <h2 className="display mt-0 text-4xl">{copy.request.title}</h2>
-            <p className="lede">{copy.request.intro}</p>
           </div>
           <Link className="btn justify-self-start md:justify-self-end" href={localizedPath(locale, "/request")}>
             {copy.cta.request}

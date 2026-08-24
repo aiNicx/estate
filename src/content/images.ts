@@ -386,8 +386,3 @@ export function unmappedUploads(): string[] {
     .map((image) => path.basename(image.src).toLowerCase());
   return files.filter((file) => !resolved.includes(file.toLowerCase()));
 }
-
-export const missingVisualCategories = [
-  "Dedicated close photographs of the limoneto (lemon garden) are not yet in the set; the hillside aerial shows terraced planting above the buildings.",
-  "No interior photographs of the restaurant dining room were supplied; commercial use is described in copy and visible as the beach lounge in the aerials.",
-] as const;
