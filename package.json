@@ -8,8 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/content/property.test.ts",
+    "test": "node --experimental-strip-types --test src/content/property.test.ts src/content/images.test.ts src/lib/site.test.ts",
     "optimize:photos": "node scripts/optimize-photos.mjs"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   },
   "dependencies": {
     "next": "16.3.2",

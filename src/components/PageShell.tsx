@@ -27,7 +27,7 @@ export function PageShell({
     <main className="pb-20">
       <JsonLd data={buildJsonLd(locale, pathname)} />
       <Breadcrumbs locale={locale} pathname={pathname} />
-      <header className="shell pb-10 pt-4">
+      <header className="shell border-l-2 border-[var(--terracotta)] pb-10 pl-[clamp(1rem,3vw,1.75rem)] pt-4">
         <p className="kicker">{kicker}</p>
         <h1 className="display mt-0 max-w-[18ch] text-[clamp(2.2rem,5vw,4.2rem)]">{title}</h1>
         {intro ? <p className="lede">{intro}</p> : null}

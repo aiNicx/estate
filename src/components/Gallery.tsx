@@ -55,45 +55,36 @@ export function Gallery({
   }, [index, next, previous]);
 
   if (!available.length) {
-    return <p className="lede">{copy.pending}</p>;
+    return null;
   }
 
   return (
     <div>
       <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
-        {images.map((image, imageIndex) => {
-          const availableIndex = available.findIndex((item) => item.id === image.id);
-          return (
-            <li
-              key={image.id}
-              className={imageIndex % 5 === 0 ? "sm:col-span-2 sm:row-span-2" : ""}
+        {available.map((image, imageIndex) => (
+          <li
+            key={image.id}
+            className={imageIndex % 5 === 0 ? "sm:col-span-2 sm:row-span-2" : ""}
+          >
+            <button
+              type="button"
+              className="block h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+              onClick={() => setIndex(imageIndex)}
+              aria-label={image.alt[locale]}
             >
-              {image.available ? (
-                <button
-                  type="button"
-                  className="block h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
-                  onClick={() => setIndex(availableIndex)}
-                  aria-label={image.alt[locale]}
-                >
-                          <span className="photo-frame relative block aspect-[3/4] h-full w-full">
-                            <Image
-                              src={image.src}
-                              alt={image.alt[locale]}
-                              fill
-                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              className="object-cover"
-                              style={{ objectPosition: image.objectPosition }}
-                            />
-                          </span>
-                </button>
-              ) : (
-                <div className="photo-pending aspect-[3/4]" role="img" aria-label={image.alt[locale]}>
-                  <span className="sr-only">{copy.pending}</span>
-                </div>
-              )}
-            </li>
-          );
-        })}
+              <span className="photo-frame relative block aspect-[3/4] h-full w-full">
+                <Image
+                  src={image.src}
+                  alt={image.alt[locale]}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                  style={{ objectPosition: image.objectPosition }}
+                />
+              </span>
+            </button>
+          </li>
+        ))}
       </ul>
 
       <dialog

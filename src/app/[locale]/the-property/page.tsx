@@ -2,10 +2,11 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
 import { localeMetadata } from "@/lib/seo";
-import { imageById } from "@/content/images";
+import { availableImage } from "@/content/images";
 import { Photo } from "@/components/Photo";
 import { PageShell } from "@/components/PageShell";
 import { FactsTable } from "@/components/FactsTable";
+import { CompositionBoard } from "@/components/CompositionBoard";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -23,16 +24,18 @@ export default async function PropertyPage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const copy = t(locale).property;
-  const aerial = imageById("architecture-hillside-aerial");
+  const aerial = availableImage("architecture-hillside-aerial");
 
   return (
     <PageShell locale={locale} pathname="/the-property" kicker={copy.kicker} title={copy.title} intro={copy.intro}>
-      <div className="shell grid gap-10 lg:grid-cols-2">
+      <div className={aerial ? "shell grid gap-10 lg:grid-cols-2 lg:items-start" : "shell grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"}>
         {aerial ? (
           <Photo image={aerial} locale={locale} sizes="(max-width: 1024px) 100vw, 50vw" caption />
-        ) : null}
+        ) : (
+          <CompositionBoard locale={locale} />
+        )}
         <div>
-          <h2 className="display text-3xl">{copy.compositionTitle}</h2>
+          <h2 className="display mt-0 text-3xl">{copy.compositionTitle}</h2>
           <ul className="mt-6 space-y-6">
             {copy.units.map((unit) => (
               <li key={unit.label}>

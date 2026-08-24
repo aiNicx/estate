@@ -33,11 +33,12 @@ export default async function InvestmentPage({ params }: PageProps) {
           </ul>
         </section>
         <section>
-          <h2 className="display text-3xl">{copy.possibleTitle}</h2>
+          <p className="potential-mark text-[var(--terracotta)]">{copy.potentialLabel}</p>
+          <h2 className="display mt-0 text-3xl">{copy.possibleTitle}</h2>
           <p className="lede">{copy.possibleNote}</p>
-          <div className="mt-8 space-y-6">
+          <div className="mt-8 space-y-4">
             {copy.scenarios.map((scenario) => (
-              <article key={scenario.title} className="border-t border-[var(--line)] pt-4">
+              <article key={scenario.title} className="scenario-card" data-kind="potential">
                 <h3 className="mb-2 text-xl">{scenario.title}</h3>
                 <p className="m-0 text-[var(--ink-soft)]">{scenario.body}</p>
               </article>

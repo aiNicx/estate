@@ -193,26 +193,129 @@ export type ResolvedImage = ImageSpec & {
 };
 
 function listUploadedFiles(): string[] {
-  if (!existsSync(PROPERTY_IMAGE_PUBLIC_DIR)) return [];
-  return readdirSync(PROPERTY_IMAGE_PUBLIC_DIR).filter((name) => {
-    const ext = path.extname(name).toLowerCase();
-    return IMAGE_EXT.has(ext) && !name.startsWith(".");
-  });
+  try {
+    if (!existsSync(PROPERTY_IMAGE_PUBLIC_DIR)) return [];
+    return readdirSync(PROPERTY_IMAGE_PUBLIC_DIR).filter((name) => {
+      const ext = path.extname(name).toLowerCase();
+      return IMAGE_EXT.has(ext) && !name.startsWith(".");
+    });
+  } catch {
+    return [];
+  }
 }
 
-function matchFile(spec: ImageSpec, files: string[]): string | null {
-  const lower = spec.file.toLowerCase();
-  const exact = files.find((f) => f.toLowerCase() === lower);
+export const FILE_KEYWORDS: Record<string, string[]> = {
+  "hero-cove-aerial": [
+    "01-",
+    "hero",
+    "cove",
+    "aerial",
+    "drone",
+    "aerea",
+    "aereo",
+    "cala",
+    "pontile",
+    "pontoon",
+    "spiaggia",
+    "beach",
+  ],
+  "architecture-hillside-aerial": [
+    "02-",
+    "architecture",
+    "hillside",
+    "edificio",
+    "lettini",
+    "umbrella",
+    "ombrell",
+    "versante",
+  ],
+  "terrace-dining-sea": [
+    "03-",
+    "terrace",
+    "terrazza",
+    "dining",
+    "pranzo",
+    "arco",
+    "archway",
+  ],
+  "living-kitchen": ["04-", "living", "kitchen", "cucina", "soggiorno", "open-plan"],
+  "bedroom": ["05-", "bedroom", "camera", "letto", "bedspread"],
+  "bathroom-majolica": ["06-", "majolica", "maiolica", "navy"],
+  "bathroom-geometric": ["07-", "geometric", "geometr"],
+  "corridor-mosaic": ["08-", "corridor", "corridoio", "mosaic", "mosaico", "onda"],
+};
+
+function unused(files: string[], used: Set<string>): string[] {
+  return files.filter((file) => !used.has(file.toLowerCase()));
+}
+
+function numericPrefix(name: string): string | null {
+  const match = name.toLowerCase().match(/^(\d{2})[-_]/);
+  return match ? match[1] : null;
+}
+
+function matchPreferred(spec: ImageSpec, files: string[], used: Set<string>): string | null {
+  const available = unused(files, used);
+  const lowerPreferred = spec.file.toLowerCase();
+  const exact = available.find((file) => file.toLowerCase() === lowerPreferred);
   if (exact) return exact;
+
   const stem = spec.file.replace(/\.[^.]+$/, "").toLowerCase();
-  const byStem = files.find((f) => f.toLowerCase().startsWith(stem));
+  const byStem = available.find((file) => file.toLowerCase().startsWith(stem));
   if (byStem) return byStem;
-  const index = stem.slice(0, 3);
-  if (/^\d{2}-$/.test(index)) {
-    const byIndex = files.find((f) => f.toLowerCase().startsWith(index.toLowerCase()));
-    if (byIndex) return byIndex;
+
+  const specPrefix = numericPrefix(spec.file);
+  if (!specPrefix) return null;
+  return (
+    available.find((file) => numericPrefix(file) === specPrefix) ?? null
+  );
+}
+
+function matchKeywords(spec: ImageSpec, files: string[], used: Set<string>): string | null {
+  const available = unused(files, used);
+  const keywords = FILE_KEYWORDS[spec.id] ?? [];
+  const specPrefix = numericPrefix(spec.file);
+  return (
+    available.find((file) => {
+      const name = file.toLowerCase();
+      const filePrefix = numericPrefix(file);
+      if (filePrefix && specPrefix && filePrefix !== specPrefix) return false;
+      return keywords.some((keyword) => {
+        const needle = keyword.toLowerCase();
+        if (/^\d{2}-?$/.test(needle)) return false;
+        return name.includes(needle);
+      });
+    }) ?? null
+  );
+}
+
+/** Pure assignment used by the filesystem resolver and by tests. */
+export function assignUploadedFiles(files: string[]): {
+  byId: Record<string, string | null>;
+  extras: string[];
+} {
+  const used = new Set<string>();
+  const byId: Record<string, string | null> = {};
+
+  for (const spec of imageSpecs) {
+    const matched = matchPreferred(spec, files, used);
+    if (matched) used.add(matched.toLowerCase());
+    byId[spec.id] = matched;
   }
-  return null;
+
+  for (const spec of imageSpecs) {
+    if (byId[spec.id]) continue;
+    const matched = matchKeywords(spec, files, used);
+    if (matched) {
+      used.add(matched.toLowerCase());
+      byId[spec.id] = matched;
+    }
+  }
+
+  return {
+    byId,
+    extras: files.filter((file) => !used.has(file.toLowerCase())),
+  };
 }
 
 function extraSpec(file: string, index: number): ImageSpec {
@@ -238,30 +341,29 @@ function extraSpec(file: string, index: number): ImageSpec {
 
 export function resolveImages(): ResolvedImage[] {
   const files = listUploadedFiles();
+  const { byId, extras } = assignUploadedFiles(files);
   const mapped = imageSpecs.map((spec) => {
-    const matched = matchFile(spec, files);
+    const matched = byId[spec.id];
     return {
       ...spec,
       src: matched ? `/${PROPERTY_IMAGE_DIR}/${matched}` : `/${PROPERTY_IMAGE_DIR}/${spec.file}`,
       available: Boolean(matched),
     };
   });
-  const used = new Set(
-    mapped
-      .filter((image) => image.available)
-      .map((image) => path.basename(image.src).toLowerCase()),
-  );
-  const extras = files
-    .filter((file) => !used.has(file.toLowerCase()))
-    .map((file, index) => {
-      const spec = extraSpec(file, index);
-      return {
-        ...spec,
-        src: `/${PROPERTY_IMAGE_DIR}/${file}`,
-        available: true,
-      };
-    });
-  return [...mapped, ...extras];
+  const extraImages = extras.map((file, index) => {
+    const spec = extraSpec(file, index);
+    return {
+      ...spec,
+      src: `/${PROPERTY_IMAGE_DIR}/${file}`,
+      available: true,
+    };
+  });
+  return [...mapped, ...extraImages];
+}
+
+export function availableImage(id: string): ResolvedImage | undefined {
+  const image = imageById(id);
+  return image?.available ? image : undefined;
 }
 
 export function imageById(id: string): ResolvedImage | undefined {
@@ -271,7 +373,9 @@ export function imageById(id: string): ResolvedImage | undefined {
 export function imagesFor(
   placement: ImageSpec["placements"][number],
 ): ResolvedImage[] {
-  return resolveImages().filter((image) => image.placements.includes(placement));
+  return resolveImages().filter(
+    (image) => image.available && image.placements.includes(placement),
+  );
 }
 
 /** Uploaded files that are not yet mapped to a known spec. */

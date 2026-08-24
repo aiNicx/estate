@@ -23,11 +23,21 @@ test("english and italian copy both exist", () => {
   assert.ok(messages.it.hero.title.length > 10);
   assert.equal(messages.en.facts.rows.length, messages.it.facts.rows.length);
   assert.equal(messages.en.questions.items.length, 10);
+  assert.deepEqual(Object.keys(messages.en.contents.hints), Object.keys(messages.it.contents.hints));
+  assert.equal(messages.en.investment.potentialLabel.length > 0, true);
+  assert.equal(messages.it.investment.potentialLabel.length > 0, true);
 });
 
 test("image map covers the eight supplied photographs", () => {
   assert.equal(imageSpecs.length, 8);
   assert.equal(imageSpecs[0]?.id, "hero-cove-aerial");
+});
+
+test("every specified photograph has filename keywords for flexible uploads", async () => {
+  const { FILE_KEYWORDS } = await import("./images.ts");
+  for (const spec of imageSpecs) {
+    assert.ok((FILE_KEYWORDS[spec.id] ?? []).length > 0, spec.id);
+  }
 });
 
 test("inquiry validation rejects incomplete payloads", () => {

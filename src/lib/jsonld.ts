@@ -129,7 +129,9 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     ],
     additionalProperty,
     containedInPlace: { "@id": marina["@id"] },
-    image: imageObjects.map((image) => image.contentUrl),
+    ...(imageObjects.length
+      ? { image: imageObjects.map((image) => image.contentUrl) }
+      : {}),
   };
 
   const offer = {

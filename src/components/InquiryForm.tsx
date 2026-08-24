@@ -82,6 +82,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
           autoComplete="name"
           value={values.name}
           aria-invalid={errors.name ? true : undefined}
+          aria-required="true"
           onChange={(event) => update("name", event.target.value)}
         />
       </label>
@@ -106,6 +107,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
           autoComplete="email"
           value={values.email}
           aria-invalid={errors.email ? true : undefined}
+          aria-required="true"
           onChange={(event) => update("email", event.target.value)}
         />
       </label>
@@ -132,6 +134,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
           name="buyerType"
           value={values.buyerType}
           aria-invalid={errors.buyerType ? true : undefined}
+          aria-required="true"
           onChange={(event) => update("buyerType", event.target.value)}
         >
           <option value=""></option>
@@ -152,6 +155,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
           autoComplete="country-name"
           value={values.country}
           aria-invalid={errors.country ? true : undefined}
+          aria-required="true"
           onChange={(event) => update("country", event.target.value)}
         />
       </label>
@@ -171,6 +175,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
           name="privacyConsent"
           checked={values.privacyConsent}
           aria-invalid={errors.privacyConsent ? true : undefined}
+          aria-required="true"
           onChange={(event) => update("privacyConsent", event.target.checked)}
           className="mt-1 h-5 w-5"
         />
