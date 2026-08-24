@@ -3,6 +3,7 @@ import test from "node:test";
 import { property } from "./property.ts";
 import { imageSpecs } from "./images.ts";
 import { messages } from "./messages.ts";
+import { getFactRows, getMetrics } from "./facts.ts";
 import { validateInquiry } from "../lib/inquiry.ts";
 
 test("property facts stay within supplied information", () => {
@@ -23,17 +24,41 @@ test("property facts stay within supplied information", () => {
 test("english and italian copy both exist", () => {
   assert.ok(messages.en.hero.title.length > 10);
   assert.ok(messages.it.hero.title.length > 10);
-  assert.equal(messages.en.facts.rows.length, messages.it.facts.rows.length);
-  assert.equal(messages.en.metrics.length, messages.it.metrics.length);
+  assert.deepEqual(
+    Object.keys(messages.en.facts.terms),
+    Object.keys(messages.it.facts.terms),
+  );
+  assert.deepEqual(
+    Object.keys(messages.en.metrics),
+    Object.keys(messages.it.metrics),
+  );
   assert.equal(messages.en.gallery.emptyBody.length > 0, true);
   assert.equal(messages.it.gallery.emptyBody.length > 0, true);
-  assert.equal(messages.en.investment.potentialLabel.length > 0, true);
-  assert.equal(messages.it.investment.potentialLabel.length > 0, true);
+  assert.equal(messages.en.investment.disclaimer.length > 0, true);
+  assert.equal(messages.it.investment.disclaimer.length > 0, true);
   assert.equal(messages.en.location.mapLabels.coast, "Costiera Amalfitana");
   assert.equal(messages.it.location.mapLabels.coast, "Costiera Amalfitana");
   assert.deepEqual(
     Object.keys(messages.en.location.mapLabels),
     Object.keys(messages.it.location.mapLabels),
+  );
+});
+
+test("visible metrics and fact rows derive from the property source", () => {
+  const metrics = getMetrics("en");
+  const facts = getFactRows("it");
+  assert.equal(metrics[0]?.value, `≈ ${property.internalArea.squareMetres} m²`);
+  assert.equal(metrics[2]?.value, String(property.units.total));
+  assert.equal(
+    metrics[3]?.value,
+    `${property.units.residential} + ${property.units.commercial}`,
+  );
+  assert.ok(
+    facts.some(
+      ({ value }) =>
+        value ===
+        `Sì — circa ${property.lemonGarden.treeCount} alberi, circa ${property.lemonGarden.treeAgeYears} anni`,
+    ),
   );
 });
 
