@@ -31,6 +31,8 @@ export function Header({ locale }: { locale: Locale }) {
         : pathname === href || pathname.startsWith(`${href}/`);
     return { ...route, href, current, label: copy.nav[route.id] };
   });
+  const primary = items.filter((item) => item.id !== "request");
+  const request = items.find((item) => item.id === "request");
 
   return (
     <header className="site-header">
@@ -43,22 +45,29 @@ export function Header({ locale }: { locale: Locale }) {
             {copy.brand.wordmark}
           </span>
         </Link>
-        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex">
-          {items.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href}
-              className="nav-link"
-              aria-current={item.current ? "page" : undefined}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="hidden items-center gap-6 xl:flex">
+          <nav aria-label="Primary" className="flex items-center gap-5">
+            {primary.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className="nav-link"
+                aria-current={item.current ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
           <LanguageSwitch locale={locale} />
-        </nav>
+          {request ? (
+            <Link className="btn" href={request.href}>
+              {request.label}
+            </Link>
+          ) : null}
+        </div>
         <button
           type="button"
-          className="btn btn-ghost lg:hidden"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--sea)] px-3 text-sm text-[var(--sea)] xl:hidden"
           aria-expanded={open}
           aria-controls={menuId}
           onClick={() => setOpen((value) => !value)}
@@ -69,21 +78,23 @@ export function Header({ locale }: { locale: Locale }) {
       <div
         id={menuId}
         hidden={!open}
-        className="border-t border-[var(--line)] lg:hidden"
+        className="border-t border-[var(--line)] xl:hidden"
       >
-        <nav aria-label="Mobile" className="shell flex flex-col gap-3 py-4">
+        <nav aria-label="Mobile" className="shell flex flex-col gap-1 py-4">
           {items.map((item) => (
             <Link
               key={item.id}
               href={item.href}
-              className="nav-link py-1"
+              className="nav-link min-h-11 py-3"
               aria-current={item.current ? "page" : undefined}
               onClick={() => setOpen(false)}
             >
               {item.label}
             </Link>
           ))}
-          <LanguageSwitch locale={locale} />
+          <div className="pt-2">
+            <LanguageSwitch locale={locale} />
+          </div>
         </nav>
       </div>
     </header>
