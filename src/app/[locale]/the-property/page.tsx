@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
 import { localeMetadata } from "@/lib/seo";
@@ -7,6 +8,7 @@ import { Photo } from "@/components/Photo";
 import { PageShell } from "@/components/PageShell";
 import { FactsTable } from "@/components/FactsTable";
 import { CompositionBoard } from "@/components/CompositionBoard";
+import { localizedPath } from "@/lib/site";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -46,16 +48,11 @@ export default async function PropertyPage({ params }: PageProps) {
           </ul>
         </div>
       </div>
-      <section className="shell mt-16">
-        <h2 className="display text-3xl">{copy.includesTitle}</h2>
-        <ul className="mt-6 max-w-[40rem] space-y-3">
-          {copy.includes.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-      <div className="shell mt-16">
+      <div className="shell mt-20 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
         <FactsTable locale={locale} />
+        <Link className="btn lg:mb-1" href={localizedPath(locale, "/request")}>
+          {t(locale).cta.request}
+        </Link>
       </div>
     </PageShell>
   );

@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
 import { localeMetadata } from "@/lib/seo";
 import { PageShell } from "@/components/PageShell";
+import { localizedPath } from "@/lib/site";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -33,12 +35,11 @@ export default async function InvestmentPage({ params }: PageProps) {
           </ul>
         </section>
         <section>
-          <p className="potential-mark text-[var(--terracotta)]">{copy.potentialLabel}</p>
           <h2 className="display mt-0 text-3xl">{copy.possibleTitle}</h2>
           <p className="lede">{copy.possibleNote}</p>
           <div className="mt-8 space-y-4">
             {copy.scenarios.map((scenario) => (
-              <article key={scenario.title} className="scenario-card" data-kind="potential">
+              <article key={scenario.title} className="scenario-card">
                 <h3 className="mb-2 text-xl">{scenario.title}</h3>
                 <p className="m-0 text-[var(--ink-soft)]">{scenario.body}</p>
               </article>
@@ -46,7 +47,15 @@ export default async function InvestmentPage({ params }: PageProps) {
           </div>
         </section>
       </div>
-      <p className="shell mt-16 max-w-[42rem] text-sm text-[var(--ink-soft)]">{copy.disclaimer}</p>
+      <div className="shell mt-16 grid gap-8 border-t border-[var(--line)] pt-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div className="max-w-[42rem]">
+          <p className="kicker">{copy.potentialLabel}</p>
+          <p className="m-0 text-sm text-[var(--ink-soft)]">{copy.disclaimer}</p>
+        </div>
+        <Link className="btn" href={localizedPath(locale, "/request")}>
+          {t(locale).cta.request}
+        </Link>
+      </div>
     </PageShell>
   );
 }

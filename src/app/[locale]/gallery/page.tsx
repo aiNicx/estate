@@ -26,7 +26,13 @@ export default async function GalleryPage({ params }: PageProps) {
   const images = imagesFor("gallery");
 
   return (
-    <PageShell locale={locale} pathname="/gallery" kicker={copy.kicker} title={copy.title} intro={copy.intro}>
+    <PageShell
+      locale={locale}
+      pathname="/gallery"
+      kicker={copy.kicker}
+      title={copy.title}
+      intro={images.length ? copy.intro : undefined}
+    >
       <div className="shell">
         {images.length ? <Gallery locale={locale} images={images} /> : <GalleryInventory locale={locale} />}
       </div>

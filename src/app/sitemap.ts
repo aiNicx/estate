@@ -18,7 +18,6 @@ export default function sitemap() {
   return locales.flatMap((locale) =>
     paths.map((pathname) => ({
       url: `${site}${localizedPath(locale, pathname)}`,
-      lastModified: new Date(),
       alternates: {
         languages: {
           en: `${site}${localizedPath("en", pathname)}`,

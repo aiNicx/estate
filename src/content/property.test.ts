@@ -22,8 +22,9 @@ test("english and italian copy both exist", () => {
   assert.ok(messages.en.hero.title.length > 10);
   assert.ok(messages.it.hero.title.length > 10);
   assert.equal(messages.en.facts.rows.length, messages.it.facts.rows.length);
-  assert.equal(messages.en.questions.items.length, 10);
-  assert.deepEqual(Object.keys(messages.en.contents.hints), Object.keys(messages.it.contents.hints));
+  assert.equal(messages.en.metrics.length, messages.it.metrics.length);
+  assert.equal(messages.en.gallery.emptyBody.length > 0, true);
+  assert.equal(messages.it.gallery.emptyBody.length > 0, true);
   assert.equal(messages.en.investment.potentialLabel.length > 0, true);
   assert.equal(messages.it.investment.potentialLabel.length > 0, true);
 });

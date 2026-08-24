@@ -31,7 +31,9 @@ export function Header({ locale }: { locale: Locale }) {
         : pathname === href || pathname.startsWith(`${href}/`);
     return { ...route, href, current, label: copy.nav[route.id] };
   });
-  const primary = items.filter((item) => item.id !== "request");
+  const primary = items.filter(
+    (item) => item.id !== "overview" && item.id !== "request",
+  );
   const request = items.find((item) => item.id === "request");
 
   return (
@@ -60,7 +62,7 @@ export function Header({ locale }: { locale: Locale }) {
           </nav>
           <LanguageSwitch locale={locale} />
           {request ? (
-            <Link className="btn" href={request.href}>
+            <Link className="btn btn-header" href={request.href}>
               {request.label}
             </Link>
           ) : null}
@@ -81,10 +83,10 @@ export function Header({ locale }: { locale: Locale }) {
       <div
         id={menuId}
         hidden={!open}
-        className="border-t border-[var(--line)] xl:hidden"
+        className="mobile-menu border-t border-[var(--line)] xl:hidden"
       >
         <nav aria-label="Mobile" className="shell flex flex-col gap-1 py-4">
-          {items.map((item) => (
+          {primary.map((item) => (
             <Link
               key={item.id}
               href={item.href}
@@ -95,6 +97,15 @@ export function Header({ locale }: { locale: Locale }) {
               {item.label}
             </Link>
           ))}
+          {request ? (
+            <Link
+              href={request.href}
+              className="btn mt-4 self-start"
+              onClick={() => setOpen(false)}
+            >
+              {request.label}
+            </Link>
+          ) : null}
         </nav>
       </div>
     </header>
