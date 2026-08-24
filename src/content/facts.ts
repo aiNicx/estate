@@ -1,10 +1,10 @@
-import { t } from "./messages";
+import { t } from "./messages.ts";
 import {
   formatArea,
   formatTerraceRange,
   property,
   type Locale,
-} from "./property";
+} from "./property.ts";
 
 function initialUpper(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
