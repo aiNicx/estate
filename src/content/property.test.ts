@@ -29,8 +29,8 @@ test("english and italian copy both exist", () => {
   assert.equal(messages.it.gallery.emptyBody.length > 0, true);
   assert.equal(messages.en.investment.potentialLabel.length > 0, true);
   assert.equal(messages.it.investment.potentialLabel.length > 0, true);
-  assert.equal(messages.en.location.openMaps.length > 0, true);
-  assert.equal(messages.it.location.openMaps.length > 0, true);
+  assert.equal(messages.en.location.mapLabels.coast, "Costiera Amalfitana");
+  assert.equal(messages.it.location.mapLabels.coast, "Costiera Amalfitana");
   assert.deepEqual(
     Object.keys(messages.en.location.mapLabels),
     Object.keys(messages.it.location.mapLabels),

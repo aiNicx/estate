@@ -5,25 +5,28 @@ import { t } from "@/content/messages";
 import { MosaicBand } from "./MosaicBand";
 
 /**
- * Simplified Gulf of Salerno / eastern Amalfi Coast, north-up.
- * Coastline derived from OpenStreetMap and reduced for the illustration.
- * Pin sits on the published property coordinates.
+ * Editorial chart of the eastern Costiera Amalfitana, north-up.
+ * Coastline simplified from OpenStreetMap; pin uses the published coordinates.
  */
 const COAST =
-  "M10.9 638.8 L35.4 612.6 L84.2 560.1 L114.6 534.9 L126.3 537.0 L128.5 536.3 L121.1 532.9 L119.2 528.6 L122.7 523.4 L135.4 521.2 L157.1 522.1 L182.8 504.1 L212.4 467.1 L229.0 440.2 L232.4 423.5 L242.9 409.6 L260.5 398.5 L284.6 393.8 L315.4 395.3 L349.9 409.5 L388.3 436.3 L419.0 449.5 L442.1 449.2 L452.3 453.3 L449.6 462.0 L471.2 479.8 L517.1 506.8 L557.6 519.8 L592.6 518.7 L611.8 511.0 L615.3 496.7 L621.0 488.6 L629.2 486.5 L635.9 472.5 L641.2 446.7 L651.5 430.9 L666.6 425.1 L669.7 422.9 L660.8 424.2 L660.6 420.3 L669.0 411.0 L674.0 400.6 L675.6 389.1 L682.7 370.5 L695.4 344.9 L706.2 329.4 L715.1 324.2 L718.9 316.2 L717.5 305.4 L718.9 298.2 L723.2 294.6 L725.2 290.7 L725.2 286.5 L729.1 281.0 L736.8 274.1 L742.9 266.0 L747.4 256.8 L762.0 251.0 L786.9 248.5 L806.9 240.3 L822.2 226.3 L842.3 217.2 L867.4 213.1 L879.5 203.0 L878.6 186.9 L881.8 177.4 L888.9 174.4 L894.4 170.3 L898.3 165.0 L906.1 167.8 L918.0 178.5 L928.6 185.6 L937.9 189.2 L942.0 185.6 L941.0 174.8 L944.1 167.8 L951.4 164.5 L969.6 172.0 L998.8 190.3 L1007.8 201.9 L996.4 206.8 L999.1 206.4 L1015.8 200.8 L1045.3 212.2 L1087.5 240.6 L1143.0 291.0 L1211.9 363.4 L1246.3 399.6";
+  "M11.0 639.0 C23.2 625.8 59.7 579.5 84.0 560.0 C108.3 540.5 132.3 544.7 157.0 522.0 C181.7 499.3 205.7 445.2 232.0 424.0 C258.3 402.8 283.8 390.7 315.0 395.0 C346.2 399.3 385.3 431.3 419.0 450.0 C452.7 468.7 484.8 496.8 517.0 507.0 C549.2 517.2 589.5 523.7 612.0 511.0 C634.5 498.3 641.3 451.3 652.0 431.0 C662.7 410.7 665.5 406.8 676.0 389.0 C686.5 371.2 704.8 343.2 715.0 324.0 C725.2 304.8 725.0 286.5 737.0 274.0 C749.0 261.5 765.3 259.2 787.0 249.0 C808.7 238.8 839.7 227.0 867.0 213.0 C894.3 199.0 921.3 165.2 951.0 165.0 C980.7 164.8 1013.0 191.0 1045.0 212.0 C1077.0 233.0 1109.5 259.7 1143.0 291.0 C1176.5 322.3 1228.8 381.8 1246.0 400.0";
 
 const LAND = `${COAST} L1260 0 L0 0 L0 640 Z`;
 
+const FOAM = `${COAST} L1246.0 416.0 C1228.8 397.8 1176.5 338.3 1143.0 307.0 C1109.5 275.7 1077.0 249.0 1045.0 228.0 C1013.0 207.0 980.7 180.8 951.0 181.0 C921.3 181.2 894.3 215.0 867.0 229.0 C839.7 243.0 808.7 254.8 787.0 265.0 C765.3 275.2 749.0 277.5 737.0 290.0 C725.0 302.5 725.2 320.8 715.0 340.0 C704.8 359.2 686.5 387.2 676.0 405.0 C665.5 422.8 662.7 426.7 652.0 447.0 C641.3 467.3 634.5 514.3 612.0 527.0 C589.5 539.7 549.2 533.2 517.0 523.0 C484.8 512.8 452.7 484.7 419.0 466.0 C385.3 447.3 346.2 415.3 315.0 411.0 C283.8 406.7 258.3 418.8 232.0 440.0 C205.7 461.2 181.7 515.3 157.0 538.0 C132.3 560.7 108.3 556.5 84.0 576.0 C59.7 595.5 23.2 641.8 11.0 655.0 Z`;
+
 const HILL_NEAR =
-  "M10.9 582.8 L35.4 556.6 L84.2 504.1 L114.6 478.9 L126.3 481.0 L128.5 480.3 L121.1 476.9 L119.2 472.6 L122.7 467.4 L135.4 465.2 L157.1 466.1 L182.8 448.1 L212.4 411.1 L229.0 384.2 L232.4 367.5 L242.9 353.6 L260.5 342.5 L284.6 337.8 L315.4 339.3 L349.9 353.5 L388.3 380.3 L419.0 393.5 L442.1 393.2 L452.3 397.3 L449.6 406.0 L471.2 423.8 L517.1 450.8 L557.6 463.8 L592.6 462.7 L611.8 455.0 L615.3 440.7 L621.0 432.6 L629.2 430.5 L635.9 416.5 L641.2 390.7 L651.5 374.9 L666.6 369.1 L669.7 366.9 L660.8 368.2 L660.6 364.3 L669.0 355.0 L674.0 344.6 L675.6 333.1 L682.7 314.5 L695.4 288.9 L706.2 273.4 L715.1 268.2 L718.9 260.2 L717.5 249.4 L718.9 242.2 L723.2 238.6 L725.2 234.7 L725.2 230.5 L729.1 225.0 L736.8 218.1 L742.9 210.0 L747.4 200.8 L762.0 195.0 L786.9 192.5 L806.9 184.3 L822.2 170.3 L842.3 161.2 L867.4 157.1 L879.5 147.0 L878.6 130.9 L881.8 121.4 L888.9 118.4 L894.4 114.3 L898.3 109.0 L906.1 111.8 L918.0 122.5 L928.6 129.6 L937.9 133.2 L942.0 129.6 L941.0 118.8 L944.1 111.8 L951.4 108.5 L969.6 116.0 L998.8 134.3 L1007.8 145.9 L996.4 150.8 L999.1 150.4 L1015.8 144.8 L1045.3 156.2 L1087.5 184.6 L1143.0 235.0 L1211.9 307.4 L1246.3 343.6 L1260 -40 L0 -40 Z";
+  "M11.0 569.0 C35.3 549.5 106.3 492.7 157.0 452.0 C207.7 411.3 255.0 327.5 315.0 325.0 C375.0 322.5 460.8 431.0 517.0 437.0 C573.2 443.0 619.0 391.5 652.0 361.0 C685.0 330.5 692.5 284.3 715.0 254.0 C737.5 223.7 747.7 205.5 787.0 179.0 C826.3 152.5 891.7 88.0 951.0 95.0 C1010.3 102.0 1093.8 181.8 1143.0 221.0 C1192.2 260.2 1228.8 311.8 1246.0 330.0 L1260 -20 L0 -20 Z";
 
 const HILL_MID =
-  "M10.9 520.8 L35.4 494.6 L84.2 442.1 L114.6 416.9 L126.3 419.0 L128.5 418.3 L121.1 414.9 L119.2 410.6 L122.7 405.4 L135.4 403.2 L157.1 404.1 L182.8 386.1 L212.4 349.1 L229.0 322.2 L232.4 305.5 L242.9 291.6 L260.5 280.5 L284.6 275.8 L315.4 277.3 L349.9 291.5 L388.3 318.3 L419.0 331.5 L442.1 331.2 L452.3 335.3 L449.6 344.0 L471.2 361.8 L517.1 388.8 L557.6 401.8 L592.6 400.7 L611.8 393.0 L615.3 378.7 L621.0 370.6 L629.2 368.5 L635.9 354.5 L641.2 328.7 L651.5 312.9 L666.6 307.1 L669.7 304.9 L660.8 306.2 L660.6 302.3 L669.0 293.0 L674.0 282.6 L675.6 271.1 L682.7 252.5 L695.4 226.9 L706.2 211.4 L715.1 206.2 L718.9 198.2 L717.5 187.4 L718.9 180.2 L723.2 176.6 L725.2 172.7 L725.2 168.5 L729.1 163.0 L736.8 156.1 L742.9 148.0 L747.4 138.8 L762.0 133.0 L786.9 130.5 L806.9 122.3 L822.2 108.3 L842.3 99.2 L867.4 95.1 L879.5 85.0 L878.6 68.9 L881.8 59.4 L888.9 56.4 L894.4 52.3 L898.3 47.0 L906.1 49.8 L918.0 60.5 L928.6 67.6 L937.9 71.2 L942.0 67.6 L941.0 56.8 L944.1 49.8 L951.4 46.5 L969.6 54.0 L998.8 72.3 L1007.8 83.9 L996.4 88.8 L999.1 88.4 L1015.8 82.8 L1045.3 94.2 L1087.5 122.6 L1143.0 173.0 L1211.9 245.4 L1246.3 281.6 L1260 -40 L0 -40 Z";
+  "M11.0 499.0 C35.3 479.5 106.3 422.7 157.0 382.0 C207.7 341.3 255.0 257.5 315.0 255.0 C375.0 252.5 460.8 361.0 517.0 367.0 C573.2 373.0 619.0 321.5 652.0 291.0 C685.0 260.5 692.5 214.3 715.0 184.0 C737.5 153.7 747.7 135.5 787.0 109.0 C826.3 82.5 891.7 18.0 951.0 25.0 C1010.3 32.0 1093.8 111.8 1143.0 151.0 C1192.2 190.2 1228.8 241.8 1246.0 260.0 L1260 -20 L0 -20 Z";
 
 const HILL_FAR =
-  "M10.9 450.8 L35.4 424.6 L84.2 372.1 L114.6 346.9 L126.3 349.0 L128.5 348.3 L121.1 344.9 L119.2 340.6 L122.7 335.4 L135.4 333.2 L157.1 334.1 L182.8 316.1 L212.4 279.1 L229.0 252.2 L232.4 235.5 L242.9 221.6 L260.5 210.5 L284.6 205.8 L315.4 207.3 L349.9 221.5 L388.3 248.3 L419.0 261.5 L442.1 261.2 L452.3 265.3 L449.6 274.0 L471.2 291.8 L517.1 318.8 L557.6 331.8 L592.6 330.7 L611.8 323.0 L615.3 308.7 L621.0 300.6 L629.2 298.5 L635.9 284.5 L641.2 258.7 L651.5 242.9 L666.6 237.1 L669.7 234.9 L660.8 236.2 L660.6 232.3 L669.0 223.0 L674.0 212.6 L675.6 201.1 L682.7 182.5 L695.4 156.9 L706.2 141.4 L715.1 136.2 L718.9 128.2 L717.5 117.4 L718.9 110.2 L723.2 106.6 L725.2 102.7 L725.2 98.5 L729.1 93.0 L736.8 86.1 L742.9 78.0 L747.4 68.8 L762.0 63.0 L786.9 60.5 L806.9 52.3 L822.2 38.3 L842.3 29.2 L867.4 25.1 L879.5 15.0 L878.6 -1.1 L881.8 -10.6 L888.9 -13.6 L894.4 -17.7 L898.3 -23.0 L906.1 -20.2 L918.0 -9.5 L928.6 -2.4 L937.9 1.2 L942.0 -2.4 L941.0 -13.2 L944.1 -20.2 L951.4 -23.5 L969.6 -16.0 L998.8 2.3 L1007.8 13.9 L996.4 18.8 L999.1 18.4 L1015.8 12.8 L1045.3 24.2 L1087.5 52.6 L1143.0 103.0 L1211.9 175.4 L1246.3 211.6 L1260 -40 L0 -40 Z";
+  "M11.0 419.0 C35.3 399.5 106.3 342.7 157.0 302.0 C207.7 261.3 255.0 177.5 315.0 175.0 C375.0 172.5 460.8 281.0 517.0 287.0 C573.2 293.0 619.0 241.5 652.0 211.0 C685.0 180.5 692.5 134.3 715.0 104.0 C737.5 73.7 747.7 55.5 787.0 29.0 C826.3 2.5 891.7 -62.0 951.0 -55.0 C1010.3 -48.0 1093.8 31.8 1143.0 71.0 C1192.2 110.2 1228.8 161.8 1246.0 180.0 L1260 -20 L0 -20 Z";
 
-/** Equirectangular projection used by the illustration (must match path generation). */
+const COAST_LETTER =
+  "M157.0 630.0 C169.5 613.7 205.7 553.2 232.0 532.0 C258.3 510.8 283.8 498.7 315.0 503.0 C346.2 507.3 385.3 539.3 419.0 558.0 C452.7 576.7 484.8 604.8 517.0 615.0 C549.2 625.2 589.5 631.7 612.0 619.0 C634.5 606.3 641.3 559.3 652.0 539.0 C662.7 518.7 665.5 514.8 676.0 497.0 C686.5 479.2 704.8 451.2 715.0 432.0 C725.2 412.8 725.0 394.5 737.0 382.0 C749.0 369.5 765.3 367.2 787.0 357.0 C808.7 346.8 839.7 335.0 867.0 321.0 C894.3 307.0 937.0 281.0 951.0 273.0";
+
 const VIEW = {
   west: 14.575,
   east: 14.805,
@@ -32,6 +35,12 @@ const VIEW = {
   width: 1200,
   height: 720,
 } as const;
+
+const TOWNS = [
+  { id: "amalfi" as const, x: 157, y: 522, labelX: 132, labelY: 498 },
+  { id: "vietri" as const, x: 787, y: 249, labelX: 852, labelY: 178 },
+  { id: "salerno" as const, x: 1045, y: 212, labelX: 1068, labelY: 128 },
+];
 
 function project(longitude: number, latitude: number) {
   const x = ((longitude - VIEW.west) / (VIEW.east - VIEW.west)) * VIEW.width;
@@ -50,6 +59,8 @@ export function LocationMap({
   const uid = useId().replace(/:/g, "");
   const landClip = `${uid}-land`;
   const seaGlow = `${uid}-glow`;
+  const hatch = `${uid}-hatch`;
+  const letterPath = `${uid}-letter`;
   const { x: pinX, y: pinY } = project(property.geo.longitude, property.geo.latitude);
 
   return (
@@ -71,112 +82,109 @@ export function LocationMap({
             <clipPath id={landClip}>
               <path d={LAND} />
             </clipPath>
-            <radialGradient id={seaGlow} cx="62%" cy="42%" r="48%">
-              <stop offset="0%" stopColor="#2d6a78" stopOpacity="0.55" />
-              <stop offset="55%" stopColor="#1b3a4a" stopOpacity="0.2" />
+            <radialGradient id={seaGlow} cx="61%" cy="40%" r="52%">
+              <stop offset="0%" stopColor="#2d6a78" stopOpacity="0.62" />
+              <stop offset="48%" stopColor="#1b3a4a" stopOpacity="0.22" />
               <stop offset="100%" stopColor="#122830" stopOpacity="0" />
             </radialGradient>
+            <pattern id={hatch} width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(32)">
+              <path d="M0 0 V10" stroke="#3c4f3d" strokeWidth="0.7" opacity="0.22" />
+            </pattern>
+            <path id={letterPath} d={COAST_LETTER} fill="none" />
           </defs>
 
           <rect width="1200" height="720" fill="#122830" />
           <rect width="1200" height="720" fill={`url(#${seaGlow})`} />
           <path
-            d="M40 560 C 90 548, 120 572, 170 560 S 240 548, 290 560 360 572, 410 560 480 548, 530 560 590 572, 620 560 700 548, 780 562 860 576, 940 558 1020 540, 1100 555, 1180 548"
+            d="M40 575 C 110 560, 170 588, 250 572 S 400 552, 490 574 640 596, 730 572 880 548, 990 568 1100 588, 1180 562"
             fill="none"
             stroke="#e4eef0"
-            strokeWidth="1.4"
-            opacity="0.28"
+            strokeWidth="1.3"
+            opacity="0.22"
           />
           <path
-            d="M20 620 C 80 608, 140 632, 200 618 S 320 604, 380 620 500 636, 560 618 680 604, 760 622 880 640, 980 618 1080 596, 1180 614"
+            d="M30 640 C 120 622, 210 652, 300 634 S 470 612, 560 636 720 658, 820 634 980 610, 1100 630"
             fill="none"
             stroke="#e4eef0"
-            strokeWidth="1.15"
-            opacity="0.18"
+            strokeWidth="1.1"
+            opacity="0.14"
           />
-          <path
-            d="M80 680 C 160 666, 240 692, 320 676 S 460 658, 540 678 680 698, 760 676 900 654, 1000 674"
-            fill="none"
-            stroke="#e4eef0"
-            strokeWidth="1"
-            opacity="0.12"
-          />
+
+          <path d={FOAM} fill="#2d6a78" opacity="0.42" />
 
           <g clipPath={`url(#${landClip})`}>
             <path d={LAND} fill="#e7e0d2" />
-            <path d={HILL_FAR} fill="#3c4f3d" opacity="0.34" />
-            <path d={HILL_MID} fill="#4a5e48" opacity="0.28" />
-            <path d={HILL_NEAR} fill="#cfc4b3" opacity="0.55" />
-            <g stroke="#8b3e2a" strokeWidth="2.2" fill="none" opacity="0.55">
-              <path d="M688 252 H 758" />
-              <path d="M698 240 H 750" />
-              <path d="M708 228 H 742" />
+            <path d={HILL_FAR} fill="#3c4f3d" opacity="0.38" />
+            <path d={HILL_MID} fill="#4a5e48" opacity="0.3" />
+            <path d={HILL_NEAR} fill="#cfc4b3" opacity="0.58" />
+            <path d={LAND} fill={`url(#${hatch})`} />
+            <g stroke="#8b3e2a" strokeWidth="2.1" fill="none" opacity="0.62">
+              <path d="M688 250 H 760" />
+              <path d="M698 238 H 752" />
+              <path d="M708 226 H 744" />
             </g>
             <g fill="#b0892a">
-              <circle cx="704" cy="218" r="4.5" />
-              <circle cx="718" cy="212" r="4" />
-              <circle cx="732" cy="220" r="4.5" />
-              <circle cx="712" cy="230" r="3.5" />
+              <circle cx="704" cy="216" r="4.6" />
+              <circle cx="718" cy="210" r="4.1" />
+              <circle cx="732" cy="218" r="4.6" />
+              <circle cx="712" cy="228" r="3.6" />
             </g>
           </g>
 
-          <path d={COAST} fill="none" stroke="#1b3a4a" strokeWidth="2.2" opacity="0.55" />
-          <path d={COAST} fill="none" stroke="#fbf8f2" strokeWidth="1" opacity="0.35" />
+          <path d={COAST} fill="none" stroke="#fbf8f2" strokeWidth="5" opacity="0.28" />
+          <path d={COAST} fill="none" stroke="#1b3a4a" strokeWidth="1.8" />
 
-          <text
-            x="470"
-            y="612"
-            className="location-map-sea-label"
-            textAnchor="middle"
-          >
-            {copy.mapLabels.gulf}
+          <text className="location-map-coast-label" textAnchor="middle" dy="10">
+            <textPath href={`#${letterPath}`} startOffset="50%">
+              {copy.mapLabels.coast}
+            </textPath>
           </text>
 
-          <g className="location-map-place-label">
-            <text x="150" y="488" paintOrder="stroke">
-              {copy.mapLabels.amalfi}
-            </text>
-            <text x="632" y="372" paintOrder="stroke">
-              {copy.mapLabels.cetara}
-            </text>
-            <text x="808" y="188" paintOrder="stroke">
-              {copy.mapLabels.vietri}
-            </text>
-            <text x="1006" y="118" paintOrder="stroke">
-              {copy.mapLabels.salerno}
-            </text>
+          <g className="location-map-towns">
+            {TOWNS.map((town) => (
+              <g key={town.id}>
+                <circle cx={town.x} cy={town.y} r="4.2" />
+                <text x={town.labelX} y={town.labelY} paintOrder="stroke">
+                  {copy.mapLabels[town.id]}
+                </text>
+              </g>
+            ))}
           </g>
 
-          <g className="location-map-compass" transform="translate(64 72)">
-            <circle r="22" fill="#fbf8f2" fillOpacity="0.82" stroke="#cfc4b3" strokeWidth="1" />
-            <path d="M0 -14 L4 8 L0 4 L-4 8 Z" fill="#8b3e2a" />
-            <text y="32" textAnchor="middle">
+          <g className="location-map-compass" transform="translate(70 78)">
+            <circle r="20" fill="#fbf8f2" fillOpacity="0.9" stroke="#cfc4b3" strokeWidth="1" />
+            <path d="M0 -12 L3.6 7 L0 3.2 L-3.6 7 Z" fill="#8b3e2a" />
+            <text y="34" textAnchor="middle">
               {copy.mapLabels.north}
-            </text>
-          </g>
-
-          <g className="location-map-scale" transform="translate(64 656)">
-            <path d="M0 0 H 309" stroke="#fbf8f2" strokeWidth="2" />
-            <path d="M0 -5 V 5 M309 -5 V 5" stroke="#fbf8f2" strokeWidth="2" />
-            <text x="154.5" y="22" textAnchor="middle">
-              {copy.mapLabels.scale}
             </text>
           </g>
 
           <g transform={`translate(${pinX} ${pinY})`}>
             <g className="location-map-pin">
-              <circle className="location-map-pin-halo" r="42" fill="#8b3e2a" />
-              <circle className="location-map-pin-halo location-map-pin-halo-delay" r="26" fill="#8b3e2a" />
+              <circle className="location-map-pin-halo" r="46" fill="#8b3e2a" />
+              <circle className="location-map-pin-halo location-map-pin-halo-delay" r="28" fill="#8b3e2a" />
               <path
-                d="M0 0 C -1 -14, -16 -22, -16 -34 C -16 -46, -9 -54, 0 -54 C 9 -54, 16 -46, 16 -34 C 16 -22, 1 -14, 0 0 Z"
+                d="M0 0 C -1 -16, -17 -24, -17 -36 C -17 -49, -9.4 -57, 0 -57 C 9.4 -57, 17 -49, 17 -36 C 17 -24, 1 -16, 0 0 Z"
                 fill="#8b3e2a"
               />
-              <circle cx="0" cy="-34" r="6.5" fill="#fbf8f2" />
-              <text className="location-map-pin-label" x="20" y="-28" paintOrder="stroke">
+              <circle cx="0" cy="-36" r="6.8" fill="#fbf8f2" />
+              <path d="M8 10 L18 28" fill="none" stroke="#fbf8f2" strokeWidth="1.4" opacity="0.7" />
+              <text className="location-map-pin-label" x="22" y="46">
                 {copy.mapLabels.property}
               </text>
             </g>
           </g>
+
+          <rect
+            x="14"
+            y="14"
+            width="1172"
+            height="692"
+            fill="none"
+            stroke="#fbf8f2"
+            strokeOpacity="0.18"
+            strokeWidth="1"
+          />
         </svg>
       </div>
       <div className="location-map-meta">
@@ -185,9 +193,7 @@ export function LocationMap({
           <p className="location-map-caption">{copy.mapCaption}</p>
           <p className="location-map-credit">{copy.mapCredit}</p>
         </div>
-        <span className="location-map-cta">
-          {copy.openMaps}
-        </span>
+        <span className="location-map-cta">{copy.openMaps}</span>
       </div>
       <div className="location-map-mosaic" aria-hidden="true">
         <MosaicBand />

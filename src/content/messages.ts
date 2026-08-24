@@ -65,14 +65,12 @@ type Copy = {
     mapAria: string;
     mapCredit: string;
     mapLabels: {
-      gulf: string;
+      coast: string;
       amalfi: string;
-      cetara: string;
       vietri: string;
       salerno: string;
       property: string;
       north: string;
-      scale: string;
     };
   };
   investment: {
@@ -322,14 +320,12 @@ export const messages: Record<Locale, Copy> = {
         "Stylized map of the estate at Marina d'Albori, Vietri sul Mare. Opens Google Maps in a new tab.",
       mapCredit: "Coastline after OpenStreetMap",
       mapLabels: {
-        gulf: "Gulf of Salerno",
+        coast: "Costiera Amalfitana",
         amalfi: "Amalfi",
-        cetara: "Cetara",
         vietri: "Vietri sul Mare",
         salerno: "Salerno",
         property: "The estate",
         north: "N",
-        scale: "5 km",
       },
     },
     investment: {
@@ -664,14 +660,12 @@ export const messages: Record<Locale, Copy> = {
         "Mappa stilizzata della proprietà a Marina d'Albori, Vietri sul Mare. Apre Google Maps in una nuova scheda.",
       mapCredit: "Costa da OpenStreetMap",
       mapLabels: {
-        gulf: "Golfo di Salerno",
+        coast: "Costiera Amalfitana",
         amalfi: "Amalfi",
-        cetara: "Cetara",
         vietri: "Vietri sul Mare",
         salerno: "Salerno",
         property: "La proprietà",
         north: "N",
-        scale: "5 km",
       },
     },
     investment: {

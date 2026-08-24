@@ -536,36 +536,37 @@ h3,
   display: block;
 }
 
-.location-map-sea-label {
-  fill: color-mix(in srgb, var(--foam) 82%, white);
+.location-map-coast-label {
+  fill: color-mix(in srgb, var(--foam) 92%, white);
   font-family: var(--sans);
-  font-size: 18px;
-  letter-spacing: 0.28em;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
 }
 
-.location-map-place-label text {
+.location-map-towns circle {
+  fill: var(--terracotta);
+  stroke: #e7e0d2;
+  stroke-width: 1.5px;
+}
+
+.location-map-towns text {
   fill: var(--ink);
   font-family: var(--sans);
-  font-size: 17px;
-  letter-spacing: 0.08em;
+  font-size: 16px;
+  letter-spacing: 0.1em;
   stroke: #e7e0d2;
   stroke-width: 5px;
   stroke-linejoin: round;
 }
 
-.location-map-compass text,
-.location-map-scale text {
-  fill: var(--foam);
-  font-family: var(--sans);
-  font-size: 13px;
-  letter-spacing: 0.18em;
-}
-
 .location-map-compass text {
   fill: var(--terracotta);
+  font-family: var(--sans);
   font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.18em;
 }
 
 .location-map-pin {
@@ -590,13 +591,10 @@ h3,
 }
 
 .location-map-pin-label {
-  fill: var(--terracotta);
+  fill: var(--white);
   font-family: var(--display);
-  font-size: 22px;
+  font-size: 23px;
   letter-spacing: -0.03em;
-  stroke: #e7e0d2;
-  stroke-width: 6px;
-  stroke-linejoin: round;
 }
 
 .location-map-meta {
