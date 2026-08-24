@@ -25,7 +25,7 @@ export function Photo({
     return (
       <figure className={className}>
         <div className="photo-pending" role="img" aria-label={image.alt[locale]}>
-          {copy.gallery.pending}
+          <span className="sr-only">{copy.gallery.pending}</span>
         </div>
         {caption ? (
           <figcaption className="mt-3 text-sm text-[var(--ink-soft)]">

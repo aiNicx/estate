@@ -21,13 +21,20 @@ const sans = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  icons: {
+    icon: "/icon",
+  },
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const locale = parseLocale((await headers()).get("x-locale") ?? "en");
   const copy = t(locale);
   return (
-    <html lang={locale} className={`${display.variable} ${sans.variable} h-full`}>
+    <html
+      lang={locale}
+      className={`${display.variable} ${sans.variable} h-full`}
+      data-scroll-behavior="smooth"
+    >
       <body className="flex min-h-full flex-col antialiased">
         <a className="skip-link" href="#content">
           {copy.skip}
