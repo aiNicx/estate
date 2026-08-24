@@ -67,8 +67,6 @@ type Copy = {
     presentTitle: string;
     present: string[];
     possibleTitle: string;
-    potentialLabel: string;
-    possibleNote: string;
     scenarios: { title: string; body: string }[];
     disclaimer: string;
   };
@@ -313,22 +311,15 @@ export const messages: Record<Locale, Copy> = {
         "Approximately 900 m² of covered internal area and 300–350 m² of terraces.",
         "Seasonal landing / pontoon concession associated with the property.",
       ],
-    possibleTitle: "Strategic optionality",
-    potentialLabel: "Subject to due diligence and applicable approvals",
-    possibleNote:
-      "The estate's composition supports several possible configurations.",
+      possibleTitle: "Strategic optionality",
       scenarios: [
         {
           title: "Private residence / family estate",
           body: "A single private holding with independent accommodation for family and guests.",
         },
         {
-          title: "Boutique hospitality",
-          body: "A focused hospitality proposition building on the existing accommodation use.",
-        },
-        {
           title: "Hospitality with food and beverage",
-          body: "An integrated destination combining accommodation with the existing restaurant activity.",
+          body: "A focused hospitality proposition combining accommodation with the existing restaurant activity.",
         },
         {
           title: "Mixed residential and hospitality asset",
@@ -340,7 +331,7 @@ export const messages: Record<Locale, Copy> = {
         },
       ],
       disclaimer:
-        "Future configurations are indicative only and remain subject to legal, cadastral and planning due diligence, applicable approvals and verification of the concession documentation.",
+        "All future configurations are indicative and subject to due diligence, applicable approvals and verification of concession documentation.",
     },
     heritage: {
       kicker: "Provenance",
@@ -407,10 +398,8 @@ export const messages: Record<Locale, Copy> = {
         "Enquiries are handled discreetly.",
       topicsTitle: "Confidential materials",
       topics: [
-        "Technical documentation",
-        "Plans",
-        "Due diligence materials",
-        "Cadastral documentation",
+        "Technical, planning and cadastral documentation",
+        "Plans and due diligence materials",
         "Commercial information",
         "Concession and operating documentation",
       ],
@@ -640,21 +629,14 @@ export const messages: Record<Locale, Copy> = {
         "Concessione stagionale di approdo / pontile associata alla proprietà.",
       ],
       possibleTitle: "Opzioni strategiche",
-      potentialLabel: "Soggette a due diligence e alle autorizzazioni applicabili",
-      possibleNote:
-        "La composizione della proprietà consente diverse possibili configurazioni.",
       scenarios: [
         {
           title: "Residenza privata / tenuta di famiglia",
           body: "Un'unica proprietà privata con alloggi indipendenti per famiglia e ospiti.",
         },
         {
-          title: "Ospitalità boutique",
-          body: "Una proposta ricettiva focalizzata, costruita sull'uso di accoglienza già esistente.",
-        },
-        {
           title: "Ricettività e ristorazione",
-          body: "Una destinazione integrata tra accoglienza e attività di ristorazione esistente.",
+          body: "Una proposta ricettiva che unisce accoglienza e attività di ristorazione esistente.",
         },
         {
           title: "Asset misto residenziale e ricettivo",
@@ -666,7 +648,7 @@ export const messages: Record<Locale, Copy> = {
         },
       ],
       disclaimer:
-        "Le configurazioni future sono puramente indicative e restano soggette a due diligence legale, catastale e urbanistica, alle autorizzazioni applicabili e alla verifica della documentazione concessoria.",
+        "Ogni configurazione futura è indicativa e soggetta a due diligence, autorizzazioni applicabili e verifica della documentazione concessoria.",
     },
     heritage: {
       kicker: "Provenienza",
@@ -733,10 +715,8 @@ export const messages: Record<Locale, Copy> = {
         "Le richieste sono gestite con discrezione.",
       topicsTitle: "Materiali riservati",
       topics: [
-        "Documentazione tecnica",
-        "Planimetrie",
-        "Materiali di due diligence",
-        "Documentazione catastale",
+        "Documentazione tecnica, urbanistica e catastale",
+        "Planimetrie e materiali di due diligence",
         "Informazioni commerciali",
         "Documentazione concessoria e gestionale",
       ],

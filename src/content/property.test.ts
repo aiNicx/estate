@@ -25,8 +25,8 @@ test("english and italian copy both exist", () => {
   assert.equal(messages.en.metrics.length, messages.it.metrics.length);
   assert.equal(messages.en.gallery.emptyBody.length > 0, true);
   assert.equal(messages.it.gallery.emptyBody.length > 0, true);
-  assert.equal(messages.en.investment.potentialLabel.length > 0, true);
-  assert.equal(messages.it.investment.potentialLabel.length > 0, true);
+  assert.equal(messages.en.investment.disclaimer.length > 0, true);
+  assert.equal(messages.it.investment.disclaimer.length > 0, true);
 });
 
 test("image map covers the eight supplied photographs", () => {
