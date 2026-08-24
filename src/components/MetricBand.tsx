@@ -1,8 +1,8 @@
 import type { Locale } from "@/content/property";
-import { t } from "@/content/messages";
+import { getMetrics } from "@/content/facts";
 
 export function MetricBand({ locale }: { locale: Locale }) {
-  const metrics = t(locale).metrics;
+  const metrics = getMetrics(locale);
   return (
     <dl className="metric-grid">
       {metrics.map((metric) => (

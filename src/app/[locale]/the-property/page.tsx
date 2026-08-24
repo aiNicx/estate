@@ -34,7 +34,7 @@ export default async function PropertyPage({ params }: PageProps) {
         {aerial ? (
           <Photo image={aerial} locale={locale} sizes="(max-width: 1024px) 100vw, 50vw" caption />
         ) : (
-          <CompositionBoard locale={locale} />
+          <CompositionBoard locale={locale} showLabel={false} />
         )}
         <div>
           <h2 className="display mt-0 text-3xl">{copy.compositionTitle}</h2>
