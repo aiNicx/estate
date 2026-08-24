@@ -497,6 +497,182 @@ h3,
   padding-top: 1rem;
 }
 
+.location-map {
+  display: grid;
+  text-decoration: none;
+  color: inherit;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition:
+    transform 280ms ease,
+    box-shadow 280ms ease,
+    border-color 280ms ease;
+}
+
+.location-map:hover,
+.location-map:focus-visible {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--sea) 35%, var(--line));
+  box-shadow: 0 22px 48px color-mix(in srgb, var(--sea) 16%, transparent);
+}
+
+.location-map-frame {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  background: var(--sea-deep);
+  overflow: hidden;
+}
+
+.location-map-compact .location-map-frame {
+  aspect-ratio: 4 / 3;
+}
+
+.location-map-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.location-map-sea-label {
+  fill: color-mix(in srgb, var(--foam) 82%, white);
+  font-family: var(--sans);
+  font-size: 18px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.location-map-place-label text {
+  fill: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  letter-spacing: 0.08em;
+  stroke: #e7e0d2;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.location-map-compass text,
+.location-map-scale text {
+  fill: var(--foam);
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+}
+
+.location-map-compass text {
+  fill: var(--terracotta);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.location-map-pin {
+  transform-origin: 0 0;
+  transition: transform 280ms ease;
+}
+
+.location-map:hover .location-map-pin,
+.location-map:focus-visible .location-map-pin {
+  transform: translateY(-8px);
+}
+
+.location-map-pin-halo {
+  opacity: 0.16;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-pulse 2.8s ease-out infinite;
+}
+
+.location-map-pin-halo-delay {
+  animation-delay: 0.9s;
+}
+
+.location-map-pin-label {
+  fill: var(--terracotta);
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  stroke: #e7e0d2;
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+
+.location-map-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  padding: 1.15rem 1.25rem 1.05rem;
+}
+
+.location-map-caption {
+  margin: 0.2rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.location-map-credit {
+  margin: 0.45rem 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.location-map-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.5rem;
+  color: var(--sea);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 0.3em;
+}
+
+.location-map-cta::after {
+  content: "→";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.location-map:hover .location-map-cta,
+.location-map:focus-visible .location-map-cta {
+  text-decoration-color: currentColor;
+}
+
+.location-map-mosaic {
+  padding: 0 1.25rem 0.95rem;
+}
+
+.location-map-mosaic .mosaic-band {
+  width: 100%;
+}
+
+@keyframes map-pulse {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.28;
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

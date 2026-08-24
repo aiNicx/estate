@@ -164,6 +164,12 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     ],
     additionalProperty,
     containedInPlace: { "@id": marina["@id"] },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: property.geo.latitude,
+      longitude: property.geo.longitude,
+    },
+    hasMap: property.geo.mapsUrl,
     ...(imageObjects.length
       ? { image: imageObjects.map((image) => image.contentUrl) }
       : {}),

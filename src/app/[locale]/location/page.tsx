@@ -6,6 +6,7 @@ import { availableImage } from "@/content/images";
 import { Photo } from "@/components/Photo";
 import { PageShell } from "@/components/PageShell";
 import { WaveRule } from "@/components/WaveRule";
+import { LocationMap } from "@/components/LocationMap";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -27,7 +28,10 @@ export default async function LocationPage({ params }: PageProps) {
 
   return (
     <PageShell locale={locale} pathname="/location" kicker={copy.kicker} title={copy.title} intro={copy.intro}>
-      <div className={hero ? "shell grid gap-10 lg:grid-cols-2 lg:items-start" : "shell"}>
+      <div className="shell">
+        <LocationMap locale={locale} />
+      </div>
+      <div className={hero ? "shell mt-16 grid gap-10 lg:grid-cols-2 lg:items-start" : "shell mt-16"}>
         {hero ? (
           <Photo image={hero} locale={locale} sizes="(max-width: 1024px) 100vw, 50vw" caption />
         ) : null}

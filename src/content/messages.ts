@@ -59,6 +59,21 @@ type Copy = {
     body: string[];
     distinctTitle: string;
     distinct: string[];
+    mapKicker: string;
+    mapCaption: string;
+    openMaps: string;
+    mapAria: string;
+    mapCredit: string;
+    mapLabels: {
+      gulf: string;
+      amalfi: string;
+      cetara: string;
+      vietri: string;
+      salerno: string;
+      property: string;
+      north: string;
+      scale: string;
+    };
   };
   investment: {
     kicker: string;
@@ -300,6 +315,22 @@ export const messages: Record<Locale, Copy> = {
         "A seasonal landing / pontoon concession associated with the property.",
         "Hillside terraces and a historic limoneto above the buildings.",
       ],
+      mapKicker: "The cove",
+      mapCaption: "Marina d'Albori, Vietri sul Mare",
+      openMaps: "Open in Google Maps",
+      mapAria:
+        "Stylized map of the estate at Marina d'Albori, Vietri sul Mare. Opens Google Maps in a new tab.",
+      mapCredit: "Coastline after OpenStreetMap",
+      mapLabels: {
+        gulf: "Gulf of Salerno",
+        amalfi: "Amalfi",
+        cetara: "Cetara",
+        vietri: "Vietri sul Mare",
+        salerno: "Salerno",
+        property: "The estate",
+        north: "N",
+        scale: "5 km",
+      },
     },
     investment: {
       kicker: "Strategic optionality",
@@ -626,6 +657,22 @@ export const messages: Record<Locale, Copy> = {
         "Una concessione stagionale di approdo / pontile associata alla proprietà.",
         "Terrazzamenti e limoneto storico sopra gli edifici.",
       ],
+      mapKicker: "La cala",
+      mapCaption: "Marina d'Albori, Vietri sul Mare",
+      openMaps: "Apri in Google Maps",
+      mapAria:
+        "Mappa stilizzata della proprietà a Marina d'Albori, Vietri sul Mare. Apre Google Maps in una nuova scheda.",
+      mapCredit: "Costa da OpenStreetMap",
+      mapLabels: {
+        gulf: "Golfo di Salerno",
+        amalfi: "Amalfi",
+        cetara: "Cetara",
+        vietri: "Vietri sul Mare",
+        salerno: "Salerno",
+        property: "La proprietà",
+        north: "N",
+        scale: "5 km",
+      },
     },
     investment: {
       kicker: "Opzioni strategiche",

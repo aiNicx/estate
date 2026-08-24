@@ -15,6 +15,7 @@ import { MosaicBand } from "@/components/MosaicBand";
 import { CoveDiagram } from "@/components/CoveDiagram";
 import { CompositionBoard } from "@/components/CompositionBoard";
 import { LemonGrove } from "@/components/LemonGrove";
+import { LocationMap } from "@/components/LocationMap";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -104,7 +105,7 @@ export default async function HomePage({ params }: PageProps) {
       </section>
 
       <section className="section bg-[var(--sea)] text-[var(--white)]">
-        <div className="shell grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="shell grid gap-10 lg:grid-cols-[0.92fr_1.18fr] lg:items-center">
           <div>
             <p className="kicker" style={{ color: "#e8b3a3" }}>
               {copy.location.kicker}
@@ -119,16 +120,17 @@ export default async function HomePage({ params }: PageProps) {
               {copy.nav.location}
             </Link>
           </div>
-          <ol className="m-0 grid list-none gap-6 p-0 sm:grid-cols-3 lg:grid-cols-1">
-            {copy.location.hierarchy.map((item, index) => (
-              <li key={item.name} className="border-t border-white/20 pt-4">
-                <span className="block text-xs tracking-[0.18em] uppercase opacity-70">{String(index + 1).padStart(2, "0")}</span>
-                <strong className="display text-2xl font-normal">{item.name}</strong>
-                <span className="mt-1 block text-sm text-[#d5e2e6]">{item.relation}</span>
-              </li>
-            ))}
-          </ol>
+          <LocationMap locale={locale} compact />
         </div>
+        <ol className="shell mt-12 m-0 grid list-none gap-6 p-0 sm:grid-cols-3">
+          {copy.location.hierarchy.map((item, index) => (
+            <li key={item.name} className="border-t border-white/20 pt-4">
+              <span className="block text-xs tracking-[0.18em] uppercase opacity-70">{String(index + 1).padStart(2, "0")}</span>
+              <strong className="display text-2xl font-normal">{item.name}</strong>
+              <span className="mt-1 block text-sm text-[#d5e2e6]">{item.relation}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="shell section grid gap-12 md:grid-cols-2 md:items-end">
