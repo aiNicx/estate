@@ -4,12 +4,14 @@
   --paper: #f3efe6;
   --paper-deep: #e7e0d2;
   --ink: #1c1914;
-  --ink-soft: #5a5348;
+  --ink-soft: #4e4840;
   --sea: #1b3a4a;
   --sea-deep: #122830;
   --foam: #e4eef0;
-  --terracotta: #9a4630;
+  --terracotta: #8b3e2a;
   --leaf: #3c4f3d;
+  --lemon: #b0892a;
+  --ceramic: #2d6a78;
   --line: #cfc4b3;
   --white: #fbf8f2;
   --focus: #1b3a4a;
@@ -36,6 +38,8 @@
   --color-foam: var(--foam);
   --color-terracotta: var(--terracotta);
   --color-leaf: var(--leaf);
+  --color-lemon: var(--lemon);
+  --color-ceramic: var(--ceramic);
   --color-line: var(--line);
   --color-white: var(--white);
   --font-sans: var(--sans);
@@ -61,10 +65,18 @@ body {
   margin: 0;
   font-family: var(--sans);
   font-size: 1.05rem;
-  line-height: 1.6;
-  background: var(--paper);
+  line-height: 1.65;
+  background:
+    radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--paper-deep) 70%, transparent), transparent 46%),
+    radial-gradient(ellipse at 100% 8%, color-mix(in srgb, var(--foam) 42%, transparent), transparent 38%),
+    var(--paper);
   color: var(--ink);
   text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--sea);
+  color: var(--white);
 }
 
 :focus-visible {
@@ -82,6 +94,7 @@ h3,
 .display {
   font-family: var(--display);
   font-weight: 420;
+  font-optical-sizing: auto;
   letter-spacing: -0.03em;
   line-height: 1.12;
 }
@@ -120,9 +133,9 @@ h3,
 .kicker {
   display: block;
   font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 560;
-  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--terracotta);
   margin-bottom: 0.85rem;
@@ -319,6 +332,159 @@ h3,
   .metric-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
+}
+
+.wave-rule {
+  display: block;
+  width: min(18rem, 100%);
+  height: 1.15rem;
+  color: var(--terracotta);
+  margin-block: 0.25rem 0.15rem;
+}
+
+.wave-rule-invert {
+  color: color-mix(in srgb, var(--white) 70%, #e8b3a3);
+}
+
+.mosaic-band {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 0.9rem;
+  width: min(24rem, 100%);
+}
+
+.mosaic-band i {
+  display: block;
+  flex: 1 1 0;
+  min-width: 5px;
+  font-style: normal;
+}
+
+.cove-diagram {
+  height: 100%;
+  min-height: 22rem;
+  background: linear-gradient(#d7e4e7 0 36%, #1b3a4a 36% 100%);
+}
+
+.cove-diagram svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.composition-board {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.unit-chip {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 5.5rem;
+  padding: 0.85rem 0.95rem;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.unit-chip strong {
+  font-family: var(--display);
+  font-size: 1.7rem;
+  font-weight: 420;
+  letter-spacing: -0.03em;
+}
+
+.unit-chip span {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.unit-chip-commercial {
+  background: var(--sea);
+  border-color: var(--sea);
+  color: var(--white);
+}
+
+.unit-chip-commercial span {
+  color: color-mix(in srgb, var(--white) 72%, #d5e2e6);
+}
+
+.lemon-grove {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.7rem;
+  align-items: end;
+}
+
+.lemon-mark {
+  width: 1.65rem;
+  height: 2.2rem;
+  color: var(--leaf);
+}
+
+.potential-mark {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid currentColor;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contents-index {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contents-index a {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr auto;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.contents-index a:hover .contents-title {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.contents-num {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--terracotta);
+}
+
+.contents-title {
+  font-family: var(--display);
+  font-size: 1.35rem;
+}
+
+.heritage-year {
+  font-family: var(--display);
+  font-size: clamp(5rem, 16vw, 9.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  color: var(--sea);
+}
+
+.scenario-card {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.scenario-card[data-kind="potential"] {
+  padding: 1.1rem 1.1rem 0.2rem;
+  border: 1px dashed color-mix(in srgb, var(--terracotta) 55%, var(--line));
+  background: color-mix(in srgb, var(--white) 70%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

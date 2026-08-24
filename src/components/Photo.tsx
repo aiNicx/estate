@@ -1,10 +1,9 @@
 import Image from "next/image";
 import type { Locale } from "@/content/property";
 import type { ResolvedImage } from "@/content/images";
-import { t } from "@/content/messages";
 
 type PhotoProps = {
-  image: ResolvedImage;
+  image?: ResolvedImage;
   locale: Locale;
   priority?: boolean;
   sizes: string;
@@ -20,21 +19,7 @@ export function Photo({
   className = "",
   caption = false,
 }: PhotoProps) {
-  const copy = t(locale);
-  if (!image.available) {
-    return (
-      <figure className={className}>
-        <div className="photo-pending" role="img" aria-label={image.alt[locale]}>
-          <span className="sr-only">{copy.gallery.pending}</span>
-        </div>
-        {caption ? (
-          <figcaption className="mt-3 text-sm text-[var(--ink-soft)]">
-            {image.caption[locale]}
-          </figcaption>
-        ) : null}
-      </figure>
-    );
-  }
+  if (!image?.available) return null;
 
   return (
     <figure className={className}>

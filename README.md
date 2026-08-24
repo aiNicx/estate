@@ -37,5 +37,11 @@ npm run build
 
 Copy `.env.example` to `.env.local`:
 
-- `NEXT_PUBLIC_SITE_URL` — public origin, used for canonical URLs, hreflang, sitemap, Open Graph
+- `NEXT_PUBLIC_SITE_URL` — public origin, used for canonical URLs, hreflang, sitemap, Open Graph. On Vercel set this to the production domain (for example `https://www.example.com`).
 - `INQUIRY_ENDPOINT` — POST URL for the request form (Formspree, a CRM webhook, or your API). Until this is set, validated requests are only logged on the server.
+
+### Vercel
+
+The production site must be **public**. If the URL shows a Vercel login or “Authentication Required”, open the Vercel project → **Settings → Deployment Protection** and turn **Standard Protection** off for Production.
+
+Also set `NEXT_PUBLIC_SITE_URL` in Vercel → Settings → Environment Variables.

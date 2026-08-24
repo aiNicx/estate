@@ -30,13 +30,36 @@ export default async function OpenGraphImage({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: 72,
+          padding: 64,
         }}
       >
-        <div style={{ fontSize: 22, letterSpacing: 6, color: "#9a4630" }}>{kicker}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ fontSize: 64, lineHeight: 1.1, maxWidth: 900 }}>{title}</div>
-          <div style={{ fontSize: 28, color: "#5a5348" }}>{place}</div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+          }}
+        >
+          <div style={{ fontSize: 20, letterSpacing: 6, color: "#8b3e2a" }}>{kicker}</div>
+          <div style={{ fontSize: 20, letterSpacing: 4, color: "#1b3a4a" }}>1830</div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div
+            style={{
+              width: 220,
+              height: 8,
+              display: "flex",
+              gap: 3,
+            }}
+          >
+            <div style={{ flex: 1, background: "#1b3a4a", height: 8 }} />
+            <div style={{ flex: 1, background: "#2d6a78", height: 8 }} />
+            <div style={{ flex: 1, background: "#8b3e2a", height: 8 }} />
+            <div style={{ flex: 1, background: "#b0892a", height: 8 }} />
+            <div style={{ flex: 1, background: "#3c4f3d", height: 8 }} />
+          </div>
+          <div style={{ fontSize: 58, lineHeight: 1.08, maxWidth: 920 }}>{title}</div>
+          <div style={{ fontSize: 26, color: "#4e4840" }}>{place}</div>
         </div>
       </div>
     ),

@@ -67,6 +67,7 @@ type Copy = {
     presentTitle: string;
     present: string[];
     possibleTitle: string;
+    potentialLabel: string;
     possibleNote: string;
     scenarios: { title: string; body: string }[];
     disclaimer: string;
@@ -77,15 +78,17 @@ type Copy = {
     intro: string;
     items: { title: string; body: string }[];
   };
-  gallery: {
-    kicker: string;
-    title: string;
-    intro: string;
-    pending: string;
-    close: string;
-    next: string;
-    previous: string;
-  };
+    gallery: {
+      kicker: string;
+      title: string;
+      intro: string;
+      pending: string;
+      emptyTitle: string;
+      emptyBody: string;
+      close: string;
+      next: string;
+      previous: string;
+    };
   facts: {
     kicker: string;
     title: string;
@@ -139,6 +142,19 @@ type Copy = {
     geography: string;
     notice: string;
     rights: string;
+  };
+  diagram: {
+    coveLabel: string;
+    coveCaption: string;
+    residentialShort: string;
+    commercialShort: string;
+    unitsNote: string;
+    lemonCaption: string;
+  };
+  contents: {
+    kicker: string;
+    title: string;
+    hints: Record<Exclude<RouteId, "overview">, string>;
   };
   photoPending: string;
   skip: string;
@@ -244,7 +260,7 @@ export const messages: Record<Locale, Copy> = {
       kicker: "Architecture",
       title: "Spaces held between terrace, ceramic, and water.",
       intro:
-        "The photographs record a Mediterranean construction of white masonry, outdoor rooms, and Vietri ceramic work. Dedicated close photographs of the limoneto and of the restaurant interior have not yet been added; those elements are described from supplied facts and from the aerial views.",
+        "White masonry, outdoor rooms and Vietri ceramic work define the construction. Dedicated close photographs of the limoneto and of the restaurant interior have not yet been added; those elements are described from supplied facts and from the aerial views.",
       items: [
         {
           title: "The cove",
@@ -326,9 +342,10 @@ export const messages: Record<Locale, Copy> = {
         "Five residential units and two commercial units make mixed use possible without inventing a new programme from nothing.",
         "A seasonal pontoon concession is associated with the property, which is relevant to sea access.",
       ],
-      possibleTitle: "Possible future scenarios",
-      possibleNote:
-        "These are positioning hypotheses, not commitments, permissions, or forecasts. Any change of use would require appropriate verification and consents.",
+    possibleTitle: "Possible future scenarios",
+    potentialLabel: "Potential — not a commitment",
+    possibleNote:
+      "These are positioning hypotheses, not commitments, permissions, or forecasts. Any change of use would require appropriate verification and consents.",
       scenarios: [
         {
           title: "Private residence / family estate",
@@ -385,6 +402,9 @@ export const messages: Record<Locale, Copy> = {
         "These images are the photographs supplied for this presentation. They are placed by subject — cove, architecture, terrace, interiors, ceramic — not as a repeated grid of the same view.",
       pending:
         "This photograph has been specified and will appear here as soon as the file is uploaded to the project.",
+      emptyTitle: "The intended sequence",
+      emptyBody:
+        "Eight photographs of the estate have been specified for this presentation. They will occupy this page as soon as the files are in the project. Until then, the subjects are listed below — not as stand-in pictures.",
       close: "Close photograph",
       next: "Next photograph",
       previous: "Previous photograph",
@@ -531,6 +551,28 @@ export const messages: Record<Locale, Copy> = {
       notice: "No price, returns, or ratings are published on this site.",
       rights: "All photographs are of the property presented. All rights reserved.",
     },
+    diagram: {
+      coveLabel: "Diagram, not a photograph",
+      coveCaption:
+        "An elevation of the cove: hillside, buildings, terraces, lemon planting, water, and a seasonal pontoon.",
+      residentialShort: "Residential",
+      commercialShort: "Commercial",
+      unitsNote: "Seven independent units: five residential, two commercial.",
+      lemonCaption: "Historic limoneto: approximately eight mature trees, around seventy years old.",
+    },
+    contents: {
+      kicker: "The presentation",
+      title: "Read in this order.",
+      hints: {
+        property: "Units, areas, what is included",
+        spaces: "Cove, terraces, interiors",
+        location: "Marina d'Albori to Italy",
+        investment: "Current use, then possible scenarios",
+        heritage: "Cartiera, ceramic, lemon, sea",
+        gallery: "Photographs of the estate",
+        request: "Confidential enquiry",
+      },
+    },
     photoPending: "Photograph to be placed — upload the file to public/images/property.",
     skip: "Skip to content",
   },
@@ -633,7 +675,7 @@ export const messages: Record<Locale, Copy> = {
       kicker: "Architettura",
       title: "Spazi tra terrazza, ceramica e acqua.",
       intro:
-        "Le fotografie documentano una costruzione mediterranea in muratura chiara, stanze all'aperto e ceramica vietrese. Non sono ancora state inserite fotografie ravvicinate del limoneto né della sala del ristorante; tali elementi sono descritti dai fatti forniti e dalle viste aeree.",
+        "Muratura chiara, stanze all'aperto e ceramica vietrese definiscono la costruzione. Non sono ancora state inserite fotografie ravvicinate del limoneto né della sala del ristorante; tali elementi sono descritti dai fatti forniti e dalle viste aeree.",
       items: [
         {
           title: "La cala",
@@ -716,6 +758,7 @@ export const messages: Record<Locale, Copy> = {
         "Alla proprietà è associata una concessione stagionale di pontile, rilevante per l'accesso dal mare.",
       ],
       possibleTitle: "Possibili scenari futuri",
+      potentialLabel: "Ipotesi — non un impegno",
       possibleNote:
         "Si tratta di ipotesi di posizionamento, non di impegni, autorizzazioni o previsioni. Ogni mutamento d'uso richiede verifiche e titoli appropriati.",
       scenarios: [
@@ -774,6 +817,9 @@ export const messages: Record<Locale, Copy> = {
         "Le immagini sono le fotografie fornite per questa presentazione. Sono collocate per soggetto — cala, architettura, terrazza, interni, ceramica — non come griglia ripetuta della stessa inquadratura.",
       pending:
         "Questa fotografia è stata prevista e comparirà qui non appena il file sarà caricato nel progetto.",
+      emptyTitle: "La sequenza prevista",
+      emptyBody:
+        "Otto fotografie della proprietà sono state previste per questa presentazione. Occupano questa pagina non appena i file sono nel progetto. Fino ad allora i soggetti sono elencati qui sotto — non come immagini di sostituzione.",
       close: "Chiudi la fotografia",
       next: "Fotografia successiva",
       previous: "Fotografia precedente",
@@ -919,6 +965,28 @@ export const messages: Record<Locale, Copy> = {
       geography: "Marina d'Albori, Vietri sul Mare, Costiera Amalfitana, Campania, Italia.",
       notice: "Su questo sito non si pubblicano prezzi, rendimenti o valutazioni.",
       rights: "Le fotografie ritraggono la proprietà presentata. Tutti i diritti riservati.",
+    },
+    diagram: {
+      coveLabel: "Schema, non una fotografia",
+      coveCaption:
+        "Un alzato della cala: versante, edifici, terrazze, limoneto, acqua e pontile stagionale.",
+      residentialShort: "Residenziale",
+      commercialShort: "Commerciale",
+      unitsNote: "Sette unità indipendenti: cinque residenziali, due commerciali.",
+      lemonCaption: "Limoneto storico: circa otto alberi maturi, di circa settant'anni.",
+    },
+    contents: {
+      kicker: "La presentazione",
+      title: "Da leggere in quest'ordine.",
+      hints: {
+        property: "Unità, superfici, che cosa è compreso",
+        spaces: "Cala, terrazze, interni",
+        location: "Da Marina d'Albori all'Italia",
+        investment: "Uso attuale, poi gli scenari possibili",
+        heritage: "Cartiera, ceramica, limone, mare",
+        gallery: "Fotografie della proprietà",
+        request: "Richiesta riservata",
+      },
     },
     photoPending: "Fotografia da inserire — caricare il file in public/images/property.",
     skip: "Vai al contenuto",

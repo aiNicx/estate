@@ -1,9 +1,6 @@
-import { headers } from "next/headers";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Fraunces, Outfit } from "next/font/google";
-import { parseLocale } from "@/lib/i18n";
-import { t } from "@/content/messages";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -17,6 +14,7 @@ const sans = Outfit({
   subsets: ["latin", "latin-ext"],
   variable: "--font-sans",
   display: "swap",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -26,21 +24,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
-  const locale = parseLocale((await headers()).get("x-locale") ?? "en");
-  const copy = t(locale);
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      lang={locale}
+      lang="en"
       className={`${display.variable} ${sans.variable} h-full`}
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col antialiased">
-        <a className="skip-link" href="#content">
-          {copy.skip}
-        </a>
-        {children}
-      </body>
+      <body className="flex min-h-full flex-col antialiased">{children}</body>
     </html>
   );
 }

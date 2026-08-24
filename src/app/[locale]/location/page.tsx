@@ -2,9 +2,10 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
 import { localeMetadata } from "@/lib/seo";
-import { imageById } from "@/content/images";
+import { availableImage } from "@/content/images";
 import { Photo } from "@/components/Photo";
 import { PageShell } from "@/components/PageShell";
+import { WaveRule } from "@/components/WaveRule";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -22,19 +23,20 @@ export default async function LocationPage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const copy = t(locale).location;
-  const hero = imageById("hero-cove-aerial");
+  const hero = availableImage("hero-cove-aerial");
 
   return (
     <PageShell locale={locale} pathname="/location" kicker={copy.kicker} title={copy.title} intro={copy.intro}>
-      <div className="shell grid gap-10 lg:grid-cols-2">
+      <div className={hero ? "shell grid gap-10 lg:grid-cols-2 lg:items-start" : "shell"}>
         {hero ? (
           <Photo image={hero} locale={locale} sizes="(max-width: 1024px) 100vw, 50vw" caption />
         ) : null}
         <div>
-          <h2 className="display text-3xl">{copy.hierarchyTitle}</h2>
+          <h2 className="display mt-0 text-3xl">{copy.hierarchyTitle}</h2>
+          <WaveRule />
           <ol className="mt-6 space-y-5">
             {copy.hierarchy.map((item, index) => (
-              <li key={item.name}>
+              <li key={item.name} className="border-t border-[var(--line)] pt-4">
                 <span className="text-xs tracking-[0.16em] uppercase text-[var(--terracotta)]">
                   {String(index + 1).padStart(2, "0")}
                 </span>

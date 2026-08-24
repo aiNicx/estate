@@ -5,6 +5,7 @@ import { localeMetadata } from "@/lib/seo";
 import { imagesFor } from "@/content/images";
 import { PageShell } from "@/components/PageShell";
 import { Gallery } from "@/components/Gallery";
+import { GalleryInventory } from "@/components/GalleryInventory";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -27,7 +28,7 @@ export default async function GalleryPage({ params }: PageProps) {
   return (
     <PageShell locale={locale} pathname="/gallery" kicker={copy.kicker} title={copy.title} intro={copy.intro}>
       <div className="shell">
-        <Gallery locale={locale} images={images} />
+        {images.length ? <Gallery locale={locale} images={images} /> : <GalleryInventory locale={locale} />}
       </div>
     </PageShell>
   );

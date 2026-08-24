@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
-import { imageById, imagesFor } from "@/content/images";
+import { availableImage, imagesFor } from "@/content/images";
 import { localeMetadata } from "@/lib/seo";
 import { buildJsonLd } from "@/lib/jsonld";
 import { localizedPath } from "@/lib/site";
@@ -12,6 +12,12 @@ import { Photo } from "@/components/Photo";
 import { MetricBand } from "@/components/MetricBand";
 import { FactsTable } from "@/components/FactsTable";
 import { Questions } from "@/components/Questions";
+import { WaveRule } from "@/components/WaveRule";
+import { MosaicBand } from "@/components/MosaicBand";
+import { CoveDiagram } from "@/components/CoveDiagram";
+import { CompositionBoard } from "@/components/CompositionBoard";
+import { LemonGrove } from "@/components/LemonGrove";
+import { ContentsIndex } from "@/components/ContentsIndex";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -25,50 +31,42 @@ export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const copy = t(locale);
-  const hero = imageById("hero-cove-aerial");
-  const terrace = imageById("terrace-dining-sea");
-  const mosaic = imageById("corridor-mosaic");
-  const galleryPreview = imagesFor("gallery").filter((image) => image.available).slice(0, 4);
+  const hero = availableImage("hero-cove-aerial");
+  const terrace = availableImage("terrace-dining-sea");
+  const mosaic = availableImage("corridor-mosaic");
+  const galleryPreview = imagesFor("gallery").slice(0, 4);
 
   return (
     <main>
       <JsonLd data={buildJsonLd(locale, "")} />
-      <section
-        className={
-          hero?.available
-            ? "grid min-h-[100svh] lg:grid-cols-[minmax(0,1.15fr)_minmax(22rem,0.85fr)]"
-            : "min-h-[92svh]"
-        }
-      >
-        {hero?.available ? (
-          <div className="relative min-h-[70svh] bg-[var(--paper-deep)]">
+      <section className="grid min-h-[100svh] lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)]">
+        <div className="relative min-h-[52svh] bg-[var(--paper-deep)] lg:min-h-full">
+          {hero ? (
             <Image
               src={hero.src}
               alt={hero.alt[locale]}
               fill
               priority
               fetchPriority="high"
-              sizes="(max-width: 1024px) 100vw, 58vw"
+              sizes="(max-width: 1024px) 100vw, 56vw"
               className="object-cover"
               style={{ objectPosition: hero.objectPosition }}
             />
-          </div>
-        ) : null}
-        <div
-          className={
-            hero?.available
-              ? "flex flex-col justify-end gap-8 px-[clamp(1.25rem,4vw,3.5rem)] py-10 lg:py-16"
-              : "shell flex min-h-[92svh] flex-col justify-end gap-8 pb-16 pt-28"
-          }
-        >
+          ) : (
+            <CoveDiagram locale={locale} />
+          )}
+        </div>
+        <div className="flex flex-col justify-end gap-7 px-[clamp(1.25rem,4vw,3.5rem)] py-10 lg:py-16">
           <p className="kicker">{copy.hero.eyebrow}</p>
-          <h1 className="display m-0 text-[clamp(2.4rem,6vw,4.6rem)]">{copy.hero.title}</h1>
+          <h1 className="display m-0 max-w-[16ch] text-[clamp(2.5rem,6.2vw,5rem)]">{copy.hero.title}</h1>
           <p className="lede m-0">{copy.hero.lead}</p>
+          <WaveRule />
           <p className="geo-line">
             {copy.hero.geography.map((place) => (
               <span key={place}>{place}</span>
             ))}
           </p>
+          <MosaicBand />
           <div className="flex flex-wrap gap-3">
             <Link className="btn" href={localizedPath(locale, "/request")}>
               {copy.cta.request}
@@ -84,7 +82,7 @@ export default async function HomePage({ params }: PageProps) {
         <MetricBand locale={locale} />
       </div>
 
-      <section className="shell section grid gap-10 lg:grid-cols-2 lg:items-end">
+      <section className="shell section grid gap-12 lg:grid-cols-2 lg:items-end">
         <div>
           <p className="kicker">{copy.overview.kicker}</p>
           <h2 className="display mt-0 text-4xl md:text-5xl">{copy.overview.title}</h2>
@@ -94,14 +92,16 @@ export default async function HomePage({ params }: PageProps) {
             </p>
           ))}
         </div>
-        {terrace?.available ? (
+        {terrace ? (
           <Photo
             image={terrace}
             locale={locale}
             sizes="(max-width: 1024px) 100vw, 42vw"
             caption
           />
-        ) : null}
+        ) : (
+          <CompositionBoard locale={locale} />
+        )}
       </section>
 
       <section className="section bg-[var(--sea)] text-[var(--white)]">
@@ -112,7 +112,11 @@ export default async function HomePage({ params }: PageProps) {
             </p>
             <h2 className="display mt-0 text-4xl md:text-5xl">{copy.location.title}</h2>
             <p className="max-w-[38rem] text-[#d5e2e6]">{copy.location.intro}</p>
-            <Link className="btn mt-6 bg-[var(--white)] text-[var(--sea)] border-[var(--white)]" href={localizedPath(locale, "/location")}>
+            <WaveRule invert />
+            <div className="mt-6">
+              <MosaicBand invert />
+            </div>
+            <Link className="btn mt-8 bg-[var(--white)] text-[var(--sea)] border-[var(--white)]" href={localizedPath(locale, "/location")}>
               {copy.nav.location}
             </Link>
           </div>
@@ -130,15 +134,21 @@ export default async function HomePage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="shell section grid gap-10 md:grid-cols-2">
-        {mosaic?.available ? (
+      <section className="shell section grid gap-12 md:grid-cols-2 md:items-end">
+        {mosaic ? (
           <Photo
             image={mosaic}
             locale={locale}
             sizes="(max-width: 768px) 100vw, 46vw"
             caption
           />
-        ) : null}
+        ) : (
+          <div>
+            <p className="heritage-year m-0">1830</p>
+            <WaveRule />
+            <LemonGrove locale={locale} />
+          </div>
+        )}
         <div>
           <p className="kicker">{copy.heritage.kicker}</p>
           <h2 className="display mt-0 text-4xl">{copy.heritage.title}</h2>
@@ -158,40 +168,44 @@ export default async function HomePage({ params }: PageProps) {
       </section>
 
       {galleryPreview.length > 0 ? (
-      <section className="shell section">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="kicker">{copy.gallery.kicker}</p>
-            <h2 className="display mt-0 text-4xl">{copy.gallery.title}</h2>
+        <section className="shell section">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="kicker">{copy.gallery.kicker}</p>
+              <h2 className="display mt-0 text-4xl">{copy.gallery.title}</h2>
+            </div>
+            <Link className="btn btn-ghost" href={localizedPath(locale, "/gallery")}>
+              {copy.nav.gallery}
+            </Link>
           </div>
-          <Link className="btn btn-ghost" href={localizedPath(locale, "/gallery")}>
-            {copy.nav.gallery}
-          </Link>
-        </div>
-        <div className="grid gap-4 md:grid-cols-4">
-          {galleryPreview.map((image, index) => (
-            <Photo
-              key={image.id}
-              image={image}
-              locale={locale}
-              sizes="(max-width: 768px) 100vw, 25vw"
-              className={index === 0 ? "md:col-span-2 md:row-span-2" : ""}
-            />
-          ))}
-        </div>
-      </section>
+          <div className="grid gap-4 md:grid-cols-4">
+            {galleryPreview.map((image, index) => (
+              <Photo
+                key={image.id}
+                image={image}
+                locale={locale}
+                sizes="(max-width: 768px) 100vw, 25vw"
+                className={index === 0 ? "md:col-span-2 md:row-span-2" : ""}
+              />
+            ))}
+          </div>
+        </section>
       ) : null}
 
-      <section className="shell section grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="shell section grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <ContentsIndex locale={locale} />
         <div>
           <p className="kicker">{copy.investment.kicker}</p>
           <h2 className="display mt-0 text-4xl">{copy.investment.title}</h2>
           <p className="lede">{copy.investment.intro}</p>
-          <Link className="btn btn-ghost mt-6" href={localizedPath(locale, "/investment")}>
+          <p className="potential-mark text-[var(--terracotta)]">{copy.investment.potentialLabel}</p>
+          <Link className="btn btn-ghost mt-4" href={localizedPath(locale, "/investment")}>
             {copy.nav.investment}
           </Link>
+          <div className="mt-12">
+            <FactsTable locale={locale} />
+          </div>
         </div>
-        <FactsTable locale={locale} />
       </section>
 
       <Questions locale={locale} />

@@ -36,15 +36,13 @@ export function localeMetadata(
       siteName: copy.meta.siteName,
       title: overrides?.title ?? copy.meta.ogTitle,
       description: overrides?.description ?? copy.meta.ogDescription,
-      images: ogImage
-        ? [{ url: ogImage, alt: hero?.alt[locale] }]
-        : undefined,
+      ...(ogImage ? { images: [{ url: ogImage, alt: hero?.alt[locale] }] } : {}),
     },
     twitter: {
-      card: ogImage ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      images: ogImage ? [ogImage] : undefined,
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
     robots: {
       index: true,

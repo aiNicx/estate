@@ -65,15 +65,18 @@ export function Header({ locale }: { locale: Locale }) {
             </Link>
           ) : null}
         </div>
-        <button
-          type="button"
-          className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--sea)] px-3 text-sm text-[var(--sea)] xl:hidden"
-          aria-expanded={open}
-          aria-controls={menuId}
-          onClick={() => setOpen((value) => !value)}
-        >
-          {open ? copy.nav.close : copy.nav.menu}
-        </button>
+        <div className="flex items-center gap-3 xl:hidden">
+          <LanguageSwitch locale={locale} />
+          <button
+            type="button"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center border border-[var(--sea)] px-3 text-sm text-[var(--sea)]"
+            aria-expanded={open}
+            aria-controls={menuId}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? copy.nav.close : copy.nav.menu}
+          </button>
+        </div>
       </div>
       <div
         id={menuId}
@@ -92,9 +95,6 @@ export function Header({ locale }: { locale: Locale }) {
               {item.label}
             </Link>
           ))}
-          <div className="pt-2">
-            <LanguageSwitch locale={locale} />
-          </div>
         </nav>
       </div>
     </header>
