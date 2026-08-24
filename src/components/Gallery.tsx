@@ -64,7 +64,13 @@ export function Gallery({
         {available.map((image, imageIndex) => (
           <li
             key={image.id}
-            className={imageIndex % 5 === 0 ? "sm:col-span-2 sm:row-span-2" : ""}
+            className={
+              imageIndex % 6 === 0
+                ? "sm:col-span-2 lg:col-span-2"
+                : imageIndex % 6 === 3
+                  ? "lg:col-span-2"
+                  : ""
+            }
           >
             <button
               type="button"
@@ -72,7 +78,13 @@ export function Gallery({
               onClick={() => setIndex(imageIndex)}
               aria-label={image.alt[locale]}
             >
-              <span className="photo-frame relative block aspect-[3/4] h-full w-full">
+              <span
+                className={`photo-frame relative block h-full w-full ${
+                  imageIndex % 6 === 0 || imageIndex % 6 === 3
+                    ? "aspect-[4/3]"
+                    : "aspect-[3/4]"
+                }`}
+              >
                 <Image
                   src={image.src}
                   alt={image.alt[locale]}

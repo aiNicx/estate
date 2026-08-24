@@ -10,14 +10,11 @@ import { localizedPath } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { MetricBand } from "@/components/MetricBand";
-import { FactsTable } from "@/components/FactsTable";
-import { Questions } from "@/components/Questions";
 import { WaveRule } from "@/components/WaveRule";
 import { MosaicBand } from "@/components/MosaicBand";
 import { CoveDiagram } from "@/components/CoveDiagram";
 import { CompositionBoard } from "@/components/CompositionBoard";
 import { LemonGrove } from "@/components/LemonGrove";
-import { ContentsIndex } from "@/components/ContentsIndex";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -39,7 +36,7 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <main>
       <JsonLd data={buildJsonLd(locale, "")} />
-      <section className="grid min-h-[100svh] lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)]">
+      <section className="grid min-h-[calc(100svh-4.5rem)] lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)]">
         <div className="relative min-h-[52svh] bg-[var(--paper-deep)] lg:min-h-full">
           {hero ? (
             <Image
@@ -56,10 +53,12 @@ export default async function HomePage({ params }: PageProps) {
             <CoveDiagram locale={locale} />
           )}
         </div>
-        <div className="flex flex-col justify-end gap-7 px-[clamp(1.25rem,4vw,3.5rem)] py-10 lg:py-16">
+        <div className="flex flex-col justify-end gap-6 px-[clamp(1.25rem,4vw,4.5rem)] py-12 lg:py-20">
           <p className="kicker">{copy.hero.eyebrow}</p>
-          <h1 className="display m-0 max-w-[16ch] text-[clamp(2.5rem,6.2vw,5rem)]">{copy.hero.title}</h1>
-          <p className="lede m-0">{copy.hero.lead}</p>
+          <h1 className="display m-0 max-w-[12ch] text-[clamp(3.2rem,8vw,7.5rem)]">{copy.hero.title}</h1>
+          <p className="m-0 max-w-[28rem] text-[clamp(1.05rem,1.2vw,1.3rem)] text-[var(--ink-soft)]">
+            {copy.hero.lead}
+          </p>
           <WaveRule />
           <p className="geo-line">
             {copy.hero.geography.map((place) => (
@@ -71,8 +70,8 @@ export default async function HomePage({ params }: PageProps) {
             <Link className="btn" href={localizedPath(locale, "/request")}>
               {copy.cta.request}
             </Link>
-            <Link className="btn btn-ghost" href={localizedPath(locale, "/the-property")}>
-              {copy.nav.property}
+            <Link className="text-link" href={localizedPath(locale, "/the-property")}>
+              {copy.cta.requestDetails}
             </Link>
           </div>
         </div>
@@ -120,12 +119,10 @@ export default async function HomePage({ params }: PageProps) {
               {copy.nav.location}
             </Link>
           </div>
-          <ol className="m-0 list-none space-y-4 p-0">
+          <ol className="m-0 grid list-none gap-6 p-0 sm:grid-cols-3 lg:grid-cols-1">
             {copy.location.hierarchy.map((item, index) => (
               <li key={item.name} className="border-t border-white/20 pt-4">
-                <span className="block text-xs tracking-[0.18em] uppercase opacity-70">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+                <span className="block text-xs tracking-[0.18em] uppercase opacity-70">{String(index + 1).padStart(2, "0")}</span>
                 <strong className="display text-2xl font-normal">{item.name}</strong>
                 <span className="mt-1 block text-sm text-[#d5e2e6]">{item.relation}</span>
               </li>
@@ -192,23 +189,24 @@ export default async function HomePage({ params }: PageProps) {
         </section>
       ) : null}
 
-      <section className="shell section grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-        <ContentsIndex locale={locale} />
+      <section className="shell section grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
           <p className="kicker">{copy.investment.kicker}</p>
           <h2 className="display mt-0 text-4xl">{copy.investment.title}</h2>
           <p className="lede">{copy.investment.intro}</p>
-          <p className="potential-mark text-[var(--terracotta)]">{copy.investment.potentialLabel}</p>
-          <Link className="btn btn-ghost mt-4" href={localizedPath(locale, "/investment")}>
-            {copy.nav.investment}
+          <Link className="text-link mt-6" href={localizedPath(locale, "/investment")}>
+            {copy.cta.requestInvestment}
           </Link>
-          <div className="mt-12">
-            <FactsTable locale={locale} />
-          </div>
+        </div>
+        <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
+          {copy.investment.scenarios.slice(0, 4).map((scenario) => (
+            <article key={scenario.title} className="border-t border-[var(--line)] pt-4">
+              <h3 className="mt-0 text-xl">{scenario.title}</h3>
+              <p className="m-0 text-[var(--ink-soft)]">{scenario.body}</p>
+            </article>
+          ))}
         </div>
       </section>
-
-      <Questions locale={locale} />
 
       <section className="section bg-[var(--paper-deep)]">
         <div className="shell grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-center">
@@ -218,7 +216,7 @@ export default async function HomePage({ params }: PageProps) {
             <p className="lede">{copy.request.intro}</p>
           </div>
           <Link className="btn justify-self-start md:justify-self-end" href={localizedPath(locale, "/request")}>
-            {copy.cta.privateDiscussion}
+            {copy.cta.request}
           </Link>
         </div>
       </section>

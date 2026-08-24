@@ -7,6 +7,42 @@ export function buildJsonLd(locale: Locale, pathname: string) {
   const copy = t(locale);
   const url = absoluteUrl(locale, pathname);
   const siteUrl = getSiteUrl();
+  const pageDetails: Record<string, { name: string; description: string }> = {
+    "": { name: copy.meta.title, description: copy.meta.description },
+    "/the-property": {
+      name: `${copy.nav.property} · ${copy.meta.siteName}`,
+      description: copy.property.intro,
+    },
+    "/spaces": {
+      name: `${copy.nav.spaces} · ${copy.meta.siteName}`,
+      description: copy.spaces.intro,
+    },
+    "/location": {
+      name: `${copy.nav.location} · ${copy.meta.siteName}`,
+      description: copy.location.intro,
+    },
+    "/investment": {
+      name: `${copy.nav.investment} · ${copy.meta.siteName}`,
+      description: copy.investment.intro,
+    },
+    "/heritage": {
+      name: `${copy.nav.heritage} · ${copy.meta.siteName}`,
+      description: copy.heritage.intro,
+    },
+    "/gallery": {
+      name: `${copy.nav.gallery} · ${copy.meta.siteName}`,
+      description: copy.gallery.intro,
+    },
+    "/request": {
+      name: `${copy.nav.request} · ${copy.meta.siteName}`,
+      description: copy.request.intro,
+    },
+    "/privacy": {
+      name: `${copy.nav.privacy} · ${copy.meta.siteName}`,
+      description: copy.privacy.body[0],
+    },
+  };
+  const page = pageDetails[pathname] ?? pageDetails[""];
   const images = resolveImages().filter((image) => image.available);
   const imageObjects = images.map((image) => ({
     "@type": "ImageObject",
@@ -114,7 +150,6 @@ export function buildJsonLd(locale: Locale, pathname: string) {
       value: property.internalArea.squareMetres,
       unitCode: "MTK",
     },
-    numberOfRooms: property.units.total,
     amenityFeature: [
       {
         "@type": "LocationFeatureSpecification",
@@ -147,14 +182,19 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     "@type": "RealEstateListing",
     "@id": `${url}#listing`,
     url,
-    name: copy.meta.title,
-    description: copy.meta.description,
+    name: page.name,
+    description: page.description,
     inLanguage: locale,
     isPartOf: { "@id": `${siteUrl}/#website` },
     about: { "@id": residence["@id"] },
-    primaryImageOfPage: images[0]
-      ? { "@type": "ImageObject", contentUrl: `${siteUrl}${images[0].src}` }
-      : undefined,
+    ...(images[0]
+      ? {
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            contentUrl: `${siteUrl}${images[0].src}`,
+          },
+        }
+      : {}),
     offers: offer,
   };
 
@@ -170,8 +210,8 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     "@type": "WebPage",
     "@id": url,
     url,
-    name: copy.meta.title,
-    description: copy.meta.description,
+    name: page.name,
+    description: page.description,
     inLanguage: locale,
     isPartOf: { "@id": website["@id"] },
     about: { "@id": residence["@id"] },
@@ -196,7 +236,7 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     "@graph": [
       website,
       webpage,
-      listing,
+      ...(pathname === "" ? [listing] : []),
       residence,
       marina,
       vietri,

@@ -8,7 +8,10 @@ import { t } from "@/content/messages";
 export function CoveDiagram({ locale }: { locale: Locale }) {
   const copy = t(locale).diagram;
   return (
-    <figure className="cove-diagram relative m-0 h-full min-h-[52svh] overflow-hidden lg:min-h-full">
+    <figure
+      className="cove-diagram relative m-0 h-full min-h-[45svh] overflow-hidden lg:min-h-full"
+      aria-label={copy.coveCaption}
+    >
       <svg
         viewBox="0 0 640 860"
         preserveAspectRatio="xMidYMid slice"
@@ -55,10 +58,6 @@ export function CoveDiagram({ locale }: { locale: Locale }) {
           opacity="0.55"
         />
       </svg>
-      <figcaption className="absolute bottom-0 left-0 right-0 bg-[color-mix(in_srgb,var(--sea-deep)_78%,transparent)] px-5 py-4 text-sm text-[var(--foam)]">
-        <span className="kicker mb-1 text-[#e8b3a3]">{copy.coveLabel}</span>
-        <span className="block">{copy.coveCaption}</span>
-      </figcaption>
     </figure>
   );
 }
