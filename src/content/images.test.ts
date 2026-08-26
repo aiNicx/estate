@@ -22,3 +22,13 @@ test("preferred filenames win over later keyword matches", () => {
   assert.equal(byId["hero-cove-aerial"], "01-hero-cove-aerial.jpg");
   assert.equal(byId["corridor-mosaic"], "08-corridor-mosaic.jpg");
 });
+
+test("numbered catalog files map one-to-one and leave no extras", async () => {
+  const { imageSpecs } = await import("./images.ts");
+  const files = imageSpecs.map((spec) => spec.file);
+  const { byId, extras } = assignUploadedFiles(files);
+  for (const spec of imageSpecs) {
+    assert.equal(byId[spec.id], spec.file, spec.id);
+  }
+  assert.deepEqual(extras, []);
+});

@@ -62,9 +62,10 @@ test("visible metrics and fact rows derive from the property source", () => {
   );
 });
 
-test("image map covers the eight supplied photographs", () => {
-  assert.equal(imageSpecs.length, 8);
+test("image map covers the supplied photographs", () => {
+  assert.equal(imageSpecs.length, 26);
   assert.equal(imageSpecs[0]?.id, "hero-cove-aerial");
+  assert.equal(imageSpecs[0]?.file, "01-hero-cove-aerial.jpg");
 });
 
 test("every specified photograph has filename keywords for flexible uploads", async () => {
