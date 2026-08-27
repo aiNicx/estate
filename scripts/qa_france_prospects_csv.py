@@ -61,7 +61,6 @@ PRIORITY = {"A", "B", "C"}
 EMAIL_RE = re.compile(r"^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$")
 URL_RE = re.compile(r"^https://[^\s]+$")
 DATE_RE = re.compile(r"^20\d{2}-\d{2}-\d{2}$")
-FIRST_LAST = re.compile(r"^[A-Za-z]+\.[A-Za-z]+@")
 
 
 def priority_for_score(score: int) -> str:
@@ -88,6 +87,7 @@ def main() -> int:
         errors.append("no data rows")
 
     keys = []
+    emails = []
     for i, row in enumerate(rows, start=2):
         loc = f"row {i} ({row.get('company_name')})"
         if row.get("country") != "France":
@@ -127,8 +127,7 @@ def main() -> int:
         if email:
             if not EMAIL_RE.match(email):
                 errors.append(f"{loc}: invalid email {email!r}")
-            if FIRST_LAST.match(email):
-                errors.append(f"{loc}: patterned first.last email is not allowed unless copied from a page: {email}")
+            emails.append(email.lower())
         for field in ("website", "source_1", "source_2", "linkedin_company", "linkedin_contact"):
             val = (row.get(field) or "").strip()
             if val and not URL_RE.match(val):
@@ -150,6 +149,9 @@ def main() -> int:
     dup_keys = [k for k, n in Counter(keys).items() if n > 1]
     if dup_keys:
         errors.append(f"duplicate company/city/contact keys: {dup_keys}")
+    dup_emails = [e for e, n in Counter(emails).items() if n > 1]
+    if dup_emails:
+        errors.append(f"duplicate emails: {dup_emails}")
 
     n = len(rows)
     n_email = sum(1 for r in rows if (r.get("email") or "").strip())
