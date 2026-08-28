@@ -24,7 +24,6 @@ type Copy = {
     eyebrow: string;
     title: string;
     lead: string;
-    geography: string[];
     scroll: string;
   };
   overview: {
@@ -37,6 +36,18 @@ type Copy = {
     terraces: string;
     units: string;
     composition: string;
+    seaAccess: string;
+    seaAccessValue: string;
+  };
+  home: {
+    galleryCta: string;
+    seaKicker: string;
+    seaTitle: string;
+    seaBody: string;
+    connectionsTitle: string;
+    connections: { name: string; relation: string }[];
+    dossierIntro: string;
+    dossierMaterials: string[];
   };
   property: {
     kicker: string;
@@ -98,16 +109,16 @@ type Copy = {
     pageIntro: string;
     items: { year?: string; title: string; body: string }[];
   };
-    gallery: {
-      kicker: string;
-      title: string;
-      intro: string;
-      emptyTitle: string;
-      emptyBody: string;
-      close: string;
-      next: string;
-      previous: string;
-    };
+  gallery: {
+    kicker: string;
+    title: string;
+    intro: string;
+    emptyTitle: string;
+    emptyBody: string;
+    close: string;
+    next: string;
+    previous: string;
+  };
   facts: {
     kicker: string;
     title: string;
@@ -217,28 +228,21 @@ export const messages: Record<Locale, Copy> = {
       close: "Close menu",
     },
     cta: {
-      request: "Request the private dossier",
+      request: "Request the confidential dossier",
       requestDetails: "View the estate",
-      requestInvestment: "Explore strategic optionality",
+      requestInvestment: "Explore strategic options",
     },
     hero: {
-      eyebrow: "Available for acquisition",
-      title: "Marina d'Albori",
-      lead: "Private waterfront estate · Amalfi Coast, Italy",
-      geography: [
-        "Marina d'Albori",
-        "Vietri sul Mare",
-        "Amalfi Coast",
-        "Campania",
-        "Italy",
-      ],
+      eyebrow: "Marina d'Albori",
+      title: "A private waterfront estate on the Amalfi Coast.",
+      lead: "Vietri sul Mare.",
       scroll: "Continue",
     },
     overview: {
       kicker: "The estate",
-      title: "A waterfront holding between hillside and sea.",
+      title: "Seven independent units on a private cove.",
       body: [
-        "Seven independent units bring together residential, hospitality and restaurant uses in a secluded cove at Marina d'Albori. Terraces, a historic limoneto and a seasonal landing / pontoon concession establish a direct relationship with the sea.",
+        "Five residential and two commercial units occupy a secluded waterfront setting. Terraces and a seasonal pontoon concession open the estate to the sea.",
       ],
     },
     metrics: {
@@ -246,6 +250,38 @@ export const messages: Record<Locale, Copy> = {
       terraces: "Terraces",
       units: "Independent units",
       composition: "Residential / commercial",
+      seaAccess: "Sea access",
+      seaAccessValue: "Direct",
+    },
+    home: {
+      galleryCta: "View the gallery",
+      seaKicker: "Sea access",
+      seaTitle: "A seasonal pontoon in a private cove.",
+      seaBody:
+        "A landing / pontoon concession associated with the property, in an enclosed waterfront setting.",
+      connectionsTitle: "Connections",
+      connections: [
+        {
+          name: "Vietri sul Mare",
+          relation: "The municipality, and eastern gateway to the Amalfi Coast.",
+        },
+        {
+          name: "Salerno",
+          relation: "The provincial capital, on the Gulf of Salerno.",
+        },
+        {
+          name: "Amalfi Coast",
+          relation: "The coastal landscape of southern Campania.",
+        },
+      ],
+      dossierIntro:
+        "Qualified parties may request plans, specifications, additional photography and further confidential documentation.",
+      dossierMaterials: [
+        "Plans",
+        "Property areas and specifications",
+        "Additional photography",
+        "Technical, cadastral and concession documentation",
+      ],
     },
     property: {
       kicker: "The property",
@@ -352,8 +388,8 @@ export const messages: Record<Locale, Copy> = {
       },
     },
     investment: {
-      kicker: "Strategic optionality",
-      title: "An existing mixed-use estate with several paths forward.",
+      kicker: "Use",
+      title: "Three possible configurations.",
       intro:
         "Residential, hospitality and restaurant uses already coexist across seven independent units.",
       presentTitle: "Existing asset",
@@ -363,33 +399,29 @@ export const messages: Record<Locale, Copy> = {
         "Approximately 900 m² of covered internal area and 300–350 m² of terraces.",
         "Seasonal landing / pontoon concession associated with the property.",
       ],
-      possibleTitle: "Strategic optionality",
+      possibleTitle: "Possible configurations",
       scenarios: [
         {
-          title: "Private residence / family estate",
-          body: "A single private holding with independent accommodation for family and guests.",
+          title: "Private Estate",
+          body: "A single private holding, with independent accommodation for family and guests.",
         },
         {
-          title: "Hospitality with food and beverage",
-          body: "A focused hospitality proposition combining accommodation with the existing restaurant activity.",
+          title: "Hospitality",
+          body: "Accommodation combined with the existing restaurant activity.",
         },
         {
-          title: "Mixed residential and hospitality asset",
-          body: "A balance of private apartments, operated accommodation and commercial space.",
-        },
-        {
-          title: "Long-term estate holding",
-          body: "A long-term hold defined by waterfront scarcity and the difficulty of replicating the setting.",
+          title: "Mixed-use Investment",
+          body: "Private apartments, operated hospitality and commercial space in one holding.",
         },
       ],
       disclaimer:
         "All future configurations are indicative and subject to due diligence, applicable approvals and verification of concession documentation.",
     },
     heritage: {
-      kicker: "Identity",
-      title: "Paper mill, lemon grove, ceramic and sea.",
+      kicker: "Provenance",
+      title: "A property with a history.",
       intro:
-        "The estate keeps material traces of Vietri sul Mare's work, cultivation and craft.",
+        "Paper mill, lemon grove, Vietri ceramic and the sea still shape the estate.",
       pageKicker: "Identity · Marina d'Albori",
       pageTitle:
         "Nearly two centuries of material, landscape and the Mediterranean.",
@@ -455,7 +487,7 @@ export const messages: Record<Locale, Copy> = {
     },
     request: {
       kicker: "Private enquiry",
-      title: "Request the private dossier.",
+      title: "Request the confidential dossier.",
       intro:
         "Qualified parties may request access to the detailed acquisition materials.",
       confidentialNote:
@@ -560,23 +592,16 @@ export const messages: Record<Locale, Copy> = {
       requestInvestment: "Esplora le opzioni strategiche",
     },
     hero: {
-      eyebrow: "Disponibile per l'acquisizione",
-      title: "Marina d'Albori",
-      lead: "Proprietà privata fronte mare · Costiera Amalfitana, Italia",
-      geography: [
-        "Marina d'Albori",
-        "Vietri sul Mare",
-        "Costiera Amalfitana",
-        "Campania",
-        "Italia",
-      ],
+      eyebrow: "Marina d'Albori",
+      title: "Una proprietà privata fronte mare, in Costiera Amalfitana.",
+      lead: "Vietri sul Mare.",
       scroll: "Continua",
     },
     overview: {
       kicker: "La proprietà",
-      title: "Una proprietà fronte mare tra il versante e il mare.",
+      title: "Sette unità indipendenti in una cala privata sul mare.",
       body: [
-        "Sette unità indipendenti riuniscono usi residenziali, ricettivi e di ristorazione in una cala appartata a Marina d'Albori. Terrazze, limoneto storico e concessione stagionale di approdo / pontile stabiliscono un rapporto insolitamente diretto con il mare.",
+        "Cinque unità residenziali e due commerciali occupano un contesto fronte mare appartato. Le terrazze e la concessione stagionale di pontile aprono la proprietà al mare.",
       ],
     },
     metrics: {
@@ -584,6 +609,38 @@ export const messages: Record<Locale, Copy> = {
       terraces: "Terrazze",
       units: "Unità indipendenti",
       composition: "Residenziali / commerciali",
+      seaAccess: "Accesso al mare",
+      seaAccessValue: "Diretto",
+    },
+    home: {
+      galleryCta: "Vedi la galleria",
+      seaKicker: "Accesso al mare",
+      seaTitle: "Un pontile stagionale in una cala privata.",
+      seaBody:
+        "Una concessione di approdo / pontile associata alla proprietà, in un contesto fronte mare raccolto.",
+      connectionsTitle: "Collegamenti",
+      connections: [
+        {
+          name: "Vietri sul Mare",
+          relation: "Il comune, porta orientale della Costiera Amalfitana.",
+        },
+        {
+          name: "Salerno",
+          relation: "Il capoluogo provinciale, sul Golfo di Salerno.",
+        },
+        {
+          name: "Costiera Amalfitana",
+          relation: "Il paesaggio costiero della Campania meridionale.",
+        },
+      ],
+      dossierIntro:
+        "I soggetti qualificati possono richiedere planimetrie, dati dimensionali, fotografie aggiuntive e ulteriore documentazione riservata.",
+      dossierMaterials: [
+        "Planimetrie",
+        "Superfici e dati della proprietà",
+        "Fotografie aggiuntive",
+        "Documentazione tecnica, catastale e concessoria",
+      ],
     },
     property: {
       kicker: "La proprietà",
@@ -690,8 +747,8 @@ export const messages: Record<Locale, Copy> = {
       },
     },
     investment: {
-      kicker: "Opzioni strategiche",
-      title: "Una proprietà a uso misto con diverse traiettorie possibili.",
+      kicker: "Uso",
+      title: "Tre configurazioni possibili.",
       intro:
         "Usi residenziali, ricettivi e di ristorazione già coesistono nelle sette unità indipendenti.",
       presentTitle: "Asset esistente",
@@ -701,33 +758,29 @@ export const messages: Record<Locale, Copy> = {
         "Circa 900 m² interni coperti e 300–350 m² di terrazze.",
         "Concessione stagionale di approdo / pontile associata alla proprietà.",
       ],
-      possibleTitle: "Opzioni strategiche",
+      possibleTitle: "Configurazioni possibili",
       scenarios: [
         {
-          title: "Residenza privata / tenuta di famiglia",
-          body: "Un'unica proprietà privata con alloggi indipendenti per famiglia e ospiti.",
+          title: "Residenza privata",
+          body: "Un'unica proprietà privata, con alloggi indipendenti per famiglia e ospiti.",
         },
         {
-          title: "Ricettività e ristorazione",
-          body: "Una proposta ricettiva che unisce accoglienza e attività di ristorazione esistente.",
+          title: "Ricettività",
+          body: "Accoglienza unita all'attività di ristorazione esistente.",
         },
         {
-          title: "Asset misto residenziale e ricettivo",
-          body: "Un equilibrio tra appartamenti privati, ospitalità gestita e spazi commerciali.",
-        },
-        {
-          title: "Detenzione di lungo periodo",
-          body: "Una detenzione di lungo periodo definita dalla scarsità fronte mare e dalla difficoltà di replicare il contesto.",
+          title: "Investimento a uso misto",
+          body: "Appartamenti privati, ospitalità gestita e spazi commerciali in un unico complesso.",
         },
       ],
       disclaimer:
         "Ogni configurazione futura è indicativa e soggetta a due diligence, autorizzazioni applicabili e verifica della documentazione concessoria.",
     },
     heritage: {
-      kicker: "Identità",
-      title: "Cartiera, limoneto, ceramica e mare.",
+      kicker: "Provenienza",
+      title: "Una proprietà con una storia.",
       intro:
-        "La proprietà conserva tracce materiali del lavoro, della coltivazione e dell'artigianato di Vietri sul Mare.",
+        "Cartiera, limoneto, ceramica vietrese e mare definiscono ancora la proprietà.",
       pageKicker: "Identità · Marina d'Albori",
       pageTitle: "Quasi due secoli di materia, paesaggio e Mediterraneo.",
       pageIntro:

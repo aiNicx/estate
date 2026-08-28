@@ -34,6 +34,8 @@ export type ImageSpec = {
   placements: Array<
     | "hero"
     | "home-intro"
+    | "home-gallery"
+    | "home-location"
     | "property"
     | "spaces"
     | "location"
@@ -79,7 +81,7 @@ export const imageSpecs: ImageSpec[] = [
       en: "Buildings, terraces and the cove, seen from above.",
       it: "Edifici, terrazze e cala, visti dall'alto.",
     },
-    placements: ["property", "spaces", "gallery"],
+    placements: ["property", "spaces", "gallery", "home-gallery"],
   },
   {
     id: "terrace-dining-sea",
@@ -95,7 +97,7 @@ export const imageSpecs: ImageSpec[] = [
       en: "A terrace looking south over the sea.",
       it: "Una terrazza rivolta a sud, sul mare.",
     },
-    placements: ["home-intro", "spaces", "gallery"],
+    placements: ["home-intro", "spaces", "gallery", "home-gallery"],
   },
   {
     id: "living-kitchen",
@@ -191,7 +193,7 @@ export const imageSpecs: ImageSpec[] = [
       en: "The cove from the waterline.",
       it: "La cala dalla linea d'acqua.",
     },
-    placements: ["location", "heritage", "gallery"],
+    placements: ["location", "heritage", "gallery", "home-location"],
   },
   {
     id: "exterior-pines-stream",
@@ -351,7 +353,7 @@ export const imageSpecs: ImageSpec[] = [
       en: "The path down toward the water.",
       it: "Il percorso verso l'acqua.",
     },
-    placements: ["location", "heritage", "gallery"],
+    placements: ["location", "heritage", "gallery", "home-location"],
   },
   {
     id: "bedroom-vaulted-sea",
@@ -431,7 +433,7 @@ export const imageSpecs: ImageSpec[] = [
       en: "A balcony looking over the beach.",
       it: "Un balcone sulla spiaggia.",
     },
-    placements: ["home-intro", "spaces", "gallery"],
+    placements: ["home-intro", "spaces", "gallery", "home-gallery"],
   },
   {
     id: "living-sea-view",
@@ -635,6 +637,24 @@ export function availableImage(id: string): ResolvedImage | undefined {
   const image = imageById(id);
   return image?.available ? image : undefined;
 }
+
+export function imagesByIds(ids: readonly string[]): ResolvedImage[] {
+  return ids
+    .map((id) => availableImage(id))
+    .filter((image): image is ResolvedImage => Boolean(image));
+}
+
+/** Editorial homepage gallery: one featured image, then supporting views. */
+export const HOME_GALLERY_IDS = [
+  "architecture-hillside-aerial",
+  "terrace-dining-sea",
+  "balcony-arch-beach",
+] as const;
+
+export const HOME_SEA_IMAGE_IDS = [
+  "path-stairs-sea",
+  "sea-rocks-buoys",
+] as const;
 
 export function imageById(id: string): ResolvedImage | undefined {
   return resolveImages().find((image) => image.id === id);

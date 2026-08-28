@@ -6,7 +6,22 @@ import {
   type Locale,
 } from "./property.ts";
 
-export function getMetrics(locale: Locale) {
+function compactArea(value: number): string {
+  return `≈ ${new Intl.NumberFormat("en-GB").format(value)} m²`;
+}
+
+function compositionNote(locale: Locale): string {
+  const { residential, commercial } = property.units;
+  return locale === "it"
+    ? `${residential} residenziali · ${commercial} commerciali`
+    : `${residential} residential · ${commercial} commercial`;
+}
+
+export function getMetrics(locale: Locale): {
+  label: string;
+  value: string;
+  note?: string;
+}[] {
   const labels = t(locale).metrics;
   return [
     {
@@ -20,11 +35,16 @@ export function getMetrics(locale: Locale) {
     {
       label: labels.units,
       value: String(property.units.total),
+      note: compositionNote(locale),
     },
-    {
-      label: labels.composition,
-      value: `${property.units.residential} + ${property.units.commercial}`,
-    },
+    ...(property.waterfront.seaRelationship
+      ? [
+          {
+            label: labels.seaAccess,
+            value: labels.seaAccessValue,
+          },
+        ]
+      : []),
   ];
 }
 
@@ -149,8 +169,4 @@ export function getAssetDetailGroups(locale: Locale) {
       ],
     },
   ];
-}
-
-function compactArea(value: number): string {
-  return `≈ ${new Intl.NumberFormat("en-GB").format(value)} m²`;
 }
