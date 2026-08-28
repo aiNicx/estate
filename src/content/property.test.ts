@@ -3,7 +3,7 @@ import test from "node:test";
 import { property } from "./property.ts";
 import { imageSpecs } from "./images.ts";
 import { messages } from "./messages.ts";
-import { getFactRows, getMetrics } from "./facts.ts";
+import { getAssetDetailGroups, getKeyFacts, getMetrics } from "./facts.ts";
 import { validateInquiry } from "../lib/inquiry.ts";
 
 test("property facts stay within supplied information", () => {
@@ -29,8 +29,25 @@ test("english and italian copy both exist", () => {
     Object.keys(messages.it.facts.terms),
   );
   assert.deepEqual(
+    Object.keys(messages.en.facts.groups),
+    Object.keys(messages.it.facts.groups),
+  );
+  assert.deepEqual(
     Object.keys(messages.en.metrics),
     Object.keys(messages.it.metrics),
+  );
+  assert.deepEqual(
+    Object.keys(messages.en.property),
+    Object.keys(messages.it.property),
+  );
+  assert.equal(
+    messages.en.spaces.chapters.length,
+    messages.it.spaces.chapters.length,
+  );
+  assert.equal(messages.en.spaces.chapters.length, 5);
+  assert.equal(
+    messages.en.heritage.items.length,
+    messages.it.heritage.items.length,
   );
   assert.equal(messages.en.gallery.emptyBody.length > 0, true);
   assert.equal(messages.it.gallery.emptyBody.length > 0, true);
@@ -46,18 +63,31 @@ test("english and italian copy both exist", () => {
 
 test("visible metrics and fact rows derive from the property source", () => {
   const metrics = getMetrics("en");
-  const facts = getFactRows("it");
+  const keyFacts = getKeyFacts("it");
+  const groups = getAssetDetailGroups("it");
+  const detailValues = groups.flatMap((group) => group.rows.map((row) => row.value));
   assert.equal(metrics[0]?.value, `≈ ${property.internalArea.squareMetres} m²`);
   assert.equal(metrics[2]?.value, String(property.units.total));
   assert.equal(
     metrics[3]?.value,
     `${property.units.residential} + ${property.units.commercial}`,
   );
+  assert.equal(keyFacts[2]?.value, String(property.units.total));
+  assert.equal(keyFacts[3]?.value, String(property.units.residential));
+  assert.equal(keyFacts[4]?.value, String(property.units.commercial));
   assert.ok(
-    facts.some(
-      ({ value }) =>
-        value ===
-        `Sì — circa ${property.lemonGarden.treeCount} alberi, circa ${property.lemonGarden.treeAgeYears} anni`,
+    keyFacts.some((row) =>
+      row.value.includes(String(property.internalArea.squareMetres)),
+    ),
+  );
+  assert.ok(
+    detailValues.some((value) =>
+      value.includes(String(property.lemonGarden.treeCount)),
+    ),
+  );
+  assert.ok(
+    detailValues.some((value) =>
+      value.includes(String(property.heritage.paperMillYear)),
     ),
   );
 });

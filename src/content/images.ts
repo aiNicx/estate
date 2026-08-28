@@ -191,7 +191,7 @@ export const imageSpecs: ImageSpec[] = [
       en: "The cove from the waterline.",
       it: "La cala dalla linea d'acqua.",
     },
-    placements: ["location", "gallery"],
+    placements: ["location", "heritage", "gallery"],
   },
   {
     id: "exterior-pines-stream",
@@ -351,7 +351,7 @@ export const imageSpecs: ImageSpec[] = [
       en: "The path down toward the water.",
       it: "Il percorso verso l'acqua.",
     },
-    placements: ["location", "gallery"],
+    placements: ["location", "heritage", "gallery"],
   },
   {
     id: "bedroom-vaulted-sea",

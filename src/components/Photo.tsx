@@ -8,7 +8,8 @@ type PhotoProps = {
   priority?: boolean;
   sizes: string;
   className?: string;
-  caption?: boolean;
+  frameClassName?: string;
+  caption?: boolean | string;
 };
 
 export function Photo({
@@ -17,13 +18,17 @@ export function Photo({
   priority = false,
   sizes,
   className = "",
+  frameClassName = "aspect-[3/4]",
   caption = false,
 }: PhotoProps) {
   if (!image?.available) return null;
 
+  const captionText =
+    typeof caption === "string" ? caption : caption ? image.caption[locale] : null;
+
   return (
     <figure className={className}>
-      <div className="photo-frame relative aspect-[3/4] h-full w-full">
+      <div className={`photo-frame relative h-full w-full ${frameClassName}`.trim()}>
         <Image
           src={image.src}
           alt={image.alt[locale]}
@@ -36,9 +41,9 @@ export function Photo({
           style={{ objectPosition: image.objectPosition }}
         />
       </div>
-      {caption ? (
+      {captionText ? (
         <figcaption className="mt-3 text-sm text-[var(--ink-soft)]">
-          {image.caption[locale]}
+          {captionText}
         </figcaption>
       ) : null}
     </figure>
