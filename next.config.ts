@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   },
   outputFileTracingIncludes: {
     "/[locale]/**": ["./public/images/property/**/*"],
+    "/prospects": ["./data/real-estate-prospects/**/*"],
   },
 };
 

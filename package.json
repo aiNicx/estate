@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/content/property.test.ts src/content/images.test.ts src/lib/site.test.ts",
+    "test": "node --experimental-strip-types --test src/content/property.test.ts src/content/images.test.ts src/lib/site.test.ts src/lib/prospects/prospects.test.ts",
     "optimize:photos": "node scripts/optimize-photos.mjs"
   },
   "engines": {

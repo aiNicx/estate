@@ -39,6 +39,7 @@ Copy `.env.example` to `.env.local`:
 
 - `NEXT_PUBLIC_SITE_URL` — public origin, used for canonical URLs, hreflang, sitemap, Open Graph. On Vercel set this to the production domain (for example `https://www.example.com`).
 - `INQUIRY_ENDPOINT` — POST URL for the request form (Formspree, a CRM webhook, or your API). Until this is set, validated requests are only logged on the server.
+- `PROSPECTS_PIN` — PIN for the private contact desk at `/prospects` (not linked in navigation). Until this is set, the page stays locked.
 
 ### Vercel
 
