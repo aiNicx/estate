@@ -24,6 +24,14 @@ test("property facts stay within supplied information", () => {
 test("english and italian copy both exist", () => {
   assert.ok(messages.en.hero.title.length > 10);
   assert.ok(messages.it.hero.title.length > 10);
+  assert.notEqual(messages.en.hero.title, "Marina d'Albori");
+  assert.notEqual(messages.it.hero.title, "Marina d'Albori");
+  assert.equal(messages.en.hero.eyebrow, "Marina d'Albori");
+  assert.equal(messages.it.hero.eyebrow, "Marina d'Albori");
+  assert.equal("geography" in messages.en.hero, false);
+  assert.equal("geography" in messages.it.hero, false);
+  assert.equal(messages.en.investment.scenarios.length, 3);
+  assert.equal(messages.it.investment.scenarios.length, 3);
   assert.deepEqual(
     Object.keys(messages.en.facts.terms),
     Object.keys(messages.it.facts.terms),
@@ -32,6 +40,7 @@ test("english and italian copy both exist", () => {
     Object.keys(messages.en.metrics),
     Object.keys(messages.it.metrics),
   );
+  assert.deepEqual(Object.keys(messages.en.home), Object.keys(messages.it.home));
   assert.equal(messages.en.gallery.emptyBody.length > 0, true);
   assert.equal(messages.it.gallery.emptyBody.length > 0, true);
   assert.equal(messages.en.investment.disclaimer.length > 0, true);
@@ -50,9 +59,10 @@ test("visible metrics and fact rows derive from the property source", () => {
   assert.equal(metrics[0]?.value, `≈ ${property.internalArea.squareMetres} m²`);
   assert.equal(metrics[2]?.value, String(property.units.total));
   assert.equal(
-    metrics[3]?.value,
-    `${property.units.residential} + ${property.units.commercial}`,
+    metrics[2]?.note,
+    `${property.units.residential} residential · ${property.units.commercial} commercial`,
   );
+  assert.equal(metrics[3]?.value, messages.en.metrics.seaAccessValue);
   assert.ok(
     facts.some(
       ({ value }) =>
