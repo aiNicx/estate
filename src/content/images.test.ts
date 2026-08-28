@@ -32,3 +32,11 @@ test("numbered catalog files map one-to-one and leave no extras", async () => {
   }
   assert.deepEqual(extras, []);
 });
+
+test("homepage editorial gallery ids stay within the image map", async () => {
+  const { HOME_GALLERY_IDS, HOME_SEA_IMAGE_IDS, imageSpecs } = await import("./images.ts");
+  const ids = new Set(imageSpecs.map((spec) => spec.id));
+  for (const id of [...HOME_GALLERY_IDS, ...HOME_SEA_IMAGE_IDS]) {
+    assert.ok(ids.has(id), id);
+  }
+});

@@ -8,7 +8,10 @@ export function MetricBand({ locale }: { locale: Locale }) {
       {metrics.map((metric) => (
         <div className="metric" key={metric.label}>
           <dt>{metric.label}</dt>
-          <dd>{metric.value}</dd>
+          <dd>
+            {metric.value}
+            {metric.note ? <span className="metric-note">{metric.note}</span> : null}
+          </dd>
         </div>
       ))}
     </dl>

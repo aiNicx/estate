@@ -8,6 +8,7 @@ type PhotoProps = {
   priority?: boolean;
   sizes: string;
   className?: string;
+  frameClassName?: string;
   caption?: boolean;
 };
 
@@ -17,13 +18,14 @@ export function Photo({
   priority = false,
   sizes,
   className = "",
+  frameClassName = "aspect-[3/4]",
   caption = false,
 }: PhotoProps) {
   if (!image?.available) return null;
 
   return (
     <figure className={className}>
-      <div className="photo-frame relative aspect-[3/4] h-full w-full">
+      <div className={`photo-frame relative h-full w-full ${frameClassName}`}>
         <Image
           src={image.src}
           alt={image.alt[locale]}

@@ -51,6 +51,11 @@ export default async function HeritagePage({ params }: PageProps) {
       <div className="shell mt-16 grid gap-10 md:grid-cols-2">
         {copy.items.map((item) => (
           <article key={item.title} className="border-t border-[var(--line)] pt-6">
+            {item.year ? (
+              <p className="mb-2 mt-0 font-[family-name:var(--display)] text-xl tracking-[-0.03em] text-[var(--sea)]">
+                {item.year}
+              </p>
+            ) : null}
             <h2 className="display mt-0 text-3xl">{item.title}</h2>
             <p className="text-[var(--ink-soft)]">{item.body}</p>
           </article>
