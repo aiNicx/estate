@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getSiteUrl } from "./site.ts";
+import { getSiteUrl, routes } from "./site.ts";
 
 const KEYS = [
   "NEXT_PUBLIC_SITE_URL",
@@ -26,4 +26,11 @@ test("getSiteUrl never throws on empty or invalid env values", () => {
     if (value === undefined) delete process.env[key];
     else process.env[key] = value;
   }
+});
+
+test("public routes do not expose the prospects desk", () => {
+  assert.equal(
+    routes.some((route) => route.href.includes("prospect")),
+    false,
+  );
 });
