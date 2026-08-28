@@ -816,7 +816,7 @@ export const messages: Record<Locale, Copy> = {
       close: "Chiudi la fotografia",
       next: "Fotografia successiva",
       previous: "Fotografia precedente",
-      },
+    },
     facts: {
       kicker: "Specifiche",
       title: "Scheda dell'immobile",

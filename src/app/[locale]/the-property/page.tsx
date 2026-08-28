@@ -77,6 +77,7 @@ export default async function PropertyPage({ params }: PageProps) {
               <Photo
                 image={aerial}
                 locale={locale}
+                priority
                 sizes="(max-width: 768px) 100vw, 58vw"
                 className={pines ? "md:col-span-7" : "md:col-span-12"}
               />

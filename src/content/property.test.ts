@@ -58,6 +58,10 @@ test("english and italian copy both exist", () => {
     messages.en.heritage.items.length,
     messages.it.heritage.items.length,
   );
+  assert.equal(messages.en.heritage.title, "A property with a history.");
+  assert.equal(messages.it.heritage.title, "Una proprietà con una storia.");
+  assert.notEqual(messages.en.heritage.pageTitle, messages.en.heritage.title);
+  assert.notEqual(messages.it.heritage.pageTitle, messages.it.heritage.title);
   assert.equal(messages.en.gallery.emptyBody.length > 0, true);
   assert.equal(messages.it.gallery.emptyBody.length > 0, true);
   assert.equal(messages.en.investment.disclaimer.length > 0, true);
