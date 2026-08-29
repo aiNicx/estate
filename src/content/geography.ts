@@ -88,6 +88,8 @@ export const coastline: readonly LonLat[] = [
   { longitude: 14.627, latitude: 40.648 },
   { longitude: 14.641, latitude: 40.647 },
   { longitude: 14.67, latitude: 40.644 },
+  { longitude: 14.686, latitude: 40.645 },
+  { longitude: 14.695, latitude: 40.6455 },
   { longitude: 14.701, latitude: 40.646 },
   { longitude: 14.707, latitude: 40.652 },
   { longitude: 14.712, latitude: 40.658 },

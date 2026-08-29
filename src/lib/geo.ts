@@ -55,6 +55,18 @@ export function polyline(
     .join(" ");
 }
 
+export function clipToBounds(
+  points: readonly LonLat[],
+  bounds: GeoBounds,
+  pad = 0.04,
+): LonLat[] {
+  const west = bounds.west - pad;
+  const east = bounds.east + pad;
+  return points.filter(
+    (point) => point.longitude >= west && point.longitude <= east,
+  );
+}
+
 export function offsetNorth(points: readonly LonLat[], degrees: number): LonLat[] {
   return points.map((point) => ({
     longitude: point.longitude,

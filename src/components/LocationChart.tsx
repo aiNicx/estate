@@ -12,7 +12,7 @@ import {
   placesForView,
   type MapViewId,
 } from "@/content/geography";
-import { polyline, project } from "@/lib/geo";
+import { polyline, project, clipToBounds } from "@/lib/geo";
 
 const W = mapFrame.width;
 const H = mapFrame.height;
@@ -29,13 +29,18 @@ export function LocationChart({
   const bounds = mapViews[view];
   const landClip = `${uid}-land`;
   const hatch = `${uid}-hatch`;
-  const coastD = polyline(coastline, bounds, W, H);
+  const shore = clipToBounds(coastline, bounds);
+  const hillsNear = clipToBounds(hillBands.near, bounds);
+  const hillsMid = clipToBounds(hillBands.mid, bounds);
+  const hillsFar = clipToBounds(hillBands.far, bounds);
+  const road = clipToBounds(coastalRoad, bounds, 0.01);
+  const coastD = polyline(shore, bounds, W, H);
   const landD = `${coastD} L${W} 0 L0 0 Z`;
   const foamD = `${coastD} L${W} ${H} L0 ${H} Z`;
-  const nearD = `${polyline(hillBands.near, bounds, W, H)} L${W} 0 L0 0 Z`;
-  const midD = `${polyline(hillBands.mid, bounds, W, H)} L${W} 0 L0 0 Z`;
-  const farD = `${polyline(hillBands.far, bounds, W, H)} L${W} 0 L0 0 Z`;
-  const roadD = coastalRoad.length > 1 ? polyline(coastalRoad, bounds, W, H) : "";
+  const nearD = `${polyline(hillsNear, bounds, W, H)} L${W} 0 L0 0 Z`;
+  const midD = `${polyline(hillsMid, bounds, W, H)} L${W} 0 L0 0 Z`;
+  const farD = `${polyline(hillsFar, bounds, W, H)} L${W} 0 L0 0 Z`;
+  const roadD = road.length > 1 ? polyline(road, bounds, W, H) : "";
   const pin = project(
     { longitude: property.geo.longitude, latitude: property.geo.latitude },
     bounds,
@@ -72,7 +77,7 @@ export function LocationChart({
       <path d={foamD} fill="#1b3a4a" />
       <path d={foamD} fill="#2d6a78" opacity="0.22" />
 
-      {view !== "connections" ? (
+      {view !== "connections" && gulf.y > 40 && gulf.y < H - 40 ? (
         <text
           className="location-map-gulf-label"
           x={gulf.x}
