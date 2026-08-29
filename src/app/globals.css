@@ -652,17 +652,18 @@ h3,
 
 .location-map-frame {
   position: relative;
-  aspect-ratio: 5 / 3;
-  background: var(--sea-deep);
+  height: clamp(30rem, 68svh, 42rem);
+  background: var(--paper-deep);
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .location-map-compact .location-map-frame {
+  height: auto;
   aspect-ratio: 4 / 3;
 }
 
-.location-atlas-caption,
-.location-map-simple-caption {
+.location-map-caption {
   margin: 0;
   padding: 0.8rem 1rem 0.9rem;
   font-family: var(--display);
@@ -704,20 +705,6 @@ h3,
   font-size: clamp(1.2rem, 2vw, 1.55rem);
   letter-spacing: -0.03em;
   line-height: 1.2;
-}
-
-.location-atlas {
-  margin: 0;
-  background: var(--paper);
-  border: 1px solid var(--line);
-}
-
-.location-atlas-frame {
-  position: relative;
-  height: clamp(30rem, 68svh, 42rem);
-  background: var(--sea-deep);
-  overflow: hidden;
-  touch-action: pan-y;
 }
 
 .estate-map-shell,
@@ -1438,7 +1425,7 @@ h3,
     gap: 3.5rem 4rem;
   }
 
-  .location-atlas-frame {
+  .location-map:not(.location-map-compact) .location-map-frame {
     height: min(74vh, 49rem);
   }
 

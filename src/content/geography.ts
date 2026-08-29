@@ -46,19 +46,20 @@ export const locationMap = {
     mobile: 11.3,
     desktop: 12.35,
   },
-  minZoom: 11,
-  maxZoom: 15.5,
-  pitch: 26,
-  bearing: 0,
+  minZoom: 10,
+  maxZoom: 16,
   placeIds: ["property", "vietri", "salerno"] as const satisfies readonly PlaceId[],
 } as const;
 
-export const mapResources = {
-  basemapProvider: "OpenFreeMap",
-  basemapStyle: "https://tiles.openfreemap.org/styles/positron",
-  terrainProvider: "AWS Terrain Tiles / EU-DEM",
-  terrainTiles:
-    "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+/** Keyless raster tiles. Vector style URLs (OpenFreeMap) and DEM hillshade are not used. */
+export const mapBasemap = {
+  tiles: [
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+  ],
+  tileSize: 256,
+  maxzoom: 16,
+  attribution:
+    'Tiles © <a href="https://www.esri.com/">Esri</a> — Esri, USGS, NOAA, and the GIS User Community',
   requiresToken: false,
 } as const;
 
