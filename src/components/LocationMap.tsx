@@ -8,9 +8,11 @@ import { LazyEstateMap } from "./LazyEstateMap";
 export function LocationMap({
   locale,
   compact = false,
+  interactive = !compact,
 }: {
   locale: Locale;
   compact?: boolean;
+  interactive?: boolean;
 }) {
   const copy = t(locale).location;
 

@@ -652,12 +652,14 @@ h3,
 
 .location-map-frame {
   position: relative;
-  aspect-ratio: 5 / 3;
-  background: var(--sea-deep);
+  height: clamp(30rem, 68svh, 42rem);
+  background: var(--paper-deep);
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .location-map-compact .location-map-frame {
+  height: auto;
   aspect-ratio: 4 / 3;
 }
 
