@@ -104,17 +104,12 @@ type Copy = {
     distinctTitle: string;
     distinct: { title: string; body: string }[];
     dossierLead: string;
-    mapKicker: string;
     mapCaption: string;
-    openMaps: string;
-    mapAria: string;
-    mapCredit: string;
     map: {
       kicker: string;
       levelsLabel: string;
       levels: { local: string; coast: string; connections: string };
       captions: { local: string; coast: string; connections: string };
-      credit: string;
       chartAria: { local: string; coast: string; connections: string };
     };
     mapLabels: {
@@ -498,12 +493,7 @@ export const messages: Record<Locale, Copy> = {
       ],
       dossierLead:
         "Plans, concession documents and further geographic detail are reserved for the confidential dossier.",
-      mapKicker: "The cove",
-      mapCaption: "Marina d'Albori, Vietri sul Mare",
-      openMaps: "Open in Google Maps",
-      mapAria:
-        "Editorial map of the estate at Marina d'Albori, Vietri sul Mare. Opens Google Maps in a new tab.",
-      mapCredit: "OpenStreetMap · OpenFreeMap",
+      mapCaption: "Marina d'Albori · Vietri sul Mare",
       map: {
         kicker: "Geography",
         levelsLabel: "Map scale",
@@ -513,11 +503,10 @@ export const messages: Record<Locale, Copy> = {
           connections: "Connections",
         },
         captions: {
-          local: "Hillside, cove and road level at Marina d'Albori",
-          coast: "Eastern Amalfi Coast, Gulf of Salerno",
-          connections: "Salerno, rail and airports",
+          local: "Marina d'Albori · Vietri sul Mare",
+          coast: "From Positano to Salerno · Amalfi Coast",
+          connections: "Salerno · rail and airports",
         },
-        credit: "OpenStreetMap · OpenFreeMap · pin from the published listing coordinates",
         chartAria: {
           local:
             "Editorial map of Marina d'Albori showing the hillside, the cove and the road level above the estate.",
@@ -970,12 +959,7 @@ export const messages: Record<Locale, Copy> = {
       ],
       dossierLead:
         "Planimetrie, documentazione concessoria e ulteriori dati geografici restano nel dossier riservato.",
-      mapKicker: "La cala",
-      mapCaption: "Marina d'Albori, Vietri sul Mare",
-      openMaps: "Apri in Google Maps",
-      mapAria:
-        "Mappa editoriale della proprietà a Marina d'Albori, Vietri sul Mare. Apre Google Maps in una nuova scheda.",
-      mapCredit: "OpenStreetMap · OpenFreeMap",
+      mapCaption: "Marina d'Albori · Vietri sul Mare",
       map: {
         kicker: "Geografia",
         levelsLabel: "Scala della carta",
@@ -985,12 +969,10 @@ export const messages: Record<Locale, Copy> = {
           connections: "Collegamenti",
         },
         captions: {
-          local: "Versante, cala e livello stradale a Marina d'Albori",
-          coast: "Estremo orientale della Costiera, Golfo di Salerno",
-          connections: "Salerno, ferrovia e aeroporti",
+          local: "Marina d'Albori · Vietri sul Mare",
+          coast: "Da Positano a Salerno · Costiera Amalfitana",
+          connections: "Salerno · ferrovia e aeroporti",
         },
-        credit:
-          "OpenStreetMap · OpenFreeMap · pin dalle coordinate pubblicate della scheda",
         chartAria: {
           local:
             "Carta editoriale di Marina d'Albori: versante, cala e livello stradale sopra la proprietà.",

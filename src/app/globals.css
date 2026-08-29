@@ -661,63 +661,16 @@ h3,
   aspect-ratio: 4 / 3;
 }
 
-.location-map-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem 1.5rem;
-  padding: 1.15rem 1.25rem 1.05rem;
-}
-
-.location-map-caption {
-  margin: 0.2rem 0 0;
+.location-atlas-caption,
+.location-map-simple-caption {
+  margin: 0;
+  padding: 0.8rem 1rem 0.9rem;
   font-family: var(--display);
-  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
   letter-spacing: -0.03em;
   line-height: 1.15;
-}
-
-.location-map-credit {
-  margin: 0.45rem 0 0;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.location-map-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  min-height: 2.5rem;
-  color: var(--sea);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: underline;
-  text-decoration-color: var(--line);
-  text-underline-offset: 0.3em;
-}
-
-.location-map-cta::after {
-  content: "→";
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.location-map:hover .location-map-cta,
-.location-map:focus-visible .location-map-cta {
-  text-decoration-color: currentColor;
-}
-
-.location-map-mosaic {
-  padding: 0 1.25rem 0.95rem;
-}
-
-.location-map-mosaic .mosaic-band {
-  width: 100%;
+  color: var(--ink);
+  border-top: 1px solid var(--line);
 }
 
 .location-hero {
@@ -907,23 +860,6 @@ h3,
 .location-atlas-frame-coast,
 .location-atlas-frame-connections {
   min-height: 62svh;
-}
-
-.location-gazetteer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem 1.75rem;
-  list-style: none;
-  margin: 1rem 0 0;
-  padding: 0;
-  font-size: 0.82rem;
-  color: var(--ink-soft);
-}
-
-.location-gazetteer strong {
-  font-weight: 600;
-  color: var(--ink);
-  margin-right: 0.45rem;
 }
 
 .location-chapter {

@@ -39,7 +39,6 @@ export default async function LocationPage({ params }: PageProps) {
   const rocks = availableImage("sea-rocks-buoys");
   const hillside = availableImage("architecture-hillside-aerial");
   const localPlaces = placesForView("local");
-  const coastPlaces = placesForView("coast");
 
   return (
     <PageShell
@@ -70,18 +69,6 @@ export default async function LocationPage({ params }: PageProps) {
           {copy.map.kicker}
         </h2>
         <LocationAtlas locale={locale} />
-        <ol className="location-gazetteer">
-          {coastPlaces.map((place) => (
-            <li key={place.id}>
-              <strong>{copy.mapLabels[place.id]}</strong>
-              {place.id !== "property" ? (
-                <span>{formatStraightLine(locale, straightLineFromProperty(place.id).km)}</span>
-              ) : (
-                <span>{copy.mapLabels.cove}</span>
-              )}
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section

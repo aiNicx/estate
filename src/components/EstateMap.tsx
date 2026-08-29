@@ -6,11 +6,11 @@ import {
   Map as MapLibreMap,
   Marker,
   NavigationControl,
+  type StyleSpecification,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Locale } from "@/content/property";
 import { t } from "@/content/messages";
-import { estateMapStyle } from "@/content/map-style";
 import {
   mapCameras,
   placesForView,
@@ -21,6 +21,59 @@ type EstateMapProps = {
   locale: Locale;
   view: MapViewId;
   interactive?: boolean;
+};
+
+const MAP_STYLE: StyleSpecification = {
+  version: 8,
+  sources: {
+    basemap: {
+      type: "raster",
+      tiles: [
+        "https://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png",
+        "https://b.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png",
+        "https://c.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png",
+      ],
+      tileSize: 256,
+      attribution:
+        "&copy; OpenStreetMap contributors &copy; CARTO",
+      maxzoom: 20,
+    },
+    terrain: {
+      type: "raster-dem",
+      tiles: [
+        "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+      ],
+      encoding: "terrarium",
+      tileSize: 256,
+      maxzoom: 15,
+      attribution: "Elevation tiles by AWS",
+    },
+  },
+  layers: [
+    {
+      id: "basemap",
+      type: "raster",
+      source: "basemap",
+      paint: {
+        "raster-saturation": -0.35,
+        "raster-contrast": 0.08,
+        "raster-brightness-min": 0.04,
+        "raster-brightness-max": 0.96,
+      },
+    },
+    {
+      id: "terrain-shading",
+      type: "hillshade",
+      source: "terrain",
+      paint: {
+        "hillshade-exaggeration": 0.45,
+        "hillshade-shadow-color": "#3c4f3d",
+        "hillshade-highlight-color": "#fbf8f2",
+        "hillshade-accent-color": "#1b3a4a",
+        "hillshade-illumination-direction": 315,
+      },
+    },
+  ],
 };
 
 export function EstateMap({ locale, view, interactive = true }: EstateMapProps) {
@@ -42,10 +95,12 @@ export function EstateMap({ locale, view, interactive = true }: EstateMapProps) 
     if (!host) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const compactPointer = window.matchMedia("(pointer: coarse)").matches;
+    const canInteract = interactive && !compactPointer;
     const camera = mapCameras[viewRef.current];
     const map = new MapLibreMap({
       container: host,
-      style: estateMapStyle(),
+      style: MAP_STYLE,
       center: camera.center,
       zoom: camera.zoom,
       pitch: reduceMotion ? 0 : camera.pitch,
@@ -57,8 +112,7 @@ export function EstateMap({ locale, view, interactive = true }: EstateMapProps) 
         [15.45, 41.22],
       ],
       attributionControl: false,
-      interactive,
-      cooperativeGestures: interactive,
+      interactive: canInteract,
       fadeDuration: reduceMotion ? 0 : 300,
       dragRotate: false,
       pitchWithRotate: false,
@@ -69,7 +123,7 @@ export function EstateMap({ locale, view, interactive = true }: EstateMapProps) 
       "bottom-left",
     );
 
-    if (interactive) {
+    if (canInteract) {
       map.addControl(
         new NavigationControl({
           showCompass: true,
@@ -129,6 +183,7 @@ export function EstateMap({ locale, view, interactive = true }: EstateMapProps) 
       }
     };
 
+    paintMarkers();
     map.on("load", () => {
       applyView(viewRef.current, false);
       paintMarkers();
