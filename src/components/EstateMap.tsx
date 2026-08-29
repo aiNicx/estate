@@ -5,7 +5,6 @@ import {
   AttributionControl,
   Map as MapLibreMap,
   Marker,
-  type MapSourceDataEvent,
   type StyleSpecification,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -273,9 +272,8 @@ export function EstateMap({
     });
 
     const ready = () => setStatus("ready");
-    const onSourceData = (event: MapSourceDataEvent) => {
-      if (event.sourceId === "openmaptiles" && event.isSourceLoaded) ready();
-    };
+    let basemapErrors = 0;
+    map.once("style.load", ready);
     map.on("load", () => {
       ready();
       if (reducedMotion) return;
@@ -285,15 +283,20 @@ export function EstateMap({
         // Terrain is an enhancement; the geographic basemap remains useful.
       }
     });
-    map.on("sourcedata", onSourceData);
+    map.on("error", (event) => {
+      const sourceId = (event as { sourceId?: string }).sourceId;
+      if (sourceId !== "openmaptiles") return;
+      basemapErrors += 1;
+      if (basemapErrors >= 4) setStatus("failed");
+    });
 
-    const failureTimer = window.setTimeout(() => {
+    const initializationTimer = window.setTimeout(() => {
       setStatus((current) => (current === "loading" ? "failed" : current));
     }, 12_000);
 
     mapRef.current = map;
     return () => {
-      window.clearTimeout(failureTimer);
+      window.clearTimeout(initializationTimer);
       for (const marker of markersRef.current) marker.remove();
       markersRef.current = [];
       map.remove();
