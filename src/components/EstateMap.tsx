@@ -5,7 +5,6 @@ import {
   AttributionControl,
   Map as MapLibreMap,
   Marker,
-  type StyleSpecification,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Locale } from "@/content/property";
@@ -18,17 +17,64 @@ import {
 } from "@/content/geography";
 
 type MapStatus = "loading" | "ready" | "failed";
+type EditorialPaintProperty =
+  | "background-color"
+  | "fill-color"
+  | "fill-opacity"
+  | "fill-outline-color"
+  | "line-color";
 
-const MAP_STYLE: StyleSpecification = {
-  version: 8,
-  sources: {
-    openmaptiles: {
-      type: "vector",
-      url: mapResources.basemapTileJson,
-      attribution:
-        '<a href="https://openfreemap.org/">OpenFreeMap</a> · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-    },
-    terrain: {
+const REMOVED_LAYER_PREFIXES = [
+  "aeroway",
+  "airport",
+  "boundary",
+  "label_",
+  "railway",
+  "water_name",
+  "waterway_line_label",
+] as const;
+
+function configureEditorialStyle(map: MapLibreMap, reducedMotion: boolean) {
+  const layers = map.getStyle().layers ?? [];
+  for (const layer of layers) {
+    if (
+      layer.type === "symbol" ||
+      REMOVED_LAYER_PREFIXES.some((prefix) => layer.id.startsWith(prefix))
+    ) {
+      map.removeLayer(layer.id);
+    }
+  }
+
+  const setPaint = (
+    layerId: string,
+    propertyName: EditorialPaintProperty,
+    value: string | number,
+  ) => {
+    if (map.getLayer(layerId)) {
+      map.setPaintProperty(layerId, propertyName, value);
+    }
+  };
+
+  setPaint("background", "background-color", "#e7e0d2");
+  setPaint("water", "fill-color", "#1b3a4a");
+  setPaint("park", "fill-color", "#cdd0c1");
+  setPaint("park", "fill-opacity", 0.52);
+  setPaint("landcover_wood", "fill-color", "#687563");
+  setPaint("landcover_wood", "fill-opacity", 0.2);
+  setPaint("landuse_residential", "fill-color", "#ddd5c7");
+  setPaint("building", "fill-color", "#d2c7b7");
+  setPaint("building", "fill-outline-color", "#b8ad9b");
+  setPaint("waterway", "line-color", "#2d6a78");
+  setPaint("highway_minor", "line-color", "#f3efe6");
+  setPaint("highway_major_casing", "line-color", "#b8ad9b");
+  setPaint("highway_major_inner", "line-color", "#fbf8f2");
+  setPaint("highway_major_subtle", "line-color", "#c9beac");
+  setPaint("highway_motorway_casing", "line-color", "#b8ad9b");
+  setPaint("highway_motorway_inner", "line-color", "#fbf8f2");
+  setPaint("highway_motorway_subtle", "line-color", "#c9beac");
+
+  if (!map.getSource("estate-terrain")) {
+    map.addSource("estate-terrain", {
       type: "raster-dem",
       tiles: [mapResources.terrainTiles],
       encoding: "terrarium",
@@ -36,155 +82,35 @@ const MAP_STYLE: StyleSpecification = {
       maxzoom: 15,
       attribution:
         '<a href="https://registry.opendata.aws/terrain-tiles/">AWS Terrain Tiles</a> · EU-DEM: produced using Copernicus data and information funded by the European Union',
-    },
-  },
-  layers: [
-    {
-      id: "land",
-      type: "background",
-      paint: { "background-color": "#e7e0d2" },
-    },
-    {
-      id: "parks",
-      type: "fill",
-      source: "openmaptiles",
-      "source-layer": "park",
-      paint: {
-        "fill-color": "#cdd0c1",
-        "fill-opacity": 0.5,
+    });
+  }
+
+  if (!map.getLayer("estate-terrain-shading")) {
+    map.addLayer(
+      {
+        id: "estate-terrain-shading",
+        type: "hillshade",
+        source: "estate-terrain",
+        paint: {
+          "hillshade-exaggeration": 0.34,
+          "hillshade-shadow-color": "#3c4f3d",
+          "hillshade-highlight-color": "#fbf8f2",
+          "hillshade-accent-color": "#1b3a4a",
+          "hillshade-illumination-direction": 315,
+        },
       },
-    },
-    {
-      id: "residential",
-      type: "fill",
-      source: "openmaptiles",
-      "source-layer": "landuse",
-      filter: ["==", ["get", "class"], "residential"],
-      paint: {
-        "fill-color": "#ddd5c7",
-        "fill-opacity": 0.65,
-      },
-    },
-    {
-      id: "woodland",
-      type: "fill",
-      source: "openmaptiles",
-      "source-layer": "landcover",
-      filter: ["==", ["get", "class"], "wood"],
-      paint: {
-        "fill-color": "#687563",
-        "fill-opacity": 0.2,
-      },
-    },
-    {
-      id: "terrain-shading",
-      type: "hillshade",
-      source: "terrain",
-      paint: {
-        "hillshade-exaggeration": 0.34,
-        "hillshade-shadow-color": "#3c4f3d",
-        "hillshade-highlight-color": "#fbf8f2",
-        "hillshade-accent-color": "#1b3a4a",
-        "hillshade-illumination-direction": 315,
-      },
-    },
-    {
-      id: "water",
-      type: "fill",
-      source: "openmaptiles",
-      "source-layer": "water",
-      filter: ["!=", ["get", "brunnel"], "tunnel"],
-      paint: {
-        "fill-color": "#1b3a4a",
-        "fill-antialias": true,
-      },
-    },
-    {
-      id: "waterways",
-      type: "line",
-      source: "openmaptiles",
-      "source-layer": "waterway",
-      paint: {
-        "line-color": "#2d6a78",
-        "line-opacity": 0.55,
-        "line-width": 1,
-      },
-    },
-    {
-      id: "paths",
-      type: "line",
-      source: "openmaptiles",
-      "source-layer": "transportation",
-      filter: ["==", ["get", "class"], "path"],
-      paint: {
-        "line-color": "#b8ad9b",
-        "line-opacity": 0.6,
-        "line-width": ["interpolate", ["linear"], ["zoom"], 11, 0.4, 15, 1.2],
-        "line-dasharray": [2, 2],
-      },
-    },
-    {
-      id: "minor-roads",
-      type: "line",
-      source: "openmaptiles",
-      "source-layer": "transportation",
-      filter: ["match", ["get", "class"], ["minor", "service", "track"], true, false],
-      paint: {
-        "line-color": "#f3efe6",
-        "line-opacity": 0.9,
-        "line-width": ["interpolate", ["linear"], ["zoom"], 11, 0.7, 15, 2.2],
-      },
-    },
-    {
-      id: "major-road-casing",
-      type: "line",
-      source: "openmaptiles",
-      "source-layer": "transportation",
-      filter: [
-        "match",
-        ["get", "class"],
-        ["primary", "secondary", "tertiary", "trunk", "motorway"],
-        true,
-        false,
-      ],
-      paint: {
-        "line-color": "#b8ad9b",
-        "line-opacity": 0.8,
-        "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.5, 15, 5],
-      },
-    },
-    {
-      id: "major-roads",
-      type: "line",
-      source: "openmaptiles",
-      "source-layer": "transportation",
-      filter: [
-        "match",
-        ["get", "class"],
-        ["primary", "secondary", "tertiary", "trunk", "motorway"],
-        true,
-        false,
-      ],
-      paint: {
-        "line-color": "#fbf8f2",
-        "line-opacity": 0.96,
-        "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 15, 3.3],
-      },
-    },
-    {
-      id: "buildings",
-      type: "fill",
-      source: "openmaptiles",
-      "source-layer": "building",
-      minzoom: 13,
-      paint: {
-        "fill-color": "#d2c7b7",
-        "fill-outline-color": "#b8ad9b",
-        "fill-opacity": 0.8,
-      },
-    },
-  ],
-};
+      map.getLayer("water") ? "water" : undefined,
+    );
+  }
+
+  if (!reducedMotion) {
+    try {
+      map.setTerrain({ source: "estate-terrain", exaggeration: 1.08 });
+    } catch {
+      // Terrain is an enhancement; the geographic basemap remains useful.
+    }
+  }
+}
 
 export function EstateMap({
   locale,
@@ -214,10 +140,10 @@ export function EstateMap({
     setStatus("loading");
     const map = new MapLibreMap({
       container: host,
-      style: MAP_STYLE,
+      style: mapResources.basemapStyle,
       center: locationMap.center,
       zoom: mobile ? locationMap.zoom.mobile : locationMap.zoom.desktop,
-      pitch: reducedMotion ? 0 : locationMap.pitch,
+      pitch: reducedMotion || mobile ? 0 : locationMap.pitch,
       bearing: locationMap.bearing,
       minZoom: locationMap.minZoom,
       maxZoom: locationMap.maxZoom,
@@ -271,17 +197,10 @@ export function EstateMap({
         .addTo(map);
     });
 
-    const ready = () => setStatus("ready");
     let basemapErrors = 0;
-    map.once("style.load", ready);
-    map.on("load", () => {
-      ready();
-      if (reducedMotion) return;
-      try {
-        map.setTerrain({ source: "terrain", exaggeration: 1.08 });
-      } catch {
-        // Terrain is an enhancement; the geographic basemap remains useful.
-      }
+    map.once("style.load", () => {
+      configureEditorialStyle(map, reducedMotion);
+      setStatus("ready");
     });
     map.on("error", (event) => {
       const sourceId = (event as { sourceId?: string }).sourceId;

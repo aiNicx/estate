@@ -53,8 +53,11 @@ test("one authoritative map uses a keyless production basemap", () => {
     ["property", "vietri", "salerno"],
   );
   assert.equal(mapResources.requiresToken, false);
-  assert.match(mapResources.basemapTileJson, /^https:\/\/tiles\.openfreemap\.org\//);
-  assert.doesNotMatch(mapResources.basemapTileJson, /carto|tile\.openstreetmap\.org/i);
+  assert.match(
+    mapResources.basemapStyle,
+    /^https:\/\/tiles\.openfreemap\.org\/styles\/positron$/,
+  );
+  assert.doesNotMatch(mapResources.basemapStyle, /carto|tile\.openstreetmap\.org/i);
   assert.match(mapResources.terrainTiles, /^https:\/\/s3\.amazonaws\.com\//);
 });
 

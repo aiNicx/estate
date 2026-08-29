@@ -43,7 +43,7 @@ export type GeoPlace = {
 export const locationMap = {
   center: [14.738, 40.668] as [number, number],
   zoom: {
-    mobile: 11.9,
+    mobile: 11.3,
     desktop: 12.35,
   },
   minZoom: 11,
@@ -55,7 +55,7 @@ export const locationMap = {
 
 export const mapResources = {
   basemapProvider: "OpenFreeMap",
-  basemapTileJson: "https://tiles.openfreemap.org/planet",
+  basemapStyle: "https://tiles.openfreemap.org/styles/positron",
   terrainProvider: "AWS Terrain Tiles / EU-DEM",
   terrainTiles:
     "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
