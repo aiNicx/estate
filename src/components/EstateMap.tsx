@@ -159,13 +159,14 @@ export function EstateMap({
       new AttributionControl({ compact: true }),
       "bottom-left",
     );
+    const attribution = host.querySelector(".maplibregl-ctrl-attrib");
+    attribution?.classList.remove("maplibregl-compact-show");
+    attribution?.setAttribute("open", "");
 
     markersRef.current = mapPlaces().map((place) => {
       const isProperty = place.id === "property";
       const root = document.createElement("div");
-      root.className = isProperty
-        ? "estate-marker estate-marker-property"
-        : "estate-marker";
+      root.className = `estate-marker estate-marker-${place.id}`;
 
       if (isProperty) {
         const locality = document.createElement("small");

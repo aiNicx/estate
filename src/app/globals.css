@@ -848,6 +848,12 @@ h3,
   padding: 0.2rem 0.5rem;
 }
 
+@media (max-width: 639px) {
+  .estate-marker-vietri span {
+    transform: translate(3.4rem, -1.5rem);
+  }
+}
+
 .location-chapter {
   padding-block: clamp(3.75rem, 8vw, 7.5rem);
 }
