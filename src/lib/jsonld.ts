@@ -19,7 +19,7 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     },
     "/location": {
       name: `${copy.nav.location} · ${copy.meta.siteName}`,
-      description: copy.location.intro,
+      description: copy.location.metaDescription,
     },
     "/investment": {
       name: `${copy.nav.investment} · ${copy.meta.siteName}`,
@@ -92,6 +92,11 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     name: property.location.locality,
     description: property.location.notes[locale],
     containedInPlace: [{ "@id": vietri["@id"] }, { "@id": amalfiCoast["@id"] }],
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: property.geo.latitude,
+      longitude: property.geo.longitude,
+    },
   };
 
   const additionalProperty = [
@@ -137,6 +142,14 @@ export function buildJsonLd(locale: Locale, pathname: string) {
         locale === "it"
           ? "Concessione stagionale associata"
           : "Seasonal concession associated with the property",
+    },
+    {
+      "@type": "PropertyValue",
+      name: locale === "it" ? "Accesso da terra" : "Land access",
+      value:
+        locale === "it"
+          ? "Pedonale · percorso a scale dal livello stradale"
+          : "Pedestrian · stepped path from road level",
     },
   ];
 

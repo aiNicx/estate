@@ -71,23 +71,69 @@ type Copy = {
     kicker: string;
     title: string;
     intro: string;
-    hierarchyTitle: string;
-    hierarchy: { name: string; relation: string }[];
-    body: string[];
+    metaDescription: string;
+    accessPreview: {
+      land: { kicker: string; label: string };
+      sea: { kicker: string; label: string };
+    };
+    topography: {
+      kicker: string;
+      title: string;
+      body: string;
+      strata: { label: string; note: string }[];
+    };
+    access: {
+      kicker: string;
+      title: string;
+      intro: string;
+      land: { kicker: string; title: string; label: string; body: string };
+      sea: { kicker: string; title: string; label: string; body: string };
+    };
+    connectivity: {
+      kicker: string;
+      title: string;
+      intro: string;
+      distanceNote: string;
+      modes: { id: "road" | "sea" | "rail" | "air"; title: string; body: string }[];
+    };
+    context: {
+      kicker: string;
+      title: string;
+      body: string;
+    };
     distinctTitle: string;
-    distinct: string[];
+    distinct: { title: string; body: string }[];
+    dossierLead: string;
     mapKicker: string;
     mapCaption: string;
     openMaps: string;
     mapAria: string;
     mapCredit: string;
+    map: {
+      kicker: string;
+      levelsLabel: string;
+      levels: { local: string; coast: string; connections: string };
+      captions: { local: string; coast: string; connections: string };
+      credit: string;
+      chartAria: { local: string; coast: string; connections: string };
+    };
     mapLabels: {
       coast: string;
+      gulf: string;
       amalfi: string;
       vietri: string;
       salerno: string;
+      cetara: string;
+      maiori: string;
+      positano: string;
+      "salerno-station": string;
+      qsr: string;
+      nap: string;
       property: string;
       north: string;
+      roadLevel: string;
+      hillside: string;
+      cove: string;
     };
   };
   investment: {
@@ -142,6 +188,7 @@ type Copy = {
       lemonGarden: string;
       waterfront: string;
       pontoon: string;
+      landAccess: string;
       paperMill: string;
     };
   };
@@ -251,7 +298,7 @@ export const messages: Record<Locale, Copy> = {
       units: "Independent units",
       composition: "Residential / commercial",
       seaAccess: "Sea access",
-      seaAccessValue: "Direct",
+      seaAccessValue: "Waterfront",
     },
     home: {
       galleryCta: "View the gallery",
@@ -342,49 +389,161 @@ export const messages: Record<Locale, Copy> = {
       nextProperty: "Property specification",
     },
     location: {
-      kicker: "Position",
-      title: "A secluded cove at the eastern threshold of the Amalfi Coast.",
+      kicker: "Position · Marina d'Albori",
+      title: "A reserved cove at the threshold of the Amalfi Coast.",
       intro:
-        "Marina d'Albori belongs to Vietri sul Mare, where the Amalfi Coast meets the Gulf of Salerno.",
-      hierarchyTitle: "From cove to coast",
-      hierarchy: [
-        {
-          name: "Marina d'Albori",
-          relation: "The waterfront cove occupied by the estate.",
+        "Marina d'Albori is a coastal locality of Vietri sul Mare, where the Amalfi Coast meets the Gulf of Salerno.",
+      metaDescription:
+        "Marina d'Albori, Vietri sul Mare, Campania: a waterfront cove on the eastern Amalfi Coast. Pedestrian stepped access from road level; seasonal landing / pontoon concession. Geographic context for Salerno, rail and airports.",
+      accessPreview: {
+        land: {
+          kicker: "Land access",
+          label: "Pedestrian · stepped path from road level",
         },
-        {
-          name: "Vietri sul Mare",
-          relation: "The municipality and eastern gateway to the Amalfi Coast.",
+        sea: {
+          kicker: "Sea access",
+          label: "Waterfront cove · seasonal landing / pontoon concession",
         },
-        {
-          name: "Amalfi Coast (Costiera Amalfitana)",
-          relation:
-            "The coastal landscape of southern Campania, Italy.",
+      },
+      topography: {
+        kicker: "Setting",
+        title: "Between hillside and waterline.",
+        body: "The estate occupies a vertical stretch of this coast: road level above, buildings and cove below, the Gulf of Salerno immediately to the south. Marina d'Albori is the shore locality; the hill village of Albori lies inland within the same municipality.",
+        strata: [
+          {
+            label: "Road level",
+            note: "The coastal road sits above the cove.",
+          },
+          {
+            label: "Stepped descent",
+            note: "The property is reached on foot from the road.",
+          },
+          {
+            label: "Estate and cove",
+            note: "Buildings, terraces and shoreline.",
+          },
+          {
+            label: "Sea",
+            note: "Waterfront, with a seasonal landing concession.",
+          },
+        ],
+      },
+      access: {
+        kicker: "Approach",
+        title: "Between road and sea",
+        intro:
+          "The estate has two relationships with access — one from land, one from water — both shaped by the same coastal section.",
+        land: {
+          kicker: "Via land",
+          title: "Land access",
+          label: "Pedestrian · stepped path from road level",
+          body: "From road level, the property is reached on foot via a stepped path descending through the hillside towards the cove. The arrangement follows the vertical morphology of this stretch of coast.",
         },
-      ],
-      body: [
-        "The position combines the privacy of an enclosed waterfront setting with the cultural identity of Vietri sul Mare and its ceramic tradition.",
-        "Marina d'Albori is the coastal locality; the hill village of Albori lies inland within the same municipality.",
-      ],
-      distinctTitle: "What makes the position distinctive",
+        sea: {
+          kicker: "Via sea",
+          title: "Sea access",
+          label: "Waterfront cove · seasonal landing / pontoon concession",
+          body: "The buildings, terraces and cove sit on the waterline. A seasonal landing / pontoon concession is associated with the property: a time-limited use right, not a private harbour and not a guarantee of year-round boat access.",
+        },
+      },
+      connectivity: {
+        kicker: "Network",
+        title: "Road, sea, rail and air",
+        intro:
+          "The cove is secluded in section, yet it sits at the eastern edge of the Amalfi Coast, facing Salerno and Campania's transport network.",
+        distanceNote:
+          "Kilometres below are approximate straight-line distances from the published listing pin, not journey times.",
+        modes: [
+          {
+            id: "road",
+            title: "Road",
+            body: "This stretch of coast is served by the SS163 Amalfitana, the coastal state road that runs at road level above the cove. Vehicles relate to that road level; the final approach to the buildings is on foot, by the stepped path.",
+          },
+          {
+            id: "sea",
+            title: "Sea",
+            body: "The estate is on the waterfront of the cove, with the associated seasonal landing / pontoon concession. Seasonal maritime services along the coast call at harbours, not at the property.",
+          },
+          {
+            id: "rail",
+            title: "Rail",
+            body: "Salerno is the relevant nearby long-distance rail gateway, including access to Italy's high-speed network.",
+          },
+          {
+            id: "air",
+            title: "Air",
+            body: "Two airports frame the geography: Salerno–Costa d'Amalfi and Naples International (Capodichino). Neither distance below is a travel time.",
+          },
+        ],
+      },
+      context: {
+        kicker: "Coast",
+        title: "The eastern Amalfi Coast, on the Gulf of Salerno.",
+        body: "West of the cove the shoreline runs through Cetara, Maiori, Amalfi and Positano. East and north-east lie Vietri sul Mare and Salerno, in Campania, Italy.",
+      },
+      distinctTitle: "A position that is difficult to replicate",
       distinct: [
-        "An enclosed waterfront setting.",
-        "A seasonal landing / pontoon concession associated with the property.",
-        "Hillside terraces and a historic limoneto above the buildings.",
+        {
+          title: "Waterfront",
+          body: "Buildings, terraces and cove have an unusually direct relationship with the shoreline.",
+        },
+        {
+          title: "Separation",
+          body: "The vertical sequence of road, hillside and cove gives the estate a clearly defined physical setting.",
+        },
+        {
+          title: "Connectivity",
+          body: "The property remains geographically close to Vietri sul Mare and Salerno while belonging to the Amalfi Coast.",
+        },
       ],
+      dossierLead:
+        "Plans, concession documents and further geographic detail are reserved for the confidential dossier.",
       mapKicker: "The cove",
       mapCaption: "Marina d'Albori, Vietri sul Mare",
       openMaps: "Open in Google Maps",
       mapAria:
-        "Stylized map of the estate at Marina d'Albori, Vietri sul Mare. Opens Google Maps in a new tab.",
-      mapCredit: "Coastline after OpenStreetMap",
+        "Editorial map of the estate at Marina d'Albori, Vietri sul Mare. Opens Google Maps in a new tab.",
+      mapCredit: "Coastline generalised from OpenStreetMap",
+      map: {
+        kicker: "Geography",
+        levelsLabel: "Map scale",
+        levels: {
+          local: "Local",
+          coast: "Amalfi Coast",
+          connections: "Connections",
+        },
+        captions: {
+          local: "Hillside, cove and road level at Marina d'Albori",
+          coast: "Eastern Amalfi Coast, Gulf of Salerno",
+          connections: "Salerno, rail and airports",
+        },
+        credit: "Coastline generalised from OpenStreetMap · pin from the published listing coordinates",
+        chartAria: {
+          local:
+            "Editorial map of Marina d'Albori showing the hillside, the cove and the road level above the estate.",
+          coast:
+            "Editorial map of the eastern Amalfi Coast from Positano to Salerno, with the estate marked at Marina d'Albori.",
+          connections:
+            "Editorial map of Campania showing the estate in relation to Salerno, the railway station and the Salerno and Naples airports.",
+        },
+      },
       mapLabels: {
         coast: "Costiera Amalfitana",
+        gulf: "Gulf of Salerno",
         amalfi: "Amalfi",
         vietri: "Vietri sul Mare",
         salerno: "Salerno",
+        cetara: "Cetara",
+        maiori: "Maiori",
+        positano: "Positano",
+        "salerno-station": "Salerno station",
+        qsr: "Salerno–Costa d'Amalfi Airport",
+        nap: "Naples International Airport",
         property: "The estate",
         north: "N",
+        roadLevel: "Road level",
+        hillside: "Hillside",
+        cove: "Cove",
       },
     },
     investment: {
@@ -481,7 +640,8 @@ export const messages: Record<Locale, Copy> = {
         restaurant: "Restaurant",
         lemonGarden: "Lemon garden",
         waterfront: "Sea relationship",
-        pontoon: "Pontoon",
+        pontoon: "Landing / pontoon",
+        landAccess: "Land access",
         paperMill: "Historic paper mill",
       },
     },
@@ -610,7 +770,7 @@ export const messages: Record<Locale, Copy> = {
       units: "Unità indipendenti",
       composition: "Residenziali / commerciali",
       seaAccess: "Accesso al mare",
-      seaAccessValue: "Diretto",
+      seaAccessValue: "Fronte mare",
     },
     home: {
       galleryCta: "Vedi la galleria",
@@ -701,49 +861,162 @@ export const messages: Record<Locale, Copy> = {
       nextProperty: "Scheda della proprietà",
     },
     location: {
-      kicker: "Posizione",
-      title: "Una cala appartata alla soglia orientale della Costiera Amalfitana.",
+      kicker: "Posizione · Marina d'Albori",
+      title: "Una cala riservata alle porte della Costiera Amalfitana.",
       intro:
-        "Marina d'Albori appartiene a Vietri sul Mare, dove la Costiera Amalfitana incontra il Golfo di Salerno.",
-      hierarchyTitle: "Dalla cala alla costa",
-      hierarchy: [
-        {
-          name: "Marina d'Albori",
-          relation: "La cala fronte mare occupata dalla proprietà.",
+        "Marina d'Albori è una località costiera del comune di Vietri sul Mare, nel punto in cui la Costiera Amalfitana si apre sul Golfo di Salerno.",
+      metaDescription:
+        "Marina d'Albori, Vietri sul Mare, Campania: cala fronte mare all'ingresso orientale della Costiera Amalfitana. Accesso pedonale a scale dal livello stradale; concessione stagionale di approdo / pontile. Quadro geografico verso Salerno, ferrovia e aeroporti.",
+      accessPreview: {
+        land: {
+          kicker: "Accesso da terra",
+          label: "Pedonale · percorso a scale dal livello stradale",
         },
-        {
-          name: "Vietri sul Mare",
-          relation: "Il comune e porta orientale della Costiera Amalfitana.",
+        sea: {
+          kicker: "Accesso dal mare",
+          label: "Cala fronte mare · concessione stagionale di approdo / pontile",
         },
-        {
-          name: "Costiera Amalfitana",
-          relation:
-            "Il paesaggio costiero della Campania meridionale, in Italia.",
+      },
+      topography: {
+        kicker: "Morfologia",
+        title: "Tra versante e linea d'acqua.",
+        body: "La proprietà occupa un tratto verticale di questa costa: il livello stradale a monte, edifici e cala a valle, il Golfo di Salerno subito a sud. Marina d'Albori è la località di riva; il borgo di Albori sorge nell'entroterra dello stesso comune.",
+        strata: [
+          {
+            label: "Livello stradale",
+            note: "La strada costiera corre sopra la cala.",
+          },
+          {
+            label: "Discesa a scale",
+            note: "Dalla strada la proprietà si raggiunge a piedi.",
+          },
+          {
+            label: "Proprietà e cala",
+            note: "Edifici, terrazze e riva.",
+          },
+          {
+            label: "Mare",
+            note: "Fronte mare, con concessione stagionale di approdo.",
+          },
+        ],
+      },
+      access: {
+        kicker: "Accesso",
+        title: "Tra strada e mare",
+        intro:
+          "La proprietà ha due rapporti con l'accesso — da terra e dall'acqua — entrambi legati allo stesso tratto di costa.",
+        land: {
+          kicker: "Via terra",
+          title: "Accesso da terra",
+          label: "Pedonale · percorso a scale dal livello stradale",
+          body: "Dal livello stradale, la proprietà si raggiunge a piedi attraverso un percorso a scale che scende lungo il versante verso la cala. Una configurazione strettamente legata alla morfologia verticale di questo tratto di costa.",
         },
-      ],
-      body: [
-        "La posizione unisce la riservatezza di un contesto fronte mare raccolto all'identità culturale di Vietri sul Mare e della sua tradizione ceramica.",
-        "Marina d'Albori è la località costiera; il borgo di Albori sorge nell'entroterra dello stesso comune.",
-      ],
-      distinctTitle: "Perché la posizione è specifica",
+        sea: {
+          kicker: "Via mare",
+          title: "Accesso dal mare",
+          label: "Cala fronte mare · concessione stagionale di approdo / pontile",
+          body: "Edifici, terrazze e cala si affacciano sulla linea di costa. Alla proprietà è associata una concessione stagionale di approdo / pontile: un diritto d'uso a termine, non un porto privato e non un accesso nautico garantito tutto l'anno.",
+        },
+      },
+      connectivity: {
+        kicker: "Rete",
+        title: "Strada, mare, ferrovia, aria",
+        intro:
+          "In sezione la cala è appartata; in pianta resta all'estremità orientale della Costiera, rivolta verso Salerno e la rete della Campania.",
+        distanceNote:
+          "I chilometri indicati sono distanze indicative in linea d'aria dal pin pubblicato, non tempi di percorrenza.",
+        modes: [
+          {
+            id: "road",
+            title: "Strada",
+            body: "Questo tratto di costa è servito dalla SS163 Amalfitana, la statale che corre a livello stradale sopra la cala. I veicoli restano a quella quota; l'ultimo tratto verso gli edifici è pedonale, sul percorso a scale.",
+          },
+          {
+            id: "sea",
+            title: "Mare",
+            body: "La proprietà è fronte mare sulla cala, con la concessione stagionale di approdo / pontile associata. I collegamenti marittimi stagionali della costa fanno scalo nei porti, non presso la proprietà.",
+          },
+          {
+            id: "rail",
+            title: "Ferrovia",
+            body: "Salerno è il riferimento ferroviario di lungo raggio più prossimo, incluso l'accesso alla rete ad alta velocità.",
+          },
+          {
+            id: "air",
+            title: "Aria",
+            body: "Due aeroporti inquadrano la geografia: Salerno–Costa d'Amalfi e Napoli-Capodichino. Le distanze non sono tempi di viaggio.",
+          },
+        ],
+      },
+      context: {
+        kicker: "Costa",
+        title: "L'estremo orientale della Costiera, sul Golfo di Salerno.",
+        body: "A ovest della cala la riva corre per Cetara, Maiori, Amalfi e Positano. A est e nord-est si trovano Vietri sul Mare e Salerno, in Campania, Italia.",
+      },
+      distinctTitle: "Una posizione difficile da replicare",
       distinct: [
-        "Un contesto fronte mare raccolto.",
-        "Una concessione stagionale di approdo / pontile associata alla proprietà.",
-        "Terrazzamenti e limoneto storico sopra gli edifici.",
+        {
+          title: "Fronte mare",
+          body: "Edifici, terrazze e cala hanno un rapporto insolitamente diretto con la linea di costa.",
+        },
+        {
+          title: "Separazione",
+          body: "La sequenza verticale tra strada, versante e cala dà alla proprietà un perimetro fisico chiaro.",
+        },
+        {
+          title: "Connessione",
+          body: "La proprietà resta geograficamente prossima a Vietri sul Mare e a Salerno, pur appartenendo al contesto della Costiera.",
+        },
       ],
+      dossierLead:
+        "Planimetrie, documentazione concessoria e ulteriori dati geografici restano nel dossier riservato.",
       mapKicker: "La cala",
       mapCaption: "Marina d'Albori, Vietri sul Mare",
       openMaps: "Apri in Google Maps",
       mapAria:
-        "Mappa stilizzata della proprietà a Marina d'Albori, Vietri sul Mare. Apre Google Maps in una nuova scheda.",
-      mapCredit: "Costa da OpenStreetMap",
+        "Mappa editoriale della proprietà a Marina d'Albori, Vietri sul Mare. Apre Google Maps in una nuova scheda.",
+      mapCredit: "Costa generalizzata da OpenStreetMap",
+      map: {
+        kicker: "Geografia",
+        levelsLabel: "Scala della carta",
+        levels: {
+          local: "Locale",
+          coast: "Costiera",
+          connections: "Collegamenti",
+        },
+        captions: {
+          local: "Versante, cala e livello stradale a Marina d'Albori",
+          coast: "Estremo orientale della Costiera, Golfo di Salerno",
+          connections: "Salerno, ferrovia e aeroporti",
+        },
+        credit:
+          "Costa generalizzata da OpenStreetMap · pin dalle coordinate pubblicate della scheda",
+        chartAria: {
+          local:
+            "Carta editoriale di Marina d'Albori: versante, cala e livello stradale sopra la proprietà.",
+          coast:
+            "Carta editoriale della Costiera orientale da Positano a Salerno, con la proprietà a Marina d'Albori.",
+          connections:
+            "Carta editoriale della Campania: la proprietà rispetto a Salerno, alla stazione e agli aeroporti di Salerno e Napoli.",
+        },
+      },
       mapLabels: {
         coast: "Costiera Amalfitana",
+        gulf: "Golfo di Salerno",
         amalfi: "Amalfi",
         vietri: "Vietri sul Mare",
         salerno: "Salerno",
+        cetara: "Cetara",
+        maiori: "Maiori",
+        positano: "Positano",
+        "salerno-station": "Stazione di Salerno",
+        qsr: "Aeroporto Salerno–Costa d'Amalfi",
+        nap: "Aeroporto di Napoli-Capodichino",
         property: "La proprietà",
         north: "N",
+        roadLevel: "Livello stradale",
+        hillside: "Versante",
+        cove: "Cala",
       },
     },
     investment: {
@@ -839,7 +1112,8 @@ export const messages: Record<Locale, Copy> = {
         restaurant: "Ristorante",
         lemonGarden: "Limoneto",
         waterfront: "Rapporto con il mare",
-        pontoon: "Pontile",
+        pontoon: "Approdo / pontile",
+        landAccess: "Accesso da terra",
         paperMill: "Cartiera storica",
       },
     },
