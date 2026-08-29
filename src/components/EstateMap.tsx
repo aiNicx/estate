@@ -5,6 +5,7 @@ import {
   AttributionControl,
   Map as MapLibreMap,
   Marker,
+  setWorkerUrl,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Locale } from "@/content/property";
@@ -131,6 +132,7 @@ export function EstateMap({
     const mobile = host.clientWidth < 640;
 
     setStatus("loading");
+    setWorkerUrl("/vendor/maplibre-gl-worker.mjs");
     const map = new MapLibreMap({
       container: host,
       style: mapResources.basemapStyle,

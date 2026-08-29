@@ -19,6 +19,8 @@
 
 # production
 /build
+/public/vendor/maplibre-gl-shared.mjs
+/public/vendor/maplibre-gl-worker.mjs
 
 # misc
 .DS_Store
