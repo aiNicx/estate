@@ -10,10 +10,8 @@
 import { property, type FactStatus, type Locale } from "./property.ts";
 import {
   haversineKm,
-  offsetNorth,
   roundPublishedKm,
   type GeoBounds,
-  type LonLat,
 } from "../lib/geo.ts";
 
 export const mapViewIds = ["local", "coast", "connections"] as const;
@@ -46,7 +44,42 @@ export type GeoPlace = {
   name?: string;
 };
 
-export const mapFrame = { width: 1400, height: 820 } as const;
+export const mapCameras: Record<
+  MapViewId,
+  {
+    center: [number, number];
+    zoom: number;
+    minZoom: number;
+    maxZoom: number;
+    pitch: number;
+    bearing: number;
+  }
+> = {
+  local: {
+    center: [property.geo.longitude, property.geo.latitude - 0.0018],
+    zoom: 14.7,
+    minZoom: 13,
+    maxZoom: 16.5,
+    pitch: 52,
+    bearing: -28,
+  },
+  coast: {
+    center: [14.632, 40.652],
+    zoom: 10.45,
+    minZoom: 9.2,
+    maxZoom: 12.5,
+    pitch: 28,
+    bearing: -12,
+  },
+  connections: {
+    center: [14.53, 40.74],
+    zoom: 8.15,
+    minZoom: 7,
+    maxZoom: 10,
+    pitch: 0,
+    bearing: 0,
+  },
+};
 
 export const mapViews: Record<
   MapViewId,
@@ -74,47 +107,6 @@ export const mapViews: Record<
     places: ["property", "salerno", "salerno-station", "qsr", "nap"],
   },
 };
-
-/**
- * Simplified Tyrrhenian shoreline, west → east, land to the north.
- * Derived from OpenStreetMap coastline, generalised for the editorial chart.
- */
-export const coastline: readonly LonLat[] = [
-  { longitude: 14.45, latitude: 40.628 },
-  { longitude: 14.485, latitude: 40.626 },
-  { longitude: 14.53, latitude: 40.611 },
-  { longitude: 14.57, latitude: 40.618 },
-  { longitude: 14.603, latitude: 40.631 },
-  { longitude: 14.627, latitude: 40.648 },
-  { longitude: 14.641, latitude: 40.647 },
-  { longitude: 14.67, latitude: 40.644 },
-  { longitude: 14.686, latitude: 40.645 },
-  { longitude: 14.695, latitude: 40.6455 },
-  { longitude: 14.701, latitude: 40.646 },
-  { longitude: 14.707, latitude: 40.652 },
-  { longitude: 14.712, latitude: 40.658 },
-  { longitude: 14.7152, latitude: 40.6618 },
-  { longitude: 14.7185, latitude: 40.6648 },
-  { longitude: 14.723, latitude: 40.6678 },
-  { longitude: 14.728, latitude: 40.6705 },
-  { longitude: 14.745, latitude: 40.673 },
-  { longitude: 14.768, latitude: 40.676 },
-  { longitude: 14.8, latitude: 40.678 },
-  { longitude: 14.85, latitude: 40.668 },
-  { longitude: 14.91, latitude: 40.652 },
-];
-
-export const hillBands = {
-  near: offsetNorth(coastline, 0.004),
-  mid: offsetNorth(coastline, 0.01),
-  far: offsetNorth(coastline, 0.018),
-};
-
-/** Schematic coastal-road alignment inland of the shore — not a surveyed carriageway. */
-export const coastalRoad = offsetNorth(
-  coastline.filter((point) => point.longitude >= 14.69 && point.longitude <= 14.74),
-  0.0032,
-);
 
 export const places: readonly GeoPlace[] = [
   {
@@ -254,5 +246,3 @@ export function formatStraightLine(locale: Locale, km: number): string {
     ? `≈ ${number} km in linea d'aria`
     : `≈ ${number} km straight line`;
 }
-
-export const gulfLabelAnchor: LonLat = { longitude: 14.72, latitude: 40.63 };

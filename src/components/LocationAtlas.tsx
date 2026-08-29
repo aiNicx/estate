@@ -5,7 +5,7 @@ import type { Locale } from "@/content/property";
 import { property } from "@/content/property";
 import { t } from "@/content/messages";
 import { mapViewIds, type MapViewId } from "@/content/geography";
-import { LocationChart } from "./LocationChart";
+import { EstateMap } from "./EstateMap";
 
 export function LocationAtlas({ locale }: { locale: Locale }) {
   const copy = t(locale).location;
@@ -31,7 +31,7 @@ export function LocationAtlas({ locale }: { locale: Locale }) {
         </div>
       </div>
       <div className={`location-atlas-frame location-atlas-frame-${view}`}>
-        <LocationChart locale={locale} view={view} />
+        <EstateMap locale={locale} view={view} />
       </div>
       <figcaption className="location-map-meta">
         <div className="min-w-0">

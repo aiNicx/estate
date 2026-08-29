@@ -2,11 +2,10 @@ import type { Locale } from "@/content/property";
 import { property } from "@/content/property";
 import { t } from "@/content/messages";
 import { MosaicBand } from "./MosaicBand";
-import { LocationChart } from "./LocationChart";
+import { EstateMap } from "./EstateMap";
 
 /**
- * Compact coastal chart for the homepage. The listing pin uses published coordinates.
- * The full Location page carries the interactive atlas.
+ * Compact coastal map for the homepage. The listing pin uses published coordinates.
  */
 export function LocationMap({
   locale,
@@ -18,15 +17,9 @@ export function LocationMap({
   const copy = t(locale).location;
 
   return (
-    <a
-      className={`location-map ${compact ? "location-map-compact" : ""}`}
-      href={property.geo.mapsUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={copy.mapAria}
-    >
+    <figure className={`location-map ${compact ? "location-map-compact" : ""}`}>
       <div className="location-map-frame">
-        <LocationChart locale={locale} view="coast" />
+        <EstateMap locale={locale} view="coast" interactive={false} />
       </div>
       <div className="location-map-meta">
         <div className="min-w-0">
@@ -34,11 +27,19 @@ export function LocationMap({
           <p className="location-map-caption">{copy.mapCaption}</p>
           <p className="location-map-credit">{copy.mapCredit}</p>
         </div>
-        <span className="location-map-cta">{copy.openMaps}</span>
+        <a
+          className="location-map-cta"
+          href={property.geo.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={copy.mapAria}
+        >
+          {copy.openMaps}
+        </a>
       </div>
       <div className="location-map-mosaic" aria-hidden="true">
         <MosaicBand />
       </div>
-    </a>
+    </figure>
   );
 }

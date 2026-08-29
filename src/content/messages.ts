@@ -503,7 +503,7 @@ export const messages: Record<Locale, Copy> = {
       openMaps: "Open in Google Maps",
       mapAria:
         "Editorial map of the estate at Marina d'Albori, Vietri sul Mare. Opens Google Maps in a new tab.",
-      mapCredit: "Coastline generalised from OpenStreetMap",
+      mapCredit: "OpenStreetMap · OpenFreeMap",
       map: {
         kicker: "Geography",
         levelsLabel: "Map scale",
@@ -517,7 +517,7 @@ export const messages: Record<Locale, Copy> = {
           coast: "Eastern Amalfi Coast, Gulf of Salerno",
           connections: "Salerno, rail and airports",
         },
-        credit: "Coastline generalised from OpenStreetMap · pin from the published listing coordinates",
+        credit: "OpenStreetMap · OpenFreeMap · pin from the published listing coordinates",
         chartAria: {
           local:
             "Editorial map of Marina d'Albori showing the hillside, the cove and the road level above the estate.",
@@ -975,7 +975,7 @@ export const messages: Record<Locale, Copy> = {
       openMaps: "Apri in Google Maps",
       mapAria:
         "Mappa editoriale della proprietà a Marina d'Albori, Vietri sul Mare. Apre Google Maps in una nuova scheda.",
-      mapCredit: "Costa generalizzata da OpenStreetMap",
+      mapCredit: "OpenStreetMap · OpenFreeMap",
       map: {
         kicker: "Geografia",
         levelsLabel: "Scala della carta",
@@ -990,7 +990,7 @@ export const messages: Record<Locale, Copy> = {
           connections: "Salerno, ferrovia e aeroporti",
         },
         credit:
-          "Costa generalizzata da OpenStreetMap · pin dalle coordinate pubblicate della scheda",
+          "OpenStreetMap · OpenFreeMap · pin dalle coordinate pubblicate della scheda",
         chartAria: {
           local:
             "Carta editoriale di Marina d'Albori: versante, cala e livello stradale sopra la proprietà.",
