@@ -1,6 +1,6 @@
 import type { Locale } from "@/content/property";
 import { t } from "@/content/messages";
-import { EstateMap } from "./EstateMap";
+import { LazyEstateMap } from "./LazyEstateMap";
 
 /**
  * Compact coastal map for the homepage. The listing pin uses published coordinates.
@@ -17,7 +17,7 @@ export function LocationMap({
   return (
     <figure className={`location-map ${compact ? "location-map-compact" : ""}`}>
       <div className="location-map-frame">
-        <EstateMap locale={locale} view="coast" interactive={false} />
+        <LazyEstateMap locale={locale} interactive={false} />
       </div>
       <figcaption className="location-map-simple-caption">
         {copy.mapCaption}

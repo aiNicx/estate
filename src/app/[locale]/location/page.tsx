@@ -10,7 +10,7 @@ import { LocationAtlas } from "@/components/LocationAtlas";
 import { localizedPath } from "@/lib/site";
 import {
   formatStraightLine,
-  placesForView,
+  localContextPlaces,
   straightLineFromProperty,
   type PlaceId,
 } from "@/content/geography";
@@ -38,7 +38,7 @@ export default async function LocationPage({ params }: PageProps) {
   const stairs = availableImage("path-stairs-sea");
   const rocks = availableImage("sea-rocks-buoys");
   const hillside = availableImage("architecture-hillside-aerial");
-  const localPlaces = placesForView("local");
+  const localPlaces = localContextPlaces();
 
   return (
     <PageShell
@@ -66,7 +66,7 @@ export default async function LocationPage({ params }: PageProps) {
     >
       <section className="shell" aria-labelledby="location-map-heading">
         <h2 id="location-map-heading" className="sr-only">
-          {copy.map.kicker}
+          {copy.map.title}
         </h2>
         <LocationAtlas locale={locale} />
       </section>

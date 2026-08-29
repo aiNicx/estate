@@ -4,10 +4,11 @@ import { property } from "./property.ts";
 import {
   access,
   formatStraightLine,
-  mapViewIds,
+  locationMap,
+  mapPlaces,
+  mapResources,
   placeById,
   places,
-  placesForView,
   straightLineFromProperty,
 } from "./geography.ts";
 import { messages } from "./messages.ts";
@@ -45,11 +46,16 @@ test("straight-line distances are approximate and not travel times", () => {
   assert.doesNotMatch(formatStraightLine("en", vietri.km), /min/);
 });
 
-test("map views expose a bounded place set", () => {
-  assert.deepEqual([...mapViewIds], ["local", "coast", "connections"]);
-  assert.ok(placesForView("local").some((place) => place.id === "property"));
-  assert.ok(placesForView("coast").some((place) => place.id === "amalfi"));
-  assert.ok(placesForView("connections").some((place) => place.id === "nap"));
+test("one authoritative map uses a keyless production basemap", () => {
+  assert.deepEqual([...locationMap.placeIds], ["property", "vietri", "salerno"]);
+  assert.deepEqual(
+    mapPlaces().map((place) => place.id),
+    ["property", "vietri", "salerno"],
+  );
+  assert.equal(mapResources.requiresToken, false);
+  assert.match(mapResources.basemapTileJson, /^https:\/\/tiles\.openfreemap\.org\//);
+  assert.doesNotMatch(mapResources.basemapTileJson, /carto|tile\.openstreetmap\.org/i);
+  assert.match(mapResources.terrainTiles, /^https:\/\/s3\.amazonaws\.com\//);
 });
 
 test("location copy is bilingual and states pedestrian stair access", () => {
@@ -57,10 +63,8 @@ test("location copy is bilingual and states pedestrian stair access", () => {
     Object.keys(messages.en.location.mapLabels),
     Object.keys(messages.it.location.mapLabels),
   );
-  assert.deepEqual(
-    Object.keys(messages.en.location.map.levels),
-    Object.keys(messages.it.location.map.levels),
-  );
+  assert.equal("levels" in messages.en.location.map, false);
+  assert.equal("levels" in messages.it.location.map, false);
   assert.equal(messages.en.location.access.land.label.includes("Pedestrian"), true);
   assert.equal(messages.it.location.access.land.label.includes("Pedonale"), true);
   assert.equal(messages.it.location.access.land.label.includes("scale"), true);

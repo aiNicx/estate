@@ -11,19 +11,12 @@ import { property, type FactStatus, type Locale } from "./property.ts";
 import {
   haversineKm,
   roundPublishedKm,
-  type GeoBounds,
 } from "../lib/geo.ts";
-
-export const mapViewIds = ["local", "coast", "connections"] as const;
-export type MapViewId = (typeof mapViewIds)[number];
 
 export const placeIds = [
   "property",
   "vietri",
   "cetara",
-  "maiori",
-  "amalfi",
-  "positano",
   "salerno",
   "salerno-station",
   "qsr",
@@ -39,74 +32,35 @@ export type GeoPlace = {
   longitude: number;
   latitude: number;
   status: FactStatus;
-  views: readonly MapViewId[];
   /** Proper names shared across languages; labels that differ live in messages. */
   name?: string;
 };
 
-export const mapCameras: Record<
-  MapViewId,
-  {
-    center: [number, number];
-    zoom: number;
-    minZoom: number;
-    maxZoom: number;
-    pitch: number;
-    bearing: number;
-  }
-> = {
-  local: {
-    center: [property.geo.longitude, property.geo.latitude - 0.0018],
-    zoom: 14.7,
-    minZoom: 13,
-    maxZoom: 16.5,
-    pitch: 52,
-    bearing: -28,
+/**
+ * A single authoritative map view. Wider coast and transport context stays in
+ * normal HTML rather than competing with the immediate setting on the map.
+ */
+export const locationMap = {
+  center: [14.738, 40.668] as [number, number],
+  zoom: {
+    mobile: 11.9,
+    desktop: 12.35,
   },
-  coast: {
-    center: [14.632, 40.652],
-    zoom: 10.45,
-    minZoom: 9.2,
-    maxZoom: 12.5,
-    pitch: 28,
-    bearing: -12,
-  },
-  connections: {
-    center: [14.53, 40.74],
-    zoom: 8.15,
-    minZoom: 7,
-    maxZoom: 10,
-    pitch: 0,
-    bearing: 0,
-  },
-};
+  minZoom: 11,
+  maxZoom: 15.5,
+  pitch: 26,
+  bearing: 0,
+  placeIds: ["property", "vietri", "salerno"] as const satisfies readonly PlaceId[],
+} as const;
 
-export const mapViews: Record<
-  MapViewId,
-  GeoBounds & { places: readonly PlaceId[] }
-> = {
-  local: {
-    west: 14.688,
-    east: 14.748,
-    south: 40.644,
-    north: 40.684,
-    places: ["property", "vietri", "cetara"],
-  },
-  coast: {
-    west: 14.46,
-    east: 14.82,
-    south: 40.598,
-    north: 40.7,
-    places: ["property", "vietri", "cetara", "maiori", "amalfi", "positano", "salerno"],
-  },
-  connections: {
-    west: 13.98,
-    east: 15.12,
-    south: 40.52,
-    north: 41.02,
-    places: ["property", "salerno", "salerno-station", "qsr", "nap"],
-  },
-};
+export const mapResources = {
+  basemapProvider: "OpenFreeMap",
+  basemapTileJson: "https://tiles.openfreemap.org/planet",
+  terrainProvider: "AWS Terrain Tiles / EU-DEM",
+  terrainTiles:
+    "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+  requiresToken: false,
+} as const;
 
 export const places: readonly GeoPlace[] = [
   {
@@ -115,7 +69,6 @@ export const places: readonly GeoPlace[] = [
     longitude: property.geo.longitude,
     latitude: property.geo.latitude,
     status: property.geo.status,
-    views: ["local", "coast", "connections"],
   },
   {
     id: "vietri",
@@ -124,7 +77,6 @@ export const places: readonly GeoPlace[] = [
     longitude: 14.7278,
     latitude: 40.6708,
     status: "geographic-context",
-    views: ["local", "coast"],
   },
   {
     id: "cetara",
@@ -133,34 +85,6 @@ export const places: readonly GeoPlace[] = [
     longitude: 14.7008,
     latitude: 40.6475,
     status: "geographic-context",
-    views: ["local", "coast"],
-  },
-  {
-    id: "maiori",
-    category: "coast-town",
-    name: "Maiori",
-    longitude: 14.6408,
-    latitude: 40.6486,
-    status: "geographic-context",
-    views: ["coast"],
-  },
-  {
-    id: "amalfi",
-    category: "coast-town",
-    name: "Amalfi",
-    longitude: 14.6028,
-    latitude: 40.6344,
-    status: "geographic-context",
-    views: ["coast"],
-  },
-  {
-    id: "positano",
-    category: "coast-town",
-    name: "Positano",
-    longitude: 14.4853,
-    latitude: 40.6281,
-    status: "geographic-context",
-    views: ["coast"],
   },
   {
     id: "salerno",
@@ -169,7 +93,6 @@ export const places: readonly GeoPlace[] = [
     longitude: 14.7594,
     latitude: 40.6806,
     status: "geographic-context",
-    views: ["coast", "connections"],
   },
   {
     id: "salerno-station",
@@ -177,7 +100,6 @@ export const places: readonly GeoPlace[] = [
     longitude: 14.7728,
     latitude: 40.6753,
     status: "geographic-context",
-    views: ["connections"],
   },
   {
     id: "qsr",
@@ -185,7 +107,6 @@ export const places: readonly GeoPlace[] = [
     longitude: 14.9113,
     latitude: 40.62,
     status: "geographic-context",
-    views: ["connections"],
   },
   {
     id: "nap",
@@ -193,7 +114,6 @@ export const places: readonly GeoPlace[] = [
     longitude: 14.2908,
     latitude: 40.8847,
     status: "geographic-context",
-    views: ["connections"],
   },
 ];
 
@@ -221,8 +141,12 @@ export function placeById(id: PlaceId): GeoPlace {
   return place;
 }
 
-export function placesForView(view: MapViewId): GeoPlace[] {
-  return mapViews[view].places.map(placeById);
+export function mapPlaces(): GeoPlace[] {
+  return locationMap.placeIds.map(placeById);
+}
+
+export function localContextPlaces(): GeoPlace[] {
+  return [placeById("vietri"), placeById("cetara")];
 }
 
 export function straightLineFromProperty(id: PlaceId) {

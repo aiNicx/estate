@@ -106,29 +106,19 @@ type Copy = {
     dossierLead: string;
     mapCaption: string;
     map: {
-      kicker: string;
-      levelsLabel: string;
-      levels: { local: string; coast: string; connections: string };
-      captions: { local: string; coast: string; connections: string };
-      chartAria: { local: string; coast: string; connections: string };
+      title: string;
+      ariaLabel: string;
+      unavailableTitle: string;
+      unavailableBody: string;
     };
     mapLabels: {
-      coast: string;
-      gulf: string;
-      amalfi: string;
       vietri: string;
       salerno: string;
       cetara: string;
-      maiori: string;
-      positano: string;
       "salerno-station": string;
       qsr: string;
       nap: string;
       property: string;
-      north: string;
-      roadLevel: string;
-      hillside: string;
-      cove: string;
     };
   };
   investment: {
@@ -495,44 +485,21 @@ export const messages: Record<Locale, Copy> = {
         "Plans, concession documents and further geographic detail are reserved for the confidential dossier.",
       mapCaption: "Marina d'Albori · Vietri sul Mare",
       map: {
-        kicker: "Geography",
-        levelsLabel: "Map scale",
-        levels: {
-          local: "Local",
-          coast: "Amalfi Coast",
-          connections: "Connections",
-        },
-        captions: {
-          local: "Marina d'Albori · Vietri sul Mare",
-          coast: "From Positano to Salerno · Amalfi Coast",
-          connections: "Salerno · rail and airports",
-        },
-        chartAria: {
-          local:
-            "Editorial map of Marina d'Albori showing the hillside, the cove and the road level above the estate.",
-          coast:
-            "Editorial map of the eastern Amalfi Coast from Positano to Salerno, with the estate marked at Marina d'Albori.",
-          connections:
-            "Editorial map of Campania showing the estate in relation to Salerno, the railway station and the Salerno and Naples airports.",
-        },
+        title: "Geographic setting",
+        ariaLabel:
+          "Map showing the estate at Marina d'Albori on the coast between Vietri sul Mare and Salerno.",
+        unavailableTitle: "Map temporarily unavailable",
+        unavailableBody:
+          "Marina d'Albori · Vietri sul Mare · eastern Amalfi Coast",
       },
       mapLabels: {
-        coast: "Costiera Amalfitana",
-        gulf: "Gulf of Salerno",
-        amalfi: "Amalfi",
         vietri: "Vietri sul Mare",
         salerno: "Salerno",
         cetara: "Cetara",
-        maiori: "Maiori",
-        positano: "Positano",
         "salerno-station": "Salerno station",
         qsr: "Salerno–Costa d'Amalfi Airport",
         nap: "Naples International Airport",
         property: "The estate",
-        north: "N",
-        roadLevel: "Road level",
-        hillside: "Hillside",
-        cove: "Cove",
       },
     },
     investment: {
@@ -961,44 +928,21 @@ export const messages: Record<Locale, Copy> = {
         "Planimetrie, documentazione concessoria e ulteriori dati geografici restano nel dossier riservato.",
       mapCaption: "Marina d'Albori · Vietri sul Mare",
       map: {
-        kicker: "Geografia",
-        levelsLabel: "Scala della carta",
-        levels: {
-          local: "Locale",
-          coast: "Costiera",
-          connections: "Collegamenti",
-        },
-        captions: {
-          local: "Marina d'Albori · Vietri sul Mare",
-          coast: "Da Positano a Salerno · Costiera Amalfitana",
-          connections: "Salerno · ferrovia e aeroporti",
-        },
-        chartAria: {
-          local:
-            "Carta editoriale di Marina d'Albori: versante, cala e livello stradale sopra la proprietà.",
-          coast:
-            "Carta editoriale della Costiera orientale da Positano a Salerno, con la proprietà a Marina d'Albori.",
-          connections:
-            "Carta editoriale della Campania: la proprietà rispetto a Salerno, alla stazione e agli aeroporti di Salerno e Napoli.",
-        },
+        title: "Inquadramento geografico",
+        ariaLabel:
+          "Mappa della proprietà a Marina d'Albori, sulla costa tra Vietri sul Mare e Salerno.",
+        unavailableTitle: "Mappa temporaneamente non disponibile",
+        unavailableBody:
+          "Marina d'Albori · Vietri sul Mare · ingresso orientale della Costiera Amalfitana",
       },
       mapLabels: {
-        coast: "Costiera Amalfitana",
-        gulf: "Golfo di Salerno",
-        amalfi: "Amalfi",
         vietri: "Vietri sul Mare",
         salerno: "Salerno",
         cetara: "Cetara",
-        maiori: "Maiori",
-        positano: "Positano",
         "salerno-station": "Stazione di Salerno",
         qsr: "Aeroporto Salerno–Costa d'Amalfi",
         nap: "Aeroporto di Napoli-Capodichino",
         property: "La proprietà",
-        north: "N",
-        roadLevel: "Livello stradale",
-        hillside: "Versante",
-        cove: "Cala",
       },
     },
     investment: {
