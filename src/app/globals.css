@@ -508,6 +508,134 @@ h3,
   color: var(--sea);
 }
 
+.spec-band {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.spec-item {
+  margin: 0;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.spec-item:last-child {
+  border-bottom: 0;
+}
+
+.spec-item dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.spec-item dd {
+  margin: 0.45rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(1.28rem, 1.8vw, 1.7rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.spec-list {
+  width: 100%;
+  margin: 0;
+}
+
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.28rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+}
+
+.spec-row dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.spec-row dd {
+  margin: 0;
+}
+
+.composition-figure {
+  font-family: var(--display);
+  font-size: clamp(4.5rem, 12vw, 7.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  font-weight: 420;
+}
+
+.spaces-hero {
+  position: relative;
+}
+
+.spaces-deck {
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.spaces-chapter {
+  padding-block: clamp(4.25rem, 9vw, 8.75rem);
+}
+
+.heritage-hero {
+  padding-top: clamp(2.5rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3rem, 8vw, 6.5rem);
+}
+
+.heritage-chapter {
+  padding-block: clamp(4.5rem, 10vw, 9.5rem);
+}
+
+@media (min-width: 640px) {
+  .spec-band {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.75rem;
+  }
+
+  .spec-item {
+    padding-right: 1rem;
+  }
+
+  .spec-row {
+    grid-template-columns: minmax(7.5rem, 0.38fr) minmax(0, 1fr);
+    gap: 0.85rem 1.25rem;
+    padding: 0.8rem 0;
+  }
+}
+
+@media (min-width: 1100px) {
+  .spec-band {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: 0;
+  }
+
+  .spec-item {
+    padding: 1.4rem 1.4rem 1.4rem 0;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .spec-item:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+}
+
 .scenario-card {
   border-top: 1px solid var(--line);
   padding-top: 1rem;

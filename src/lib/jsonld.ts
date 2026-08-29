@@ -27,7 +27,7 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     },
     "/heritage": {
       name: `${copy.nav.heritage} · ${copy.meta.siteName}`,
-      description: copy.heritage.intro,
+      description: copy.heritage.pageIntro,
     },
     "/gallery": {
       name: `${copy.nav.gallery} · ${copy.meta.siteName}`,

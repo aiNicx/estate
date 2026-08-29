@@ -53,14 +53,19 @@ type Copy = {
     kicker: string;
     title: string;
     intro: string;
+    factsLabel: string;
     compositionTitle: string;
     units: { label: string; detail: string }[];
+    distinctTitle: string;
+    distinct: string[];
   };
   spaces: {
     kicker: string;
     title: string;
+    deck: string;
     intro: string;
-    items: { title: string; body: string; imageId: string }[];
+    chapters: { title: string; body: string }[];
+    nextProperty: string;
   };
   location: {
     kicker: string;
@@ -99,6 +104,9 @@ type Copy = {
     kicker: string;
     title: string;
     intro: string;
+    pageKicker: string;
+    pageTitle: string;
+    pageIntro: string;
     items: { year?: string; title: string; body: string }[];
   };
   gallery: {
@@ -114,6 +122,12 @@ type Copy = {
   facts: {
     kicker: string;
     title: string;
+    groups: {
+      location: string;
+      use: string;
+      waterfront: string;
+      landscape: string;
+    };
     terms: {
       locality: string;
       municipality: string;
@@ -270,51 +284,62 @@ export const messages: Record<Locale, Copy> = {
       ],
     },
     property: {
-      kicker: "The acquisition",
-      title: "A multi-building estate with existing mixed use.",
+      kicker: "The property",
+      title: "Seven independent units facing the sea.",
       intro:
-        "The acquisition comprises seven independent units, extensive terraces and the associated waterfront and historic elements described below.",
-      compositionTitle: "Estate composition",
+        "A mixed-use holding on the hillside of Marina d'Albori, in Vietri sul Mare.",
+      factsLabel: "Property facts",
+      compositionTitle: "Composition",
       units: [
         {
           label: "Five residential units",
           detail:
-            "Independent dwellings, currently used in part for holiday accommodation.",
+            "Independent dwellings, in part used for holiday accommodation.",
         },
         {
           label: "Two commercial units",
           detail:
-            "Commercial spaces forming part of the estate, including the existing restaurant activity.",
+            "Commercial spaces belonging to the estate, including the existing restaurant.",
         },
+      ],
+      distinctTitle: "Distinguishing elements",
+      distinct: [
+        "A waterfront cove, with direct access to the sea.",
+        "A seasonal landing / pontoon concession associated with the property.",
+        "Hospitality and restaurant use already in operation.",
+        "A historic paper mill associated with the estate, dated 1830.",
+        "A lemon grove on the hillside terraces.",
       ],
     },
     spaces: {
-      kicker: "Architecture",
-      title: "Terrace, ceramic and water.",
+      kicker: "Spaces",
+      title: "Spaces built around the sea.",
+      deck: "Terrace, ceramic and water.",
       intro:
-        "White masonry, outdoor rooms and Vietri ceramic work define the estate.",
-      items: [
+        "From the hillside to the cove, the rooms open toward the water.",
+      chapters: [
         {
           title: "The cove",
-          body: "White buildings step down a steep, vegetated hillside towards a pebble beach and the seasonal pontoon.",
-          imageId: "architecture-hillside-aerial",
+          body: "White buildings step down the planted hillside to a pebble beach and the seasonal pontoon.",
         },
         {
           title: "Terraces",
-          body: "Approximately 300–350 m² of outdoor rooms extend the estate towards the Tyrrhenian Sea.",
-          imageId: "terrace-dining-sea",
+          body: "About 300–350 m² of outdoor rooms, continuous with the interiors and facing the Tyrrhenian.",
         },
         {
-          title: "Residential interiors",
-          body: "White rooms, patterned ceramic floors and compact kitchens give the residential units a direct Mediterranean character.",
-          imageId: "living-kitchen",
+          title: "Living spaces",
+          body: "Vaulted rooms and open-plan interiors open onto the terraces. Inside and outside are barely set apart.",
         },
         {
-          title: "Guest rooms",
-          body: "Part of the residential accommodation is already arranged for hospitality use.",
-          imageId: "bedroom",
+          title: "Rooms and hospitality",
+          body: "Part of the residential accommodation is already in hospitality use. Some vaulted rooms open directly to the sea.",
+        },
+        {
+          title: "Materials",
+          body: "White masonry, vaulted ceilings, ceramic floors.",
         },
       ],
+      nextProperty: "Property specification",
     },
     location: {
       kicker: "Position",
@@ -397,23 +422,28 @@ export const messages: Record<Locale, Copy> = {
       title: "A property with a history.",
       intro:
         "Paper mill, lemon grove, Vietri ceramic and the sea still shape the estate.",
+      pageKicker: "Identity · Marina d'Albori",
+      pageTitle:
+        "Nearly two centuries of material, landscape and the Mediterranean.",
+      pageIntro:
+        "Industry, cultivation and coast remain visible on the hillside and in the rooms.",
       items: [
         {
           year: "1830",
-          title: "Historic paper mill",
-          body: "A cartiera associated with the property dates to 1830.",
+          title: "The paper mill",
+          body: "A historic paper mill associated with the property dates to 1830. It is the most specific fact in the estate's history.",
         },
         {
-          title: "Lemon grove",
-          body: "Approximately eight mature lemon trees, around seventy years old, remain on the hillside terraces.",
+          title: "The cultivated landscape",
+          body: "On the hillside terraces, about eight mature lemon trees remain, around seventy years old.",
         },
         {
-          title: "Vietri ceramic",
-          body: "Patterned floors, maiolica and mosaic connect the interiors to Vietri's ceramic tradition.",
+          title: "Vietri",
+          body: "Floors, maiolica and mosaic bind the interiors to the ceramic tradition of Vietri sul Mare.",
         },
         {
           title: "The sea",
-          body: "Steep vegetated slopes create privacy through the natural topography of the cove.",
+          body: "The cove, the steep slope and the shoreline give the estate its privacy and turn the rooms toward the water.",
         },
       ],
     },
@@ -430,8 +460,14 @@ export const messages: Record<Locale, Copy> = {
       previous: "Previous photograph",
     },
     facts: {
-      kicker: "Acquisition schedule",
-      title: "Principal facts",
+      kicker: "Specification",
+      title: "Asset schedule",
+      groups: {
+        location: "Location",
+        use: "Current use",
+        waterfront: "Waterfront",
+        landscape: "Landscape and history",
+      },
       terms: {
         locality: "Locality",
         municipality: "Municipality",
@@ -607,10 +643,11 @@ export const messages: Record<Locale, Copy> = {
       ],
     },
     property: {
-      kicker: "L'acquisizione",
-      title: "Una proprietà articolata, con uso misto esistente.",
+      kicker: "La proprietà",
+      title: "Sette unità indipendenti affacciate sul mare.",
       intro:
-        "L'acquisizione comprende sette unità indipendenti, ampie terrazze e gli elementi storici e fronte mare descritti di seguito.",
+        "Un complesso a uso misto sul versante di Marina d'Albori, nel comune di Vietri sul Mare.",
+      factsLabel: "Dati della proprietà",
       compositionTitle: "Composizione",
       units: [
         {
@@ -621,37 +658,47 @@ export const messages: Record<Locale, Copy> = {
         {
           label: "Due unità commerciali",
           detail:
-            "Spazi commerciali parte della proprietà, inclusa l'attività di ristorazione esistente.",
+            "Spazi commerciali della proprietà, inclusa l'attività di ristorazione esistente.",
         },
+      ],
+      distinctTitle: "Caratteri distintivi",
+      distinct: [
+        "Una cala fronte mare, con accesso diretto all'acqua.",
+        "Una concessione stagionale di approdo / pontile associata alla proprietà.",
+        "Uso ricettivo e di ristorazione già in essere.",
+        "Una cartiera storica associata alla proprietà, datata 1830.",
+        "Un limoneto sui terrazzamenti del versante.",
       ],
     },
     spaces: {
-      kicker: "Architettura",
-      title: "Terrazza, ceramica e acqua.",
+      kicker: "Spazi",
+      title: "Spazi costruiti intorno al mare.",
+      deck: "Terrazza, ceramica e acqua.",
       intro:
-        "Muratura chiara, stanze all'aperto e ceramica vietrese definiscono la proprietà.",
-      items: [
+        "Dal versante alla cala, gli ambienti si aprono verso l'acqua.",
+      chapters: [
         {
           title: "La cala",
-          body: "Edifici bianchi scendono un versante vegetato verso la spiaggia di ciottoli e il pontile stagionale.",
-          imageId: "architecture-hillside-aerial",
+          body: "Edifici bianchi scendono il versante vegetato fino alla spiaggia di ciottoli e al pontile stagionale.",
         },
         {
-          title: "Terrazze",
-          body: "Circa 300–350 m² di stanze all'aperto proiettano la proprietà verso il Mar Tirreno.",
-          imageId: "terrace-dining-sea",
+          title: "Le terrazze",
+          body: "Circa 300–350 m² di stanze all'aperto, in continuità con gli interni e rivolte al Tirreno.",
         },
         {
-          title: "Interni residenziali",
-          body: "Stanze chiare, pavimenti in ceramica decorata e cucine compatte danno agli interni un carattere mediterraneo diretto.",
-          imageId: "living-kitchen",
+          title: "Spazi residenziali",
+          body: "Soggiorni a volta e open space si aprono sulle terrazze. Tra interno ed esterno la soglia è sottile.",
         },
         {
-          title: "Camere",
-          body: "Parte degli spazi residenziali è già predisposta per l'uso ricettivo.",
-          imageId: "bedroom",
+          title: "Camere e ospitalità",
+          body: "Parte delle unità residenziali è già in uso ricettivo. Alcune camere a volta si aprono direttamente sul mare.",
+        },
+        {
+          title: "Materia",
+          body: "Muratura chiara, soffitti a volta, pavimenti in ceramica.",
         },
       ],
+      nextProperty: "Scheda della proprietà",
     },
     location: {
       kicker: "Posizione",
@@ -734,23 +781,27 @@ export const messages: Record<Locale, Copy> = {
       title: "Una proprietà con una storia.",
       intro:
         "Cartiera, limoneto, ceramica vietrese e mare definiscono ancora la proprietà.",
+      pageKicker: "Identità · Marina d'Albori",
+      pageTitle: "Quasi due secoli di materia, paesaggio e Mediterraneo.",
+      pageIntro:
+        "Lavoro, coltivazione e costa restano visibili nel versante e negli interni.",
       items: [
         {
           year: "1830",
-          title: "Cartiera",
-          body: "Una cartiera storica associata alla proprietà risale al 1830.",
+          title: "La cartiera",
+          body: "Una cartiera storica associata alla proprietà risale al 1830. È il dato più preciso della sua storia.",
         },
         {
-          title: "Limoneto",
-          body: "Circa otto limoni maturi, di circa settant'anni, restano sui terrazzamenti del versante.",
+          title: "Il paesaggio coltivato",
+          body: "Sui terrazzamenti restano circa otto limoni maturi, di circa settant'anni.",
         },
         {
-          title: "Ceramica vietrese",
-          body: "Pavimenti decorati, maiolica e mosaico legano gli interni alla tradizione ceramica vietrese.",
+          title: "Vietri",
+          body: "Pavimenti, maiolica e mosaico legano gli interni alla tradizione ceramica di Vietri sul Mare.",
         },
         {
           title: "Il mare",
-          body: "Versanti vegetati e ripidi creano riservatezza attraverso la topografia naturale della cala.",
+          body: "La cala, il versante ripido e la linea di costa danno riservatezza e orientano gli spazi verso l'acqua.",
         },
       ],
     },
@@ -765,10 +816,16 @@ export const messages: Record<Locale, Copy> = {
       close: "Chiudi la fotografia",
       next: "Fotografia successiva",
       previous: "Fotografia precedente",
-      },
+    },
     facts: {
-      kicker: "Scheda di acquisizione",
-      title: "Dati principali",
+      kicker: "Specifiche",
+      title: "Scheda dell'immobile",
+      groups: {
+        location: "Posizione",
+        use: "Uso attuale",
+        waterfront: "Fronte mare",
+        landscape: "Paesaggio e storia",
+      },
       terms: {
         locality: "Località",
         municipality: "Comune",
