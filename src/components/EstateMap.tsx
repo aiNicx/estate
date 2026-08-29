@@ -159,9 +159,11 @@ export function EstateMap({
       new AttributionControl({ compact: true }),
       "bottom-left",
     );
-    const attribution = host.querySelector(".maplibregl-ctrl-attrib");
-    attribution?.classList.remove("maplibregl-compact-show");
-    attribution?.setAttribute("open", "");
+    const minimizeAttribution = () => {
+      const attribution = host.querySelector(".maplibregl-ctrl-attrib");
+      attribution?.classList.remove("maplibregl-compact-show");
+      attribution?.setAttribute("open", "");
+    };
 
     markersRef.current = mapPlaces().map((place) => {
       const isProperty = place.id === "property";
@@ -198,6 +200,7 @@ export function EstateMap({
       configureEditorialStyle(map);
       setStatus("ready");
     });
+    map.once("idle", minimizeAttribution);
     map.on("error", (event) => {
       const sourceId = (event as { sourceId?: string }).sourceId;
       if (sourceId !== "openmaptiles") return;
