@@ -6,7 +6,7 @@ import {
   formatStraightLine,
   locationMap,
   mapPlaces,
-  mapResources,
+  mapBasemap,
   placeById,
   places,
   straightLineFromProperty,
@@ -46,19 +46,18 @@ test("straight-line distances are approximate and not travel times", () => {
   assert.doesNotMatch(formatStraightLine("en", vietri.km), /min/);
 });
 
-test("one authoritative map uses a keyless production basemap", () => {
+test("one authoritative map uses a keyless raster basemap", () => {
   assert.deepEqual([...locationMap.placeIds], ["property", "vietri", "salerno"]);
   assert.deepEqual(
     mapPlaces().map((place) => place.id),
     ["property", "vietri", "salerno"],
   );
-  assert.equal(mapResources.requiresToken, false);
+  assert.equal(mapBasemap.requiresToken, false);
+  assert.equal(mapBasemap.tiles.length, 1);
   assert.match(
-    mapResources.basemapStyle,
-    /^https:\/\/tiles\.openfreemap\.org\/styles\/positron$/,
+    mapBasemap.tiles[0],
+    /^https:\/\/server\.arcgisonline\.com\/ArcGIS\/rest\/services\/World_Topo_Map\/MapServer\/tile\/\{z\}\/\{y\}\/\{x\}$/,
   );
-  assert.doesNotMatch(mapResources.basemapStyle, /carto|tile\.openstreetmap\.org/i);
-  assert.match(mapResources.terrainTiles, /^https:\/\/s3\.amazonaws\.com\//);
 });
 
 test("location copy is bilingual and states pedestrian stair access", () => {
