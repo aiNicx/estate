@@ -663,7 +663,8 @@ h3,
   aspect-ratio: 4 / 3;
 }
 
-.location-map-caption {
+.location-atlas-caption,
+.location-map-simple-caption {
   margin: 0;
   padding: 0.8rem 1rem 0.9rem;
   font-family: var(--display);
@@ -705,6 +706,20 @@ h3,
   font-size: clamp(1.2rem, 2vw, 1.55rem);
   letter-spacing: -0.03em;
   line-height: 1.2;
+}
+
+.location-atlas {
+  margin: 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.location-atlas-frame {
+  position: relative;
+  height: clamp(30rem, 68svh, 42rem);
+  background: var(--sea-deep);
+  overflow: hidden;
+  touch-action: pan-y;
 }
 
 .estate-map-shell,
@@ -831,6 +846,12 @@ h3,
   background: var(--terracotta);
   color: var(--white);
   padding: 0.2rem 0.5rem;
+}
+
+@media (max-width: 639px) {
+  .estate-marker-vietri span {
+    transform: translate(3.4rem, -1.5rem);
+  }
 }
 
 .location-chapter {
@@ -1425,7 +1446,7 @@ h3,
     gap: 3.5rem 4rem;
   }
 
-  .location-map:not(.location-map-compact) .location-map-frame {
+  .location-atlas-frame {
     height: min(74vh, 49rem);
   }
 

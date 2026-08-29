@@ -6,7 +6,7 @@ import { localeMetadata } from "@/lib/seo";
 import { availableImage } from "@/content/images";
 import { Photo } from "@/components/Photo";
 import { PageShell } from "@/components/PageShell";
-import { LocationMap } from "@/components/LocationMap";
+import { LocationAtlas } from "@/components/LocationAtlas";
 import { localizedPath } from "@/lib/site";
 import {
   formatStraightLine,
@@ -68,7 +68,7 @@ export default async function LocationPage({ params }: PageProps) {
         <h2 id="location-map-heading" className="sr-only">
           {copy.map.title}
         </h2>
-        <LocationMap locale={locale} />
+        <LocationAtlas locale={locale} />
       </section>
 
       <section
