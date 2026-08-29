@@ -34,7 +34,7 @@ const REMOVED_LAYER_PREFIXES = [
   "waterway_line_label",
 ] as const;
 
-function configureEditorialStyle(map: MapLibreMap, reducedMotion: boolean) {
+function configureEditorialStyle(map: MapLibreMap) {
   const layers = map.getStyle().layers ?? [];
   for (const layer of layers) {
     if (
@@ -103,13 +103,6 @@ function configureEditorialStyle(map: MapLibreMap, reducedMotion: boolean) {
     );
   }
 
-  if (!reducedMotion) {
-    try {
-      map.setTerrain({ source: "estate-terrain", exaggeration: 1.08 });
-    } catch {
-      // Terrain is an enhancement; the geographic basemap remains useful.
-    }
-  }
 }
 
 export function EstateMap({
@@ -199,7 +192,7 @@ export function EstateMap({
 
     let basemapErrors = 0;
     map.once("style.load", () => {
-      configureEditorialStyle(map, reducedMotion);
+      configureEditorialStyle(map);
       setStatus("ready");
     });
     map.on("error", (event) => {
