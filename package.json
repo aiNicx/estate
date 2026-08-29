@@ -8,13 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/content/property.test.ts src/content/images.test.ts src/lib/site.test.ts",
+    "test": "node --experimental-strip-types --test src/content/property.test.ts src/content/images.test.ts src/content/geography.test.ts src/lib/site.test.ts",
     "optimize:photos": "node scripts/optimize-photos.mjs"
   },
   "engines": {
     "node": ">=20.9.0"
   },
   "dependencies": {
+    "maplibre-gl": "^6.6.0",
     "next": "16.3.2",
     "react": "19.2.8",
     "react-dom": "19.2.8"

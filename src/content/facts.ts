@@ -135,6 +135,16 @@ export function getAssetDetailGroups(locale: Locale) {
               : "Non indicata",
         },
         {
+          term: terms.landAccess,
+          value: property.landAccess.pedestrianSteppedPathFromRoadLevel
+            ? en
+              ? "Pedestrian · stepped path from road level"
+              : "Pedonale · percorso a scale dal livello stradale"
+            : en
+              ? "Not stated"
+              : "Non indicata",
+        },
+        {
           term: terms.pontoon,
           value: property.waterfront.seasonalPontoonConcession
             ? en

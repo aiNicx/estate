@@ -103,6 +103,17 @@ export const property = {
     seasonalPontoonConcession: true,
     status: "supplied" as FactStatus,
   },
+  /**
+   * Land approach is photograph-observable (stone staircase descending toward the sea;
+   * buildings step down the hillside). Step count is not recorded. Direct vehicular
+   * arrival at the buildings is not stated.
+   */
+  landAccess: {
+    pedestrianSteppedPathFromRoadLevel: true,
+    stepCount: null as number | null,
+    vehicularAccessToBuildings: null as boolean | null,
+    status: "photograph" as FactStatus,
+  },
   heritage: {
     paperMillYear: 1830,
     paperMillNote: {
