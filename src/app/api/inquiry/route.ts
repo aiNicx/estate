@@ -28,6 +28,9 @@ export async function POST(request: Request) {
 
   try {
     const delivery = await deliverInquiry(result.payload);
+    if (!delivery.delivered) {
+      return NextResponse.json({ ok: false, delivered: false }, { status: 503 });
+    }
     return NextResponse.json({ ok: true, ...delivery });
   } catch {
     return NextResponse.json({ ok: false }, { status: 502 });

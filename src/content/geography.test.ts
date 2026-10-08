@@ -74,8 +74,10 @@ test("location copy is bilingual and states pedestrian stair access", () => {
   assert.equal(messages.en.location.access.land.body.includes("stepped path"), true);
   assert.doesNotMatch(messages.en.location.access.land.body, /\d+\s+steps/i);
   assert.doesNotMatch(messages.it.location.access.land.body, /\d+\s+gradin/i);
-  assert.match(messages.en.location.access.sea.body, /not a private harbour/);
-  assert.match(messages.it.location.access.sea.body, /non un porto privato/);
+  assert.match(messages.en.location.access.sea.body, /seasonal.*concession/);
+  assert.match(messages.it.location.access.sea.body, /concessione stagionale/);
+  assert.doesNotMatch(messages.en.location.access.sea.body, /private harbour|year-round access/i);
+  assert.doesNotMatch(messages.it.location.access.sea.body, /porto privato|accesso garantito/i);
   assert.doesNotMatch(messages.en.location.access.land.body, /difficult access|inconvenient|limitation/i);
   assert.doesNotMatch(messages.it.location.access.land.body, /accesso difficil|scomodo|limitazione/i);
   assert.equal(messages.en.location.distinct.length, 3);

@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Marina d'Albori Estate",
     short_name: "Marina d'Albori",
     description:
-      "Waterfront estate for sale in Marina d'Albori, Vietri sul Mare, Amalfi Coast.",
+      "An introduction to the waterfront estate at Marina d'Albori, Vietri sul Mare, on the Amalfi Coast.",
     start_url: "/en",
     display: "browser",
     background_color: "#f3efe6",

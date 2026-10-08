@@ -14,7 +14,7 @@ type Copy = {
     wordmark: string;
     placeLine: string;
   };
-  nav: Record<RouteId, string> & { privacy: string; menu: string; close: string };
+  nav: Record<RouteId, string> & { privacy: string; menu: string; close: string; navigation: string; mobileNavigation: string; footerNavigation: string; breadcrumb: string; language: string };
   cta: {
     request: string;
     requestDetails: string;
@@ -54,6 +54,7 @@ type Copy = {
     title: string;
     intro: string;
     factsLabel: string;
+    areaNote: string;
     compositionTitle: string;
     units: { label: string; detail: string }[];
     distinctTitle: string;
@@ -144,6 +145,7 @@ type Copy = {
     kicker: string;
     title: string;
     intro: string;
+    groups: Record<"waterfront" | "terraces" | "interiors" | "hospitality" | "details", string>;
     emptyTitle: string;
     emptyBody: string;
     close: string;
@@ -190,6 +192,12 @@ type Copy = {
     sending: string;
     submit: string;
     required: string;
+    buyerTypePrompt: string;
+    messagePlaceholder: string;
+    unavailable: string;
+    nextTitle: string;
+    steps: string[];
+    privacyLink: string;
     fields: {
       name: string;
       company: string;
@@ -230,891 +238,886 @@ type Copy = {
 };
 
 export const messages: Record<Locale, Copy> = {
-  en: {
-    meta: {
-      title:
-        "Marina d'Albori Estate, Vietri sul Mare | Amalfi Coast property for sale",
-      description:
-        "A waterfront estate in Marina d'Albori, Vietri sul Mare, on the Amalfi Coast: approximately 900 m² internal space, 300–350 m² of terraces, seven units, hospitality and restaurant use, a historic lemon garden, and a seasonal pontoon concession.",
-      ogTitle: "Marina d'Albori Estate — Vietri sul Mare, Amalfi Coast",
-      ogDescription:
-        "Private waterfront estate offered for sale in Marina d'Albori, Vietri sul Mare, Campania. Residential, commercial and hospitality composition on the Amalfi Coast.",
-      siteName: "Marina d'Albori Estate",
+  "en": {
+    "meta": {
+      "title": "Marina d'Albori | Waterfront estate in Vietri sul Mare",
+      "description": "A waterfront estate at Marina d'Albori on the Amalfi Coast: seven residential and commercial units, approximately 900 m² of internal area and 300–350 m² of terraces, with existing holiday accommodation and restaurant use.",
+      "ogTitle": "Marina d'Albori · A waterfront estate",
+      "ogDescription": "Seven units, seafront terraces and a historic paper mill dating to 1830 associated with the property. An introduction to the estate and its setting in Vietri sul Mare.",
+      "siteName": "Marina d'Albori"
     },
-    brand: {
-      kicker: "For sale",
-      wordmark: "Marina d'Albori",
-      placeLine: "Vietri sul Mare · Amalfi Coast",
+    "brand": {
+      "kicker": "Property for sale",
+      "wordmark": "Marina d'Albori",
+      "placeLine": "Vietri sul Mare · Amalfi Coast"
     },
-    nav: {
-      overview: "Overview",
-      property: "Estate",
-      spaces: "Spaces",
-      location: "Location",
-      investment: "Investment",
-      heritage: "Heritage",
-      gallery: "Gallery",
-      request: "Request dossier",
-      privacy: "Privacy",
-      menu: "Open menu",
-      close: "Close menu",
+    "nav": {
+      "overview": "Overview",
+      "property": "Property",
+      "spaces": "Spaces",
+      "location": "Location",
+      "investment": "Uses",
+      "heritage": "History",
+      "gallery": "Photographs",
+      "request": "Enquiries",
+      "privacy": "Privacy",
+      "menu": "Menu",
+      "close": "Close",
+      "navigation": "Main navigation",
+      "mobileNavigation": "Menu navigation",
+      "footerNavigation": "Footer navigation",
+      "breadcrumb": "Breadcrumb navigation",
+      "language": "Language"
     },
-    cta: {
-      request: "Request the confidential dossier",
-      requestDetails: "View the estate",
-      requestInvestment: "Explore strategic options",
+    "cta": {
+      "request": "Request information",
+      "requestDetails": "Explore the property",
+      "requestInvestment": "Current use and possibilities"
     },
-    hero: {
-      eyebrow: "Marina d'Albori",
-      title: "A private waterfront estate on the Amalfi Coast.",
-      lead: "Vietri sul Mare.",
-      scroll: "Continue",
+    "hero": {
+      "eyebrow": "Marina d'Albori",
+      "title": "A waterfront estate on the Amalfi Coast.",
+      "lead": "At Marina d'Albori, in the municipality of Vietri sul Mare.",
+      "scroll": "Continue"
     },
-    overview: {
-      kicker: "The estate",
-      title: "Seven independent units on a private cove.",
-      body: [
-        "Five residential and two commercial units occupy a secluded waterfront setting. Terraces and a seasonal pontoon concession open the estate to the sea.",
+    "overview": {
+      "kicker": "The property",
+      "title": "Seven units between the hillside and the sea.",
+      "body": [
+        "Five residential and two commercial units form the estate, arranged along the hillside above the cove. Terraces, views over the water and Mediterranean vegetation define the setting.",
+        "Some of the homes are already used for holiday accommodation, alongside existing restaurant use. A seasonal landing and pontoon concession is associated with the property."
+      ]
+    },
+    "metrics": {
+      "internalArea": "Internal area",
+      "terraces": "Terraces",
+      "units": "Independent units",
+      "composition": "Residential / commercial",
+      "seaAccess": "Setting",
+      "seaAccessValue": "Waterfront"
+    },
+    "home": {
+      "galleryCta": "View the photographs",
+      "seaKicker": "The waterfront",
+      "seaTitle": "The cove and seasonal landing.",
+      "seaBody": "The buildings and terraces overlook the cove. Details of the seasonal landing and pontoon concession can be explored through the property documentation.",
+      "connectionsTitle": "The surroundings",
+      "connections": [
+        {
+          "name": "Vietri sul Mare",
+          "relation": "The property's municipality, at the eastern end of the Amalfi Coast."
+        },
+        {
+          "name": "Salerno",
+          "relation": "The nearby city and a point of access to the rail network."
+        },
+        {
+          "name": "Amalfi Coast",
+          "relation": "The coastal landscape extending towards Cetara, Amalfi and Positano."
+        }
       ],
+      "dossierIntro": "For further information about the units, documentation and sale terms, enquiries can be directed to the person handling the sale.",
+      "dossierMaterials": [
+        "Unit composition and floor areas",
+        "Floor plans and technical documentation",
+        "Seasonal landing and pontoon concession",
+        "Sale terms and arrangements for a viewing"
+      ]
     },
-    metrics: {
-      internalArea: "Internal area",
-      terraces: "Terraces",
-      units: "Independent units",
-      composition: "Residential / commercial",
-      seaAccess: "Sea access",
-      seaAccessValue: "Waterfront",
+    "property": {
+      "kicker": "The property",
+      "title": "Seven units on the waterfront.",
+      "intro": "Approximately 900 m² of internal area and 300–350 m² of terraces, comprising five residential and two commercial units. Homes, holiday accommodation and restaurant use within one estate.",
+      "factsLabel": "Key facts",
+      "compositionTitle": "The units",
+      "areaNote": "Areas are approximate. The breakdown by unit and detailed measurements should be reviewed against the property documentation.",
+      "units": [
+        {
+          "label": "Five residential units",
+          "detail": "Independent homes, some of which are used for holiday accommodation."
+        },
+        {
+          "label": "Two commercial units",
+          "detail": "Commercial premises, including an existing restaurant."
+        }
+      ],
+      "distinctTitle": "The elements of the estate",
+      "distinct": [
+        "The waterfront setting in the cove at Marina d'Albori.",
+        "Terraces and views over the water.",
+        "Existing holiday accommodation and restaurant use.",
+        "The seasonal landing and pontoon concession associated with the property.",
+        "A historic paper mill dating to 1830 associated with the property and a lemon grove on the hillside terraces."
+      ]
     },
-    home: {
-      galleryCta: "View the gallery",
-      seaKicker: "Sea access",
-      seaTitle: "A seasonal pontoon in a private cove.",
-      seaBody:
-        "A landing / pontoon concession associated with the property, in an enclosed waterfront setting.",
-      connectionsTitle: "Connections",
-      connections: [
+    "spaces": {
+      "kicker": "Spaces",
+      "title": "Spaces overlooking the sea.",
+      "deck": "Terraces, residential interiors and ceramic detail.",
+      "intro": "The photographs show how the buildings and outdoor spaces relate to the cove, alongside the interiors of the residential units.",
+      "chapters": [
         {
-          name: "Vietri sul Mare",
-          relation: "The municipality, and eastern gateway to the Amalfi Coast.",
+          "title": "The buildings and the cove",
+          "body": "White buildings follow the hillside down to the waterfront. Terraces and balconies articulate the façades, with the cove and seasonal pontoon below."
         },
         {
-          name: "Salerno",
-          relation: "The provincial capital, on the Gulf of Salerno.",
+          "title": "The terraces",
+          "body": "Approximately 300–350 m² of terraces in total. The photographs show views over the Tyrrhenian Sea, outdoor dining spaces and balconies framed by arches."
         },
         {
-          name: "Amalfi Coast",
-          relation: "The coastal landscape of southern Campania.",
+          "title": "The residential interiors",
+          "body": "Vaulted sitting rooms, open interiors and ceramic floors feature in the spaces photographed. Layouts and views vary between units."
         },
+        {
+          "title": "The bedrooms",
+          "body": "The bedrooms photographed look towards the sea and the hillside pines. Some of the residential units are already used for holiday accommodation."
+        },
+        {
+          "title": "Ceramic and detail",
+          "body": "Maiolica, mosaics and blue doors feature throughout the rooms and interior passageways, reflecting the ceramic tradition of Vietri sul Mare."
+        }
       ],
-      dossierIntro:
-        "Qualified parties may request plans, specifications, additional photography and further confidential documentation.",
-      dossierMaterials: [
-        "Plans",
-        "Property areas and specifications",
-        "Additional photography",
-        "Technical, cadastral and concession documentation",
-      ],
+      "nextProperty": "Property composition and facts"
     },
-    property: {
-      kicker: "The property",
-      title: "Seven independent units facing the sea.",
-      intro:
-        "A mixed-use holding on the hillside of Marina d'Albori, in Vietri sul Mare.",
-      factsLabel: "Property facts",
-      compositionTitle: "Composition",
-      units: [
-        {
-          label: "Five residential units",
-          detail:
-            "Independent dwellings, in part used for holiday accommodation.",
+    "location": {
+      "kicker": "Location",
+      "title": "Marina d'Albori, where Vietri meets the Amalfi Coast.",
+      "intro": "The estate is at Marina d'Albori, in the municipality of Vietri sul Mare, on the stretch of coast overlooking the Gulf of Salerno.",
+      "metaDescription": "The estate's location at Marina d'Albori: pedestrian stair access from the road, a waterfront setting and a seasonal landing and pontoon concession. Vietri sul Mare, Salerno and the surrounding transport connections.",
+      "accessPreview": {
+        "land": {
+          "kicker": "From land",
+          "label": "Pedestrian · stepped path from the road"
         },
-        {
-          label: "Two commercial units",
-          detail:
-            "Commercial spaces belonging to the estate, including the existing restaurant.",
-        },
-      ],
-      distinctTitle: "Distinguishing elements",
-      distinct: [
-        "A waterfront cove, with direct access to the sea.",
-        "A seasonal landing / pontoon concession associated with the property.",
-        "Hospitality and restaurant use already in operation.",
-        "A historic paper mill associated with the estate, dated 1830.",
-        "A lemon grove on the hillside terraces.",
-      ],
-    },
-    spaces: {
-      kicker: "Spaces",
-      title: "Spaces built around the sea.",
-      deck: "Terrace, ceramic and water.",
-      intro:
-        "From the hillside to the cove, the rooms open toward the water.",
-      chapters: [
-        {
-          title: "The cove",
-          body: "White buildings step down the planted hillside to a pebble beach and the seasonal pontoon.",
-        },
-        {
-          title: "Terraces",
-          body: "About 300–350 m² of outdoor rooms, continuous with the interiors and facing the Tyrrhenian.",
-        },
-        {
-          title: "Living spaces",
-          body: "Vaulted rooms and open-plan interiors open onto the terraces. Inside and outside are barely set apart.",
-        },
-        {
-          title: "Rooms and hospitality",
-          body: "Part of the residential accommodation is already in hospitality use. Some vaulted rooms open directly to the sea.",
-        },
-        {
-          title: "Materials",
-          body: "White masonry, vaulted ceilings, ceramic floors.",
-        },
-      ],
-      nextProperty: "Property specification",
-    },
-    location: {
-      kicker: "Position · Marina d'Albori",
-      title: "A reserved cove at the threshold of the Amalfi Coast.",
-      intro:
-        "Marina d'Albori is a coastal locality of Vietri sul Mare, where the Amalfi Coast meets the Gulf of Salerno.",
-      metaDescription:
-        "Marina d'Albori, Vietri sul Mare, Campania: a waterfront cove on the eastern Amalfi Coast. Pedestrian stepped access from road level; seasonal landing / pontoon concession. Geographic context for Salerno, rail and airports.",
-      accessPreview: {
-        land: {
-          kicker: "Land access",
-          label: "Pedestrian · stepped path from road level",
-        },
-        sea: {
-          kicker: "Sea access",
-          label: "Waterfront cove · seasonal landing / pontoon concession",
-        },
+        "sea": {
+          "kicker": "On the water",
+          "label": "Waterfront · seasonal landing and pontoon concession"
+        }
       },
-      topography: {
-        kicker: "Setting",
-        title: "Between hillside and waterline.",
-        body: "The estate occupies a vertical stretch of this coast: road level above, buildings and cove below, the Gulf of Salerno immediately to the south. Marina d'Albori is the shore locality; the hill village of Albori lies inland within the same municipality.",
-        strata: [
+      "topography": {
+        "kicker": "The landscape",
+        "title": "From hillside to cove.",
+        "body": "The coastal road runs above the cove. Buildings and terraces extend down the hillside towards the shore. Marina d'Albori is the locality on the water; the village of Albori sits higher up, within the same municipality.",
+        "strata": [
           {
-            label: "Road level",
-            note: "The coastal road sits above the cove.",
+            "label": "The road",
+            "note": "The arrival point from land, above the cove."
           },
           {
-            label: "Stepped descent",
-            note: "The property is reached on foot from the road.",
+            "label": "The path",
+            "note": "The pedestrian descent by stairs towards the buildings."
           },
           {
-            label: "Estate and cove",
-            note: "Buildings, terraces and shoreline.",
+            "label": "The estate",
+            "note": "Buildings, terraces and views over the water."
           },
           {
-            label: "Sea",
-            note: "Waterfront, with a seasonal landing concession.",
-          },
-        ],
+            "label": "The shore",
+            "note": "The cove and seasonal pontoon."
+          }
+        ]
       },
-      access: {
-        kicker: "Approach",
-        title: "Between road and sea",
-        intro:
-          "The estate has two relationships with access — one from land, one from water — both shaped by the same coastal section.",
-        land: {
-          kicker: "Via land",
-          title: "Land access",
-          label: "Pedestrian · stepped path from road level",
-          body: "From road level, the property is reached on foot via a stepped path descending through the hillside towards the cove. The arrangement follows the vertical morphology of this stretch of coast.",
+      "access": {
+        "kicker": "Getting there",
+        "title": "Access to the estate.",
+        "intro": "The final approach from land is on foot. Landing from the water is subject to the seasonal concession associated with the property.",
+        "land": {
+          "kicker": "From the road",
+          "title": "The pedestrian approach",
+          "label": "Pedestrian · stepped path from the road",
+          "body": "A stepped path descends from road level along the hillside towards the cove. Details of the route and arrival arrangements can be discussed ahead of a viewing."
         },
-        sea: {
-          kicker: "Via sea",
-          title: "Sea access",
-          label: "Waterfront cove · seasonal landing / pontoon concession",
-          body: "The buildings, terraces and cove sit on the waterline. A seasonal landing / pontoon concession is associated with the property: a time-limited use right, not a private harbour and not a guarantee of year-round boat access.",
-        },
+        "sea": {
+          "kicker": "From the cove",
+          "title": "The seasonal landing",
+          "label": "Seasonal landing and pontoon concession",
+          "body": "A seasonal landing and pontoon concession is associated with the property. Conditions of use, seasonal operation and the features of the landing should be reviewed in the relevant documentation."
+        }
       },
-      connectivity: {
-        kicker: "Network",
-        title: "Road, sea, rail and air",
-        intro:
-          "The cove is secluded in section, yet it sits at the eastern edge of the Amalfi Coast, facing Salerno and Campania's transport network.",
-        distanceNote:
-          "Kilometres below are approximate straight-line distances from the published listing pin, not journey times.",
-        modes: [
+      "connectivity": {
+        "kicker": "Connections",
+        "title": "Roads, ports, rail and airports.",
+        "intro": "Vietri sul Mare and Salerno are the main points of reference for reaching this part of the coast and continuing towards the estate.",
+        "distanceNote": "Distances shown are approximate and measured in a straight line from the estate's location. They do not indicate travel times.",
+        "modes": [
           {
-            id: "road",
-            title: "Road",
-            body: "This stretch of coast is served by the SS163 Amalfitana, the coastal state road that runs at road level above the cove. Vehicles relate to that road level; the final approach to the buildings is on foot, by the stepped path.",
+            "id": "road",
+            "title": "Road",
+            "body": "The SS163 Amalfitana follows the hillside above the cove. The final stretch to the buildings is on foot, along the stairs."
           },
           {
-            id: "sea",
-            title: "Sea",
-            body: "The estate is on the waterfront of the cove, with the associated seasonal landing / pontoon concession. Seasonal maritime services along the coast call at harbours, not at the property.",
+            "id": "sea",
+            "title": "Ports and sea connections",
+            "body": "Coastal boat services use the area's ports and landing points. The property's seasonal concession should be considered separately from these services."
           },
           {
-            id: "rail",
-            title: "Rail",
-            body: "Salerno is the relevant nearby long-distance rail gateway, including access to Italy's high-speed network.",
+            "id": "rail",
+            "title": "Rail",
+            "body": "Salerno station connects the area to Italy's national rail network, including high-speed services."
           },
           {
-            id: "air",
-            title: "Air",
-            body: "Two airports frame the geography: Salerno–Costa d'Amalfi and Naples International (Capodichino). Neither distance below is a travel time.",
-          },
-        ],
+            "id": "air",
+            "title": "Airports",
+            "body": "The relevant airports are Salerno–Costa d'Amalfi and Naples International (Capodichino)."
+          }
+        ]
       },
-      context: {
-        kicker: "Coast",
-        title: "The eastern Amalfi Coast, on the Gulf of Salerno.",
-        body: "West of the cove the shoreline runs through Cetara, Maiori, Amalfi and Positano. East and north-east lie Vietri sul Mare and Salerno, in Campania, Italy.",
+      "context": {
+        "kicker": "The coast",
+        "title": "Vietri, Salerno and the coast towards Amalfi.",
+        "body": "Vietri sul Mare and Salerno lie east of the cove. To the west, the coast continues through Cetara, Maiori, Amalfi and Positano."
       },
-      distinctTitle: "A position that is difficult to replicate",
-      distinct: [
+      "distinctTitle": "The estate's surroundings",
+      "distinct": [
         {
-          title: "Waterfront",
-          body: "Buildings, terraces and cove have an unusually direct relationship with the shoreline.",
+          "title": "The shore",
+          "body": "The cove brings together the buildings, hillside and sea."
         },
         {
-          title: "Separation",
-          body: "The vertical sequence of road, hillside and cove gives the estate a clearly defined physical setting.",
+          "title": "The hillside",
+          "body": "The change in level between the road and shore shapes the arrangement of the spaces and the approach to the estate."
         },
         {
-          title: "Connectivity",
-          body: "The property remains geographically close to Vietri sul Mare and Salerno while belonging to the Amalfi Coast.",
-        },
+          "title": "The area",
+          "body": "The estate forms part of Vietri sul Mare, at the eastern end of the Amalfi Coast."
+        }
       ],
-      dossierLead:
-        "Plans, concession documents and further geographic detail are reserved for the confidential dossier.",
-      mapCaption: "Marina d'Albori · Vietri sul Mare",
-      map: {
-        title: "Geographic setting",
-        ariaLabel:
-          "Map showing the estate at Marina d'Albori on the coast between Vietri sul Mare and Salerno.",
-        unavailableTitle: "Map temporarily unavailable",
-        unavailableBody:
-          "Marina d'Albori · Vietri sul Mare · eastern Amalfi Coast",
+      "dossierLead": "Enquiries about access, floor plans and the seasonal concession can be directed to the person handling the sale.",
+      "mapCaption": "Marina d'Albori · Vietri sul Mare",
+      "map": {
+        "title": "The location",
+        "ariaLabel": "Map of the estate at Marina d'Albori, with Vietri sul Mare and Salerno.",
+        "unavailableTitle": "The map is currently unavailable",
+        "unavailableBody": "The estate is at Marina d'Albori, in the municipality of Vietri sul Mare."
       },
-      mapLabels: {
-        vietri: "Vietri sul Mare",
-        salerno: "Salerno",
-        cetara: "Cetara",
+      "mapLabels": {
+        "vietri": "Vietri sul Mare",
+        "salerno": "Salerno",
+        "cetara": "Cetara",
         "salerno-station": "Salerno station",
-        qsr: "Salerno–Costa d'Amalfi Airport",
-        nap: "Naples International Airport",
-        property: "The estate",
-      },
+        "qsr": "Salerno–Costa d'Amalfi Airport",
+        "nap": "Naples International Airport",
+        "property": "The estate"
+      }
     },
-    investment: {
-      kicker: "Use",
-      title: "Three possible configurations.",
-      intro:
-        "Residential, hospitality and restaurant uses already coexist across seven independent units.",
-      presentTitle: "Existing asset",
-      present: [
-        "Five independent residential units, used in part for holiday accommodation.",
-        "Two commercial units, including an existing restaurant activity.",
-        "Approximately 900 m² of covered internal area and 300–350 m² of terraces.",
-        "Seasonal landing / pontoon concession associated with the property.",
+    "investment": {
+      "kicker": "Uses and possibilities",
+      "title": "Current use and possibilities to explore.",
+      "intro": "The estate brings together homes, holiday accommodation and commercial premises. This composition allows several approaches to be considered, starting with the uses already in place.",
+      "presentTitle": "Current use",
+      "present": [
+        "Five independent residential units, some used for holiday accommodation.",
+        "Two commercial units, including an existing restaurant.",
+        "Approximately 900 m² of internal area and 300–350 m² of terraces.",
+        "A seasonal landing and pontoon concession associated with the property."
       ],
-      possibleTitle: "Possible configurations",
-      scenarios: [
+      "possibleTitle": "Possibilities to explore",
+      "scenarios": [
         {
-          title: "Private Estate",
-          body: "A single private holding, with independent accommodation for family and guests.",
+          "title": "Private use",
+          "body": "The separate homes may be considered for family and guest use. Connections between spaces and any alterations would need to be reviewed."
         },
         {
-          title: "Hospitality",
-          body: "Accommodation combined with the existing restaurant activity.",
+          "title": "Accommodation and dining",
+          "body": "Existing holiday accommodation and restaurant use provide a starting point for assessing management of the estate and its operational needs."
         },
         {
-          title: "Mixed-use Investment",
-          body: "Private apartments, operated hospitality and commercial space in one holding.",
-        },
+          "title": "Mixed use",
+          "body": "The combination of residential and commercial units allows an approach combining personal use with managed activities to be considered."
+        }
       ],
-      disclaimer:
-        "All future configurations are indicative and subject to due diligence, applicable approvals and verification of concession documentation.",
+      "disclaimer": "These are possibilities to be assessed against technical, planning, cadastral and concession documentation. Changes of use or alterations require the relevant checks and approvals."
     },
-    heritage: {
-      kicker: "Provenance",
-      title: "A property with a history.",
-      intro:
-        "Paper mill, lemon grove, Vietri ceramic and the sea still shape the estate.",
-      pageKicker: "Identity · Marina d'Albori",
-      pageTitle:
-        "Nearly two centuries of material, landscape and the Mediterranean.",
-      pageIntro:
-        "Industry, cultivation and coast remain visible on the hillside and in the rooms.",
-      items: [
+    "heritage": {
+      "kicker": "History and character",
+      "title": "The paper mill, lemon grove and ceramic detail.",
+      "intro": "A historic paper mill dating to 1830 is associated with the property. The lemon grove on the hillside terraces and ceramic details in the interiors add to its story.",
+      "pageKicker": "History",
+      "pageTitle": "Work, landscape and the ceramic tradition.",
+      "pageIntro": "The paper mill associated with the estate, the lemon trees and the interior details connect this place to the history and landscape of Vietri sul Mare.",
+      "items": [
         {
-          year: "1830",
-          title: "The paper mill",
-          body: "A historic paper mill associated with the property dates to 1830. It is the most specific fact in the estate's history.",
+          "year": "1830",
+          "title": "The paper mill",
+          "body": "A historic paper mill associated with the property dates to 1830."
         },
         {
-          title: "The cultivated landscape",
-          body: "On the hillside terraces, about eight mature lemon trees remain, around seventy years old.",
+          "title": "The lemon grove",
+          "body": "Approximately eight lemon trees, around seventy years old, stand on the hillside terraces. Citrus cultivation is part of the landscape of this stretch of coast."
         },
         {
-          title: "Vietri",
-          body: "Floors, maiolica and mosaic bind the interiors to the ceramic tradition of Vietri sul Mare.",
+          "title": "Vietri ceramic",
+          "body": "Maiolica floors, blue and white tiles and coloured mosaics feature in the interiors photographed, reflecting the ceramic tradition of Vietri sul Mare."
         },
         {
-          title: "The sea",
-          body: "The cove, the steep slope and the shoreline give the estate its privacy and turn the rooms toward the water.",
-        },
-      ],
+          "title": "The cove",
+          "body": "The shore and hillside shape the buildings and their outlook. The sea is the visual reference for the outdoor spaces."
+        }
+      ]
     },
-    gallery: {
-      kicker: "Visual archive",
-      title: "The estate, from cove to interior.",
-      intro:
-        "A private photographic portfolio accompanies the acquisition dossier.",
-      emptyTitle: "Private photographic portfolio",
-      emptyBody:
-        "Interior, architectural and waterfront photography is available to qualified parties with the private dossier.",
-      close: "Close photograph",
-      next: "Next photograph",
-      previous: "Previous photograph",
-    },
-    facts: {
-      kicker: "Specification",
-      title: "Asset schedule",
-      groups: {
-        location: "Location",
-        use: "Current use",
-        waterfront: "Waterfront",
-        landscape: "Landscape and history",
+    "gallery": {
+      "kicker": "Photographs",
+      "title": "From the cove to the interiors.",
+      "intro": "A selection of photographs introduces the waterfront setting, terraces, residential interiors and details of the estate.",
+      "groups": {
+        "waterfront": "The cove and waterfront",
+        "terraces": "The terraces",
+        "interiors": "The residential interiors",
+        "hospitality": "Bedrooms and views",
+        "details": "Ceramic and garden"
       },
-      terms: {
-        locality: "Locality",
-        municipality: "Municipality",
-        coast: "Coast",
-        internalArea: "Covered internal space",
-        terraces: "Terraces",
-        units: "Units",
-        residentialUnits: "Residential units",
-        commercialUnits: "Commercial units",
-        hospitality: "Current hospitality use",
-        restaurant: "Restaurant",
-        lemonGarden: "Lemon garden",
-        waterfront: "Sea relationship",
-        pontoon: "Landing / pontoon",
-        landAccess: "Land access",
-        paperMill: "Historic paper mill",
-      },
+      "emptyTitle": "The photographs are currently unavailable",
+      "emptyBody": "Enquiries about the estate and photographic material can be directed to the person handling the sale.",
+      "close": "Close",
+      "next": "Next",
+      "previous": "Previous"
     },
-    request: {
-      kicker: "Private enquiry",
-      title: "Request the confidential dossier.",
-      intro:
-        "Qualified parties may request access to the detailed acquisition materials.",
-      confidentialNote:
-        "Enquiries are handled discreetly.",
-      topicsTitle: "Confidential materials",
-      topics: [
+    "facts": {
+      "kicker": "Property facts",
+      "title": "Composition and characteristics",
+      "groups": {
+        "location": "Location",
+        "use": "Current use",
+        "waterfront": "Waterfront and access",
+        "landscape": "Landscape and history"
+      },
+      "terms": {
+        "locality": "Locality",
+        "municipality": "Municipality",
+        "coast": "Coast",
+        "internalArea": "Internal area",
+        "terraces": "Terraces",
+        "units": "Units",
+        "residentialUnits": "Residential units",
+        "commercialUnits": "Commercial units",
+        "hospitality": "Holiday accommodation",
+        "restaurant": "Restaurant use",
+        "lemonGarden": "Lemon grove",
+        "waterfront": "Setting",
+        "pontoon": "Landing and pontoon",
+        "landAccess": "Land access",
+        "paperMill": "Paper mill associated with the property"
+      }
+    },
+    "request": {
+      "kicker": "Enquiries and viewings",
+      "title": "Further information about the estate.",
+      "intro": "For questions about the property, its documentation or a possible viewing, leave your contact details and let us know what you would like to explore.",
+      "confidentialNote": "The details provided are used to handle your enquiry. The person handling the sale can discuss the matters raised in your message.",
+      "topicsTitle": "What to discuss",
+      "topics": [
+        "Unit composition, floor areas and plans",
         "Technical, planning and cadastral documentation",
-        "Plans and due diligence materials",
-        "Commercial information",
-        "Concession and operating documentation",
+        "Seasonal landing and pontoon concession",
+        "Current use and operational details",
+        "Sale terms and arrangements for a viewing"
       ],
-      successTitle: "Request received.",
-      successBody:
-        "Thank you. The acquisition team will review your enquiry and respond directly.",
-      errorGeneric: "The request could not be sent. Please try again.",
-      sending: "Sending…",
-      submit: "Request the dossier",
-      required: "Required",
-      fields: {
-        name: "Full name",
-        company: "Company",
-        email: "Professional email",
-        phone: "Telephone",
-        phoneOptional: "optional",
-        buyerType: "Buyer / organisation type",
-        country: "Country",
-        message: "Message",
-        privacy:
-          "I agree to the processing of my data solely to handle this information request, as described in the privacy note.",
-      },
-      buyerTypes: {
-        privateBuyer: "Private buyer",
-        realEstateAgency: "Real estate agency",
-        investmentFund: "Investment fund",
-        familyOffice: "Family office",
-        hospitalityOperator: "Hospitality operator",
-        other: "Other",
-      },
-      errors: {
-        name: "Please enter your name.",
-        email: "Please enter a valid email address.",
-        buyerType: "Please select a buyer type.",
-        country: "Please enter your country.",
-        privacy: "Consent is required in order to send the request.",
-      },
-    },
-    privacy: {
-      title: "Privacy note",
-      updated: "Private enquiries",
-      body: [
-        "Information submitted through the private enquiry form is used only to assess and respond to that enquiry.",
-        "The information requested is limited to contact details, the nature of the prospective buyer or organisation, country and any message provided voluntarily.",
-        "Enquiry data is not used for unrelated marketing. Requests concerning access, correction or deletion may be made through the same enquiry channel.",
+      "successTitle": "Enquiry sent.",
+      "successBody": "Thank you. Your enquiry has been forwarded to the person handling the sale, who can respond using the contact details provided.",
+      "errorGeneric": "Your enquiry was not sent. Please try again shortly.",
+      "unavailable": "Enquiries through the website are currently unavailable. You can contact the person who shared this presentation with you.",
+      "sending": "Sending your enquiry…",
+      "submit": "Send enquiry",
+      "required": "Required",
+      "buyerTypePrompt": "Select your profile",
+      "messagePlaceholder": "You can mention the aspects you would like to explore or your interest in a viewing.",
+      "nextTitle": "After your enquiry",
+      "steps": [
+        "The person handling the sale receives your details and message.",
+        "Further information and available materials are agreed according to your enquiry.",
+        "A viewing can be arranged with the person handling the sale."
       ],
+      "privacyLink": "Read the privacy note",
+      "fields": {
+        "name": "Full name",
+        "company": "Company or practice",
+        "email": "Email",
+        "phone": "Telephone",
+        "phoneOptional": "optional",
+        "buyerType": "Profile",
+        "country": "Country of residence or business",
+        "message": "Questions or interest",
+        "privacy": "I agree to my data being processed to handle this enquiry, as described in the privacy note."
+      },
+      "buyerTypes": {
+        "privateBuyer": "Private buyer",
+        "realEstateAgency": "Real estate agency",
+        "investmentFund": "Investment fund",
+        "familyOffice": "Family office",
+        "hospitalityOperator": "Hospitality operator",
+        "other": "Other"
+      },
+      "errors": {
+        "name": "Please enter your full name.",
+        "email": "Please enter a valid email address.",
+        "buyerType": "Please select your profile.",
+        "country": "Please enter your country of residence or business.",
+        "privacy": "Consent is required to send your enquiry."
+      }
     },
-    footer: {
-      geography: "Marina d'Albori · Amalfi Coast · Italy",
+    "privacy": {
+      "title": "Privacy note",
+      "updated": "Handling enquiries",
+      "body": [
+        "The form collects the contact details, profile and country of residence or business of the person requesting information about the estate, together with any company name, telephone number and message provided.",
+        "These details are used to handle the enquiry and enable the person handling the sale to respond. They are not intended for marketing unrelated to the enquiry.",
+        "Requests to access, correct or delete your data can be included in your message to the person handling the sale.",
+        "The map uses external mapping services. Displaying it involves technical requests to those services."
+      ]
     },
-    diagram: {
-      coveLabel: "Marina d'Albori",
-      coveCaption:
-        "Waterfront estate · Amalfi Coast",
-      residentialShort: "Residential",
-      commercialShort: "Commercial",
-      unitsNote: "independent units in total",
-      lemonCaption: "Historic limoneto: approximately eight mature trees, around seventy years old.",
+    "footer": {
+      "geography": "Marina d'Albori · Vietri sul Mare · Amalfi Coast"
     },
-    skip: "Skip to content",
+    "diagram": {
+      "coveLabel": "Marina d'Albori",
+      "coveCaption": "Waterfront estate · Amalfi Coast",
+      "residentialShort": "Residential",
+      "commercialShort": "Commercial",
+      "unitsNote": "independent units in total",
+      "lemonCaption": "Lemon grove: approximately eight lemon trees, around seventy years old."
+    },
+    "skip": "Skip to content"
   },
-  it: {
-    meta: {
-      title:
-        "Proprietà Marina d'Albori, Vietri sul Mare | Immobile in vendita in Costiera Amalfitana",
-      description:
-        "Proprietà fronte mare a Marina d'Albori, Vietri sul Mare, Costiera Amalfitana: circa 900 m² interni, 300–350 m² di terrazze, sette unità, ospitalità e ristorazione, limoneto storico e concessione stagionale di pontile.",
-      ogTitle: "Proprietà Marina d'Albori — Vietri sul Mare, Costiera Amalfitana",
-      ogDescription:
-        "Proprietà fronte mare in vendita a Marina d'Albori, Vietri sul Mare, Campania. Composizione residenziale, commerciale e ricettiva sulla Costiera Amalfitana.",
-      siteName: "Proprietà Marina d'Albori",
+  "it": {
+    "meta": {
+      "title": "Marina d'Albori | Proprietà fronte mare a Vietri sul Mare",
+      "description": "Una proprietà fronte mare a Marina d'Albori, in Costiera Amalfitana: sette unità residenziali e commerciali, circa 900 m² interni e 300–350 m² di terrazze, con uso ricettivo e di ristorazione già in essere.",
+      "ogTitle": "Marina d'Albori · Una proprietà fronte mare",
+      "ogDescription": "Sette unità, terrazze sul mare e una cartiera storica del 1830 associata alla proprietà. Una presentazione della proprietà e del suo contesto a Vietri sul Mare.",
+      "siteName": "Marina d'Albori"
     },
-    brand: {
-      kicker: "In vendita",
-      wordmark: "Marina d'Albori",
-      placeLine: "Vietri sul Mare · Costiera Amalfitana",
+    "brand": {
+      "kicker": "Proprietà in vendita",
+      "wordmark": "Marina d'Albori",
+      "placeLine": "Vietri sul Mare · Costiera Amalfitana"
     },
-    nav: {
-      overview: "Panoramica",
-      property: "Proprietà",
-      spaces: "Spazi",
-      location: "Posizione",
-      investment: "Investimento",
-      heritage: "Identità",
-      gallery: "Galleria",
-      request: "Richiedi il dossier",
-      privacy: "Privacy",
-      menu: "Apri il menu",
-      close: "Chiudi il menu",
+    "nav": {
+      "overview": "Panoramica",
+      "property": "Proprietà",
+      "spaces": "Spazi",
+      "location": "Posizione",
+      "investment": "Usi",
+      "heritage": "Storia",
+      "gallery": "Fotografie",
+      "request": "Contatti",
+      "privacy": "Privacy",
+      "menu": "Menu",
+      "close": "Chiudi",
+      "navigation": "Navigazione principale",
+      "mobileNavigation": "Navigazione del menu",
+      "footerNavigation": "Navigazione a fondo pagina",
+      "breadcrumb": "Percorso di navigazione",
+      "language": "Lingua"
     },
-    cta: {
-      request: "Richiedi il dossier riservato",
-      requestDetails: "Scopri la proprietà",
-      requestInvestment: "Esplora le opzioni strategiche",
+    "cta": {
+      "request": "Richiedi informazioni",
+      "requestDetails": "Scopri la proprietà",
+      "requestInvestment": "Uso attuale e prospettive"
     },
-    hero: {
-      eyebrow: "Marina d'Albori",
-      title: "Una proprietà privata fronte mare, in Costiera Amalfitana.",
-      lead: "Vietri sul Mare.",
-      scroll: "Continua",
+    "hero": {
+      "eyebrow": "Marina d'Albori",
+      "title": "Una proprietà fronte mare, in Costiera Amalfitana.",
+      "lead": "A Marina d'Albori, nel comune di Vietri sul Mare.",
+      "scroll": "Continua"
     },
-    overview: {
-      kicker: "La proprietà",
-      title: "Sette unità indipendenti in una cala privata sul mare.",
-      body: [
-        "Cinque unità residenziali e due commerciali occupano un contesto fronte mare appartato. Le terrazze e la concessione stagionale di pontile aprono la proprietà al mare.",
+    "overview": {
+      "kicker": "La proprietà",
+      "title": "Sette unità, tra il versante e il mare.",
+      "body": [
+        "Cinque unità residenziali e due commerciali compongono la proprietà, distribuita sul versante che scende verso la cala. Le terrazze, gli affacci sull'acqua e la vegetazione mediterranea ne definiscono il contesto.",
+        "Parte delle abitazioni è già destinata all'accoglienza turistica; è inoltre presente un'attività di ristorazione. Alla proprietà è associata una concessione stagionale di approdo e pontile."
+      ]
+    },
+    "metrics": {
+      "internalArea": "Superficie interna",
+      "terraces": "Terrazze",
+      "units": "Unità indipendenti",
+      "composition": "Residenziali / commerciali",
+      "seaAccess": "Posizione",
+      "seaAccessValue": "Fronte mare"
+    },
+    "home": {
+      "galleryCta": "Vedi le fotografie",
+      "seaKicker": "Il fronte mare",
+      "seaTitle": "La cala e l'approdo stagionale.",
+      "seaBody": "Gli edifici e le terrazze si affacciano sulla cala. La concessione stagionale di approdo e pontile è un elemento da approfondire nella documentazione della proprietà.",
+      "connectionsTitle": "Il contesto",
+      "connections": [
+        {
+          "name": "Vietri sul Mare",
+          "relation": "Il comune della proprietà, all'ingresso orientale della Costiera."
+        },
+        {
+          "name": "Salerno",
+          "relation": "Il riferimento per i collegamenti ferroviari e il contesto urbano."
+        },
+        {
+          "name": "Costiera Amalfitana",
+          "relation": "Il paesaggio costiero che si estende verso Cetara, Amalfi e Positano."
+        }
       ],
+      "dossierIntro": "Per approfondire la composizione della proprietà, la documentazione e le condizioni di vendita, è possibile contattare il referente della vendita.",
+      "dossierMaterials": [
+        "Composizione e superfici delle unità",
+        "Planimetrie e documentazione tecnica",
+        "Concessione stagionale di approdo e pontile",
+        "Condizioni di vendita e possibilità di visita"
+      ]
     },
-    metrics: {
-      internalArea: "Superficie interna",
-      terraces: "Terrazze",
-      units: "Unità indipendenti",
-      composition: "Residenziali / commerciali",
-      seaAccess: "Accesso al mare",
-      seaAccessValue: "Fronte mare",
+    "property": {
+      "kicker": "La proprietà",
+      "title": "Un complesso fronte mare, in sette unità.",
+      "intro": "Circa 900 m² di superficie interna e 300–350 m² di terrazze, con cinque unità residenziali e due commerciali. Una composizione che riunisce abitazioni, accoglienza turistica e ristorazione.",
+      "factsLabel": "Dati principali",
+      "compositionTitle": "Le unità",
+      "areaNote": "Le superfici sono indicative. La ripartizione per unità e i dati di dettaglio vanno approfonditi nella documentazione della proprietà.",
+      "units": [
+        {
+          "label": "Cinque unità residenziali",
+          "detail": "Abitazioni indipendenti, in parte destinate all'accoglienza turistica."
+        },
+        {
+          "label": "Due unità commerciali",
+          "detail": "Spazi commerciali, con un'attività di ristorazione già presente."
+        }
+      ],
+      "distinctTitle": "Gli elementi della proprietà",
+      "distinct": [
+        "La posizione fronte mare nella cala di Marina d'Albori.",
+        "Le terrazze e gli affacci sull'acqua.",
+        "L'uso ricettivo e di ristorazione già in essere.",
+        "La concessione stagionale di approdo e pontile associata alla proprietà.",
+        "Una cartiera storica del 1830 associata alla proprietà e un limoneto sui terrazzamenti."
+      ]
     },
-    home: {
-      galleryCta: "Vedi la galleria",
-      seaKicker: "Accesso al mare",
-      seaTitle: "Un pontile stagionale in una cala privata.",
-      seaBody:
-        "Una concessione di approdo / pontile associata alla proprietà, in un contesto fronte mare raccolto.",
-      connectionsTitle: "Collegamenti",
-      connections: [
+    "spaces": {
+      "kicker": "Spazi",
+      "title": "Spazi affacciati sul mare.",
+      "deck": "Terrazze, ambienti residenziali e ceramica.",
+      "intro": "Le fotografie raccontano la relazione fra gli edifici, gli spazi all'aperto e la cala, insieme agli ambienti delle unità residenziali.",
+      "chapters": [
         {
-          name: "Vietri sul Mare",
-          relation: "Il comune, porta orientale della Costiera Amalfitana.",
+          "title": "Gli edifici e la cala",
+          "body": "Gli edifici bianchi seguono il versante fino al fronte mare. Le terrazze e i balconi scandiscono le facciate, con la cala e il pontile stagionale ai piedi del complesso."
         },
         {
-          name: "Salerno",
-          relation: "Il capoluogo provinciale, sul Golfo di Salerno.",
+          "title": "Le terrazze",
+          "body": "Circa 300–350 m² complessivi di terrazze. Le immagini mostrano affacci sul Tirreno, spazi per il pranzo all'aperto e balconi incorniciati da archi."
         },
         {
-          name: "Costiera Amalfitana",
-          relation: "Il paesaggio costiero della Campania meridionale.",
+          "title": "Gli ambienti residenziali",
+          "body": "Soggiorni a volta, ambienti aperti e pavimenti in ceramica caratterizzano gli interni fotografati. La distribuzione e gli affacci variano fra le unità."
         },
+        {
+          "title": "Le camere",
+          "body": "Le camere fotografate mostrano affacci verso il mare e i pini del versante. Parte delle unità residenziali è già utilizzata per l'accoglienza turistica."
+        },
+        {
+          "title": "Ceramica e dettagli",
+          "body": "Maioliche, mosaici e porte blu accompagnano gli ambienti e i percorsi interni. Sono dettagli che richiamano la tradizione ceramica di Vietri sul Mare."
+        }
       ],
-      dossierIntro:
-        "I soggetti qualificati possono richiedere planimetrie, dati dimensionali, fotografie aggiuntive e ulteriore documentazione riservata.",
-      dossierMaterials: [
-        "Planimetrie",
-        "Superfici e dati della proprietà",
-        "Fotografie aggiuntive",
-        "Documentazione tecnica, catastale e concessoria",
-      ],
+      "nextProperty": "Composizione e dati della proprietà"
     },
-    property: {
-      kicker: "La proprietà",
-      title: "Sette unità indipendenti affacciate sul mare.",
-      intro:
-        "Un complesso a uso misto sul versante di Marina d'Albori, nel comune di Vietri sul Mare.",
-      factsLabel: "Dati della proprietà",
-      compositionTitle: "Composizione",
-      units: [
-        {
-          label: "Cinque unità residenziali",
-          detail:
-            "Abitazioni indipendenti, in parte usate per l'accoglienza turistica.",
+    "location": {
+      "kicker": "Posizione",
+      "title": "Marina d'Albori, tra Vietri e la Costiera.",
+      "intro": "La proprietà si trova a Marina d'Albori, nel comune di Vietri sul Mare, sul tratto di costa che si apre verso il Golfo di Salerno.",
+      "metaDescription": "La posizione della proprietà a Marina d'Albori: accesso pedonale a scale dalla strada, fronte mare e concessione stagionale di approdo e pontile. Il contesto di Vietri sul Mare, Salerno e dei principali collegamenti.",
+      "accessPreview": {
+        "land": {
+          "kicker": "Da terra",
+          "label": "Pedonale · percorso a scale dalla strada"
         },
-        {
-          label: "Due unità commerciali",
-          detail:
-            "Spazi commerciali della proprietà, inclusa l'attività di ristorazione esistente.",
-        },
-      ],
-      distinctTitle: "Caratteri distintivi",
-      distinct: [
-        "Una cala fronte mare, con accesso diretto all'acqua.",
-        "Una concessione stagionale di approdo / pontile associata alla proprietà.",
-        "Uso ricettivo e di ristorazione già in essere.",
-        "Una cartiera storica associata alla proprietà, datata 1830.",
-        "Un limoneto sui terrazzamenti del versante.",
-      ],
-    },
-    spaces: {
-      kicker: "Spazi",
-      title: "Spazi costruiti intorno al mare.",
-      deck: "Terrazza, ceramica e acqua.",
-      intro:
-        "Dal versante alla cala, gli ambienti si aprono verso l'acqua.",
-      chapters: [
-        {
-          title: "La cala",
-          body: "Edifici bianchi scendono il versante vegetato fino alla spiaggia di ciottoli e al pontile stagionale.",
-        },
-        {
-          title: "Le terrazze",
-          body: "Circa 300–350 m² di stanze all'aperto, in continuità con gli interni e rivolte al Tirreno.",
-        },
-        {
-          title: "Spazi residenziali",
-          body: "Soggiorni a volta e open space si aprono sulle terrazze. Tra interno ed esterno la soglia è sottile.",
-        },
-        {
-          title: "Camere e ospitalità",
-          body: "Parte delle unità residenziali è già in uso ricettivo. Alcune camere a volta si aprono direttamente sul mare.",
-        },
-        {
-          title: "Materia",
-          body: "Muratura chiara, soffitti a volta, pavimenti in ceramica.",
-        },
-      ],
-      nextProperty: "Scheda della proprietà",
-    },
-    location: {
-      kicker: "Posizione · Marina d'Albori",
-      title: "Una cala riservata alle porte della Costiera Amalfitana.",
-      intro:
-        "Marina d'Albori è una località costiera del comune di Vietri sul Mare, nel punto in cui la Costiera Amalfitana si apre sul Golfo di Salerno.",
-      metaDescription:
-        "Marina d'Albori, Vietri sul Mare, Campania: cala fronte mare all'ingresso orientale della Costiera Amalfitana. Accesso pedonale a scale dal livello stradale; concessione stagionale di approdo / pontile. Quadro geografico verso Salerno, ferrovia e aeroporti.",
-      accessPreview: {
-        land: {
-          kicker: "Accesso da terra",
-          label: "Pedonale · percorso a scale dal livello stradale",
-        },
-        sea: {
-          kicker: "Accesso dal mare",
-          label: "Cala fronte mare · concessione stagionale di approdo / pontile",
-        },
+        "sea": {
+          "kicker": "Sul mare",
+          "label": "Fronte mare · concessione stagionale di approdo e pontile"
+        }
       },
-      topography: {
-        kicker: "Morfologia",
-        title: "Tra versante e linea d'acqua.",
-        body: "La proprietà occupa un tratto verticale di questa costa: il livello stradale a monte, edifici e cala a valle, il Golfo di Salerno subito a sud. Marina d'Albori è la località di riva; il borgo di Albori sorge nell'entroterra dello stesso comune.",
-        strata: [
+      "topography": {
+        "kicker": "Il paesaggio",
+        "title": "Dal versante alla cala.",
+        "body": "La strada costiera corre sopra la cala. Gli edifici e le terrazze si sviluppano lungo il versante, fino alla riva. Marina d'Albori è la località sul mare; il borgo di Albori si trova più in alto, nello stesso comune.",
+        "strata": [
           {
-            label: "Livello stradale",
-            note: "La strada costiera corre sopra la cala.",
+            "label": "La strada",
+            "note": "Il livello di arrivo da terra, sopra la cala."
           },
           {
-            label: "Discesa a scale",
-            note: "Dalla strada la proprietà si raggiunge a piedi.",
+            "label": "Il percorso",
+            "note": "La discesa pedonale a scale verso gli edifici."
           },
           {
-            label: "Proprietà e cala",
-            note: "Edifici, terrazze e riva.",
+            "label": "La proprietà",
+            "note": "Gli edifici, le terrazze e gli affacci sul mare."
           },
           {
-            label: "Mare",
-            note: "Fronte mare, con concessione stagionale di approdo.",
-          },
-        ],
+            "label": "La riva",
+            "note": "La cala e il pontile stagionale."
+          }
+        ]
       },
-      access: {
-        kicker: "Accesso",
-        title: "Tra strada e mare",
-        intro:
-          "La proprietà ha due rapporti con l'accesso — da terra e dall'acqua — entrambi legati allo stesso tratto di costa.",
-        land: {
-          kicker: "Via terra",
-          title: "Accesso da terra",
-          label: "Pedonale · percorso a scale dal livello stradale",
-          body: "Dal livello stradale, la proprietà si raggiunge a piedi attraverso un percorso a scale che scende lungo il versante verso la cala. Una configurazione strettamente legata alla morfologia verticale di questo tratto di costa.",
+      "access": {
+        "kicker": "Come si raggiunge",
+        "title": "L'accesso alla proprietà.",
+        "intro": "L'arrivo da terra avviene a piedi. Per l'approdo dal mare, il riferimento è la concessione stagionale associata alla proprietà.",
+        "land": {
+          "kicker": "Dalla strada",
+          "title": "Il percorso pedonale",
+          "label": "Pedonale · percorso a scale dalla strada",
+          "body": "Un percorso a scale scende dal livello stradale lungo il versante verso la cala. Le caratteristiche del tragitto e la logistica di arrivo possono essere approfondite in vista di una visita."
         },
-        sea: {
-          kicker: "Via mare",
-          title: "Accesso dal mare",
-          label: "Cala fronte mare · concessione stagionale di approdo / pontile",
-          body: "Edifici, terrazze e cala si affacciano sulla linea di costa. Alla proprietà è associata una concessione stagionale di approdo / pontile: un diritto d'uso a termine, non un porto privato e non un accesso nautico garantito tutto l'anno.",
-        },
+        "sea": {
+          "kicker": "Dalla cala",
+          "title": "L'approdo stagionale",
+          "label": "Concessione stagionale di approdo e pontile",
+          "body": "Alla proprietà è associata una concessione stagionale di approdo e pontile. Condizioni d'uso, stagionalità e caratteristiche dell'approdo vanno approfondite nella relativa documentazione."
+        }
       },
-      connectivity: {
-        kicker: "Rete",
-        title: "Strada, mare, ferrovia, aria",
-        intro:
-          "In sezione la cala è appartata; in pianta resta all'estremità orientale della Costiera, rivolta verso Salerno e la rete della Campania.",
-        distanceNote:
-          "I chilometri indicati sono distanze indicative in linea d'aria dal pin pubblicato, non tempi di percorrenza.",
-        modes: [
+      "connectivity": {
+        "kicker": "Collegamenti",
+        "title": "Strada, porti, ferrovia e aeroporti.",
+        "intro": "Vietri sul Mare e Salerno sono i riferimenti per raggiungere questo tratto della Costiera e proseguire verso la proprietà.",
+        "distanceNote": "Le distanze indicate sono approssimative e in linea d'aria dalla posizione della proprietà. Non esprimono tempi di viaggio.",
+        "modes": [
           {
-            id: "road",
-            title: "Strada",
-            body: "Questo tratto di costa è servito dalla SS163 Amalfitana, la statale che corre a livello stradale sopra la cala. I veicoli restano a quella quota; l'ultimo tratto verso gli edifici è pedonale, sul percorso a scale.",
+            "id": "road",
+            "title": "Strada",
+            "body": "La SS163 Amalfitana segue il versante sopra la cala. L'ultimo tratto verso gli edifici si percorre a piedi, lungo le scale."
           },
           {
-            id: "sea",
-            title: "Mare",
-            body: "La proprietà è fronte mare sulla cala, con la concessione stagionale di approdo / pontile associata. I collegamenti marittimi stagionali della costa fanno scalo nei porti, non presso la proprietà.",
+            "id": "sea",
+            "title": "Porti e collegamenti marittimi",
+            "body": "I servizi marittimi della Costiera fanno riferimento ai porti e agli approdi del territorio. La concessione stagionale della proprietà va considerata separatamente da questi collegamenti."
           },
           {
-            id: "rail",
-            title: "Ferrovia",
-            body: "Salerno è il riferimento ferroviario di lungo raggio più prossimo, incluso l'accesso alla rete ad alta velocità.",
+            "id": "rail",
+            "title": "Ferrovia",
+            "body": "La stazione di Salerno collega il territorio alla rete ferroviaria nazionale, inclusa l'alta velocità."
           },
           {
-            id: "air",
-            title: "Aria",
-            body: "Due aeroporti inquadrano la geografia: Salerno–Costa d'Amalfi e Napoli-Capodichino. Le distanze non sono tempi di viaggio.",
-          },
-        ],
+            "id": "air",
+            "title": "Aeroporti",
+            "body": "Gli aeroporti di riferimento sono Salerno–Costa d'Amalfi e Napoli-Capodichino."
+          }
+        ]
       },
-      context: {
-        kicker: "Costa",
-        title: "L'estremo orientale della Costiera, sul Golfo di Salerno.",
-        body: "A ovest della cala la riva corre per Cetara, Maiori, Amalfi e Positano. A est e nord-est si trovano Vietri sul Mare e Salerno, in Campania, Italia.",
+      "context": {
+        "kicker": "La Costiera",
+        "title": "Vietri, Salerno e la costa verso Amalfi.",
+        "body": "Vietri sul Mare e Salerno si trovano a est della cala. Verso ovest la costa prosegue per Cetara, Maiori, Amalfi e Positano."
       },
-      distinctTitle: "Una posizione difficile da replicare",
-      distinct: [
+      "distinctTitle": "Il contesto della proprietà",
+      "distinct": [
         {
-          title: "Fronte mare",
-          body: "Edifici, terrazze e cala hanno un rapporto insolitamente diretto con la linea di costa.",
+          "title": "La riva",
+          "body": "La cala è il punto di incontro fra gli edifici, il versante e il mare."
         },
         {
-          title: "Separazione",
-          body: "La sequenza verticale tra strada, versante e cala dà alla proprietà un perimetro fisico chiaro.",
+          "title": "Il versante",
+          "body": "Il dislivello fra la strada e la riva caratterizza la disposizione degli spazi e il percorso di arrivo."
         },
         {
-          title: "Connessione",
-          body: "La proprietà resta geograficamente prossima a Vietri sul Mare e a Salerno, pur appartenendo al contesto della Costiera.",
-        },
+          "title": "Il territorio",
+          "body": "La proprietà appartiene al contesto di Vietri sul Mare, all'estremità orientale della Costiera Amalfitana."
+        }
       ],
-      dossierLead:
-        "Planimetrie, documentazione concessoria e ulteriori dati geografici restano nel dossier riservato.",
-      mapCaption: "Marina d'Albori · Vietri sul Mare",
-      map: {
-        title: "Inquadramento geografico",
-        ariaLabel:
-          "Mappa della proprietà a Marina d'Albori, sulla costa tra Vietri sul Mare e Salerno.",
-        unavailableTitle: "Mappa temporaneamente non disponibile",
-        unavailableBody:
-          "Marina d'Albori · Vietri sul Mare · ingresso orientale della Costiera Amalfitana",
+      "dossierLead": "Per approfondire accessi, planimetrie e concessione stagionale, è possibile richiedere informazioni al referente della vendita.",
+      "mapCaption": "Marina d'Albori · Vietri sul Mare",
+      "map": {
+        "title": "La posizione",
+        "ariaLabel": "Mappa della proprietà a Marina d'Albori, con Vietri sul Mare e Salerno.",
+        "unavailableTitle": "La mappa non è disponibile al momento",
+        "unavailableBody": "La proprietà si trova a Marina d'Albori, nel comune di Vietri sul Mare."
       },
-      mapLabels: {
-        vietri: "Vietri sul Mare",
-        salerno: "Salerno",
-        cetara: "Cetara",
+      "mapLabels": {
+        "vietri": "Vietri sul Mare",
+        "salerno": "Salerno",
+        "cetara": "Cetara",
         "salerno-station": "Stazione di Salerno",
-        qsr: "Aeroporto Salerno–Costa d'Amalfi",
-        nap: "Aeroporto di Napoli-Capodichino",
-        property: "La proprietà",
-      },
+        "qsr": "Aeroporto Salerno–Costa d'Amalfi",
+        "nap": "Aeroporto di Napoli-Capodichino",
+        "property": "La proprietà"
+      }
     },
-    investment: {
-      kicker: "Uso",
-      title: "Tre configurazioni possibili.",
-      intro:
-        "Usi residenziali, ricettivi e di ristorazione già coesistono nelle sette unità indipendenti.",
-      presentTitle: "Asset esistente",
-      present: [
-        "Cinque unità residenziali indipendenti, in parte usate per l'accoglienza turistica.",
-        "Due unità commerciali, inclusa un'attività di ristorazione esistente.",
-        "Circa 900 m² interni coperti e 300–350 m² di terrazze.",
-        "Concessione stagionale di approdo / pontile associata alla proprietà.",
+    "investment": {
+      "kicker": "Usi e prospettive",
+      "title": "L'uso attuale e le possibilità da valutare.",
+      "intro": "La proprietà riunisce abitazioni, accoglienza turistica e spazi commerciali. Questa composizione offre più percorsi di valutazione, a partire dagli usi già presenti.",
+      "presentTitle": "L'uso attuale",
+      "present": [
+        "Cinque unità residenziali indipendenti, in parte utilizzate per l'accoglienza turistica.",
+        "Due unità commerciali, con un'attività di ristorazione già presente.",
+        "Circa 900 m² di superficie interna e 300–350 m² di terrazze.",
+        "Una concessione stagionale di approdo e pontile associata alla proprietà."
       ],
-      possibleTitle: "Configurazioni possibili",
-      scenarios: [
+      "possibleTitle": "Prospettive da approfondire",
+      "scenarios": [
         {
-          title: "Residenza privata",
-          body: "Un'unica proprietà privata, con alloggi indipendenti per famiglia e ospiti.",
+          "title": "Uso privato",
+          "body": "La composizione in più abitazioni può essere valutata per un uso familiare e per ospiti. Le esigenze di collegamento fra gli spazi e gli eventuali interventi vanno approfonditi."
         },
         {
-          title: "Ricettività",
-          body: "Accoglienza unita all'attività di ristorazione esistente.",
+          "title": "Accoglienza e ristorazione",
+          "body": "Gli usi ricettivi e di ristorazione già presenti costituiscono il punto di partenza per valutare la gestione della proprietà e le esigenze operative."
         },
         {
-          title: "Investimento a uso misto",
-          body: "Appartamenti privati, ospitalità gestita e spazi commerciali in un unico complesso.",
-        },
+          "title": "Uso misto",
+          "body": "La presenza di unità residenziali e commerciali consente di esaminare un'impostazione che affianchi uso personale e attività gestite."
+        }
       ],
-      disclaimer:
-        "Ogni configurazione futura è indicativa e soggetta a due diligence, autorizzazioni applicabili e verifica della documentazione concessoria.",
+      "disclaimer": "Queste prospettive sono ipotesi da valutare sulla documentazione tecnica, urbanistica, catastale e concessoria. Eventuali modifiche d'uso o interventi richiedono le verifiche e le autorizzazioni applicabili."
     },
-    heritage: {
-      kicker: "Provenienza",
-      title: "Una proprietà con una storia.",
-      intro:
-        "Cartiera, limoneto, ceramica vietrese e mare definiscono ancora la proprietà.",
-      pageKicker: "Identità · Marina d'Albori",
-      pageTitle: "Quasi due secoli di materia, paesaggio e Mediterraneo.",
-      pageIntro:
-        "Lavoro, coltivazione e costa restano visibili nel versante e negli interni.",
-      items: [
+    "heritage": {
+      "kicker": "Storia e carattere",
+      "title": "La cartiera, il limoneto, la ceramica.",
+      "intro": "Una cartiera storica del 1830 è associata alla proprietà. Il limoneto sui terrazzamenti e la ceramica degli interni ne completano il racconto.",
+      "pageKicker": "Storia",
+      "pageTitle": "Una storia di lavoro, paesaggio e ceramica.",
+      "pageIntro": "La cartiera associata alla proprietà, gli alberi di limone e i dettagli degli interni legano questo luogo alla storia e al paesaggio di Vietri sul Mare.",
+      "items": [
         {
-          year: "1830",
-          title: "La cartiera",
-          body: "Una cartiera storica associata alla proprietà risale al 1830. È il dato più preciso della sua storia.",
+          "year": "1830",
+          "title": "La cartiera",
+          "body": "Una cartiera storica associata alla proprietà risale al 1830."
         },
         {
-          title: "Il paesaggio coltivato",
-          body: "Sui terrazzamenti restano circa otto limoni maturi, di circa settant'anni.",
+          "title": "Il limoneto",
+          "body": "Sui terrazzamenti del versante si trovano circa otto alberi di limone, di circa settant'anni. La coltivazione degli agrumi appartiene al paesaggio di questo tratto di costa."
         },
         {
-          title: "Vietri",
-          body: "Pavimenti, maiolica e mosaico legano gli interni alla tradizione ceramica di Vietri sul Mare.",
+          "title": "La ceramica di Vietri",
+          "body": "Maioliche a pavimento, rivestimenti blu e bianchi e mosaici colorati caratterizzano gli interni fotografati, richiamando la tradizione ceramica di Vietri sul Mare."
         },
         {
-          title: "Il mare",
-          body: "La cala, il versante ripido e la linea di costa danno riservatezza e orientano gli spazi verso l'acqua.",
-        },
-      ],
+          "title": "La cala",
+          "body": "La riva e il versante orientano gli edifici e i loro affacci. Il mare resta il riferimento visivo degli spazi all'aperto."
+        }
+      ]
     },
-    gallery: {
-      kicker: "Archivio visivo",
-      title: "La proprietà, dalla cala agli interni.",
-      intro:
-        "Un portfolio fotografico riservato accompagna il dossier di acquisizione.",
-      emptyTitle: "Portfolio fotografico riservato",
-      emptyBody:
-        "Fotografie degli interni, dell'architettura e del fronte mare sono disponibili per i soggetti qualificati insieme al dossier riservato.",
-      close: "Chiudi la fotografia",
-      next: "Fotografia successiva",
-      previous: "Fotografia precedente",
-    },
-    facts: {
-      kicker: "Specifiche",
-      title: "Scheda dell'immobile",
-      groups: {
-        location: "Posizione",
-        use: "Uso attuale",
-        waterfront: "Fronte mare",
-        landscape: "Paesaggio e storia",
+    "gallery": {
+      "kicker": "Fotografie",
+      "title": "Dalla cala agli interni.",
+      "intro": "Una selezione di immagini racconta il contesto fronte mare, le terrazze, gli ambienti residenziali e i dettagli della proprietà.",
+      "groups": {
+        "waterfront": "La cala e il fronte mare",
+        "terraces": "Le terrazze",
+        "interiors": "Gli ambienti residenziali",
+        "hospitality": "Le camere e gli affacci",
+        "details": "Ceramica e giardino"
       },
-      terms: {
-        locality: "Località",
-        municipality: "Comune",
-        coast: "Costa",
-        internalArea: "Superficie interna coperta",
-        terraces: "Terrazze",
-        units: "Unità",
-        residentialUnits: "Unità residenziali",
-        commercialUnits: "Unità commerciali",
-        hospitality: "Uso ricettivo attuale",
-        restaurant: "Ristorante",
-        lemonGarden: "Limoneto",
-        waterfront: "Rapporto con il mare",
-        pontoon: "Approdo / pontile",
-        landAccess: "Accesso da terra",
-        paperMill: "Cartiera storica",
-      },
+      "emptyTitle": "Le fotografie non sono disponibili al momento",
+      "emptyBody": "È possibile richiedere informazioni sulla proprietà e sul materiale fotografico al referente della vendita.",
+      "close": "Chiudi",
+      "next": "Successiva",
+      "previous": "Precedente"
     },
-    request: {
-      kicker: "Richiesta riservata",
-      title: "Richiedi il dossier riservato.",
-      intro:
-        "I soggetti qualificati possono richiedere accesso ai materiali di acquisizione di dettaglio.",
-      confidentialNote:
-        "Le richieste sono gestite con discrezione.",
-      topicsTitle: "Materiali riservati",
-      topics: [
+    "facts": {
+      "kicker": "Dati della proprietà",
+      "title": "Composizione e caratteristiche",
+      "groups": {
+        "location": "Posizione",
+        "use": "Uso attuale",
+        "waterfront": "Fronte mare e accesso",
+        "landscape": "Paesaggio e storia"
+      },
+      "terms": {
+        "locality": "Località",
+        "municipality": "Comune",
+        "coast": "Costa",
+        "internalArea": "Superficie interna",
+        "terraces": "Terrazze",
+        "units": "Unità",
+        "residentialUnits": "Unità residenziali",
+        "commercialUnits": "Unità commerciali",
+        "hospitality": "Accoglienza turistica",
+        "restaurant": "Ristorazione",
+        "lemonGarden": "Limoneto",
+        "waterfront": "Posizione",
+        "pontoon": "Approdo e pontile",
+        "landAccess": "Accesso da terra",
+        "paperMill": "Cartiera associata alla proprietà"
+      }
+    },
+    "request": {
+      "kicker": "Informazioni e visite",
+      "title": "Approfondire la proprietà.",
+      "intro": "Per domande sulla proprietà, sulla documentazione o sulla possibilità di una visita, indica i tuoi recapiti e ciò che desideri approfondire.",
+      "confidentialNote": "I dati forniti vengono utilizzati per gestire la richiesta. Il referente della vendita potrà approfondire gli aspetti indicati nel messaggio.",
+      "topicsTitle": "Cosa approfondire",
+      "topics": [
+        "Composizione delle unità, superfici e planimetrie",
         "Documentazione tecnica, urbanistica e catastale",
-        "Planimetrie e materiali di due diligence",
-        "Informazioni commerciali",
-        "Documentazione concessoria e gestionale",
+        "Concessione stagionale di approdo e pontile",
+        "Uso attuale e aspetti gestionali",
+        "Condizioni di vendita e possibilità di visita"
       ],
-      successTitle: "Richiesta ricevuta.",
-      successBody:
-        "Grazie. Il team incaricato dell'acquisizione esaminerà la richiesta e risponderà direttamente.",
-      errorGeneric: "Non è stato possibile inviare la richiesta. Riprovare.",
-      sending: "Invio…",
-      submit: "Richiedi il dossier",
-      required: "Obbligatorio",
-      fields: {
-        name: "Nome e cognome",
-        company: "Società",
-        email: "Email professionale",
-        phone: "Telefono",
-        phoneOptional: "facoltativo",
-        buyerType: "Tipo di acquirente / organizzazione",
-        country: "Paese",
-        message: "Messaggio",
-        privacy:
-          "Acconsento al trattamento dei miei dati al solo fine di gestire questa richiesta, come descritto nella nota sulla privacy.",
-      },
-      buyerTypes: {
-        privateBuyer: "Acquirente privato",
-        realEstateAgency: "Agenzia immobiliare",
-        investmentFund: "Fondo di investimento",
-        familyOffice: "Family office",
-        hospitalityOperator: "Operatore ricettivo",
-        other: "Altro",
-      },
-      errors: {
-        name: "Inserire il nome.",
-        email: "Inserire un indirizzo email valido.",
-        buyerType: "Selezionare un tipo di acquirente.",
-        country: "Inserire il paese.",
-        privacy: "Il consenso è necessario per inviare la richiesta.",
-      },
-    },
-    privacy: {
-      title: "Nota sulla privacy",
-      updated: "Richieste riservate",
-      body: [
-        "Le informazioni inviate tramite il modulo riservato sono utilizzate esclusivamente per valutare e rispondere alla richiesta.",
-        "Le informazioni richieste sono limitate ai dati di contatto, alla natura del potenziale acquirente o organizzazione, al paese e all'eventuale messaggio fornito volontariamente.",
-        "I dati della richiesta non sono utilizzati per attività di marketing non correlate. Richieste di accesso, rettifica o cancellazione possono essere inviate tramite lo stesso canale.",
+      "successTitle": "Richiesta inviata.",
+      "successBody": "Grazie. La richiesta è stata inoltrata al referente della vendita, che potrà rispondere ai recapiti indicati.",
+      "errorGeneric": "La richiesta non è stata inviata. Riprova tra poco.",
+      "unavailable": "L'invio dal sito non è disponibile al momento. Puoi contattare la persona che ti ha condiviso questa presentazione.",
+      "sending": "Invio in corso…",
+      "submit": "Invia la richiesta",
+      "required": "Obbligatorio",
+      "buyerTypePrompt": "Seleziona il profilo",
+      "messagePlaceholder": "Puoi indicare gli aspetti che desideri approfondire o il tuo interesse per una visita.",
+      "nextTitle": "Dopo la richiesta",
+      "steps": [
+        "Il referente della vendita riceve i recapiti e il messaggio.",
+        "Gli approfondimenti e i materiali disponibili vengono concordati in base alla richiesta.",
+        "Una visita può essere organizzata con il referente della vendita."
       ],
+      "privacyLink": "Leggi la nota sulla privacy",
+      "fields": {
+        "name": "Nome e cognome",
+        "company": "Società o studio",
+        "email": "Email",
+        "phone": "Telefono",
+        "phoneOptional": "facoltativo",
+        "buyerType": "Profilo",
+        "country": "Paese di residenza o sede",
+        "message": "Domande o interesse",
+        "privacy": "Acconsento al trattamento dei miei dati per gestire questa richiesta, come descritto nella nota sulla privacy."
+      },
+      "buyerTypes": {
+        "privateBuyer": "Acquirente privato",
+        "realEstateAgency": "Agenzia immobiliare",
+        "investmentFund": "Fondo di investimento",
+        "familyOffice": "Family office",
+        "hospitalityOperator": "Operatore ricettivo",
+        "other": "Altro"
+      },
+      "errors": {
+        "name": "Inserisci il nome e cognome.",
+        "email": "Inserisci un indirizzo email valido.",
+        "buyerType": "Seleziona il profilo.",
+        "country": "Inserisci il paese di residenza o sede.",
+        "privacy": "Per inviare la richiesta è necessario il consenso."
+      }
     },
-    footer: {
-      geography: "Marina d'Albori · Costiera Amalfitana · Italia",
+    "privacy": {
+      "title": "Nota sulla privacy",
+      "updated": "Gestione delle richieste",
+      "body": [
+        "Il modulo raccoglie i recapiti, il profilo e il paese di residenza o sede di chi richiede informazioni sulla proprietà, insieme all'eventuale società, numero di telefono e messaggio.",
+        "Le informazioni fornite sono utilizzate per gestire la richiesta e consentire al referente della vendita di rispondere. Non sono destinate ad attività di marketing estranee alla richiesta.",
+        "Eventuali richieste di accesso, rettifica o cancellazione dei dati possono essere indicate nel messaggio al referente della vendita.",
+        "La mappa utilizza servizi cartografici esterni. La sua visualizzazione comporta richieste tecniche a tali servizi."
+      ]
     },
-    diagram: {
-      coveLabel: "Marina d'Albori",
-      coveCaption:
-        "Proprietà fronte mare · Costiera Amalfitana",
-      residentialShort: "Residenziale",
-      commercialShort: "Commerciale",
-      unitsNote: "unità indipendenti complessive",
-      lemonCaption: "Limoneto storico: circa otto alberi maturi, di circa settant'anni.",
+    "footer": {
+      "geography": "Marina d'Albori · Vietri sul Mare · Costiera Amalfitana"
     },
-    skip: "Vai al contenuto",
-  },
+    "diagram": {
+      "coveLabel": "Marina d'Albori",
+      "coveCaption": "Proprietà fronte mare · Costiera Amalfitana",
+      "residentialShort": "Residenziali",
+      "commercialShort": "Commerciali",
+      "unitsNote": "unità indipendenti complessive",
+      "lemonCaption": "Limoneto: circa otto alberi di limone, di circa settant'anni."
+    },
+    "skip": "Vai al contenuto"
+  }
 };
 
 export function t(locale: Locale): Copy {

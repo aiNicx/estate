@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
 import { localeMetadata } from "@/lib/seo";
-import { imagesFor } from "@/content/images";
+import { BROCHURE_GALLERY_GROUPS, imagesByIds } from "@/content/images";
 import { PageShell } from "@/components/PageShell";
 import { Gallery } from "@/components/Gallery";
 import { GalleryInventory } from "@/components/GalleryInventory";
@@ -23,7 +23,11 @@ export default async function GalleryPage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const copy = t(locale).gallery;
-  const images = imagesFor("gallery");
+  const groups = BROCHURE_GALLERY_GROUPS.map((group) => ({
+    id: group.id,
+    title: copy.groups[group.id],
+    images: imagesByIds(group.ids),
+  })).filter((group) => group.images.length);
 
   return (
     <PageShell
@@ -31,10 +35,10 @@ export default async function GalleryPage({ params }: PageProps) {
       pathname="/gallery"
       kicker={copy.kicker}
       title={copy.title}
-      intro={images.length ? copy.intro : undefined}
+      intro={groups.length ? copy.intro : undefined}
     >
       <div className="shell">
-        {images.length ? <Gallery locale={locale} images={images} /> : <GalleryInventory locale={locale} />}
+        {groups.length ? <Gallery locale={locale} groups={groups} /> : <GalleryInventory locale={locale} />}
       </div>
     </PageShell>
   );

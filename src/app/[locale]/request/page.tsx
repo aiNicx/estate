@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
 import { localeMetadata } from "@/lib/seo";
 import { PageShell } from "@/components/PageShell";
 import { InquiryForm } from "@/components/InquiryForm";
-import { localizedPath } from "@/lib/site";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -36,9 +34,10 @@ export default async function RequestPage({ params }: PageProps) {
               <li key={topic}>{topic}</li>
             ))}
           </ul>
-          <p className="mt-8 text-sm">
-            <Link href={localizedPath(locale, "/privacy")}>{t(locale).nav.privacy}</Link>
-          </p>
+          <h2 className="display mt-10 text-2xl">{copy.nextTitle}</h2>
+          <ol className="mt-4 space-y-4 pl-5 text-sm text-[var(--ink-soft)]">
+            {copy.steps.map((step) => <li key={step}>{step}</li>)}
+          </ol>
         </aside>
       </div>
     </PageShell>

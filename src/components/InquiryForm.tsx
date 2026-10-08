@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { localizedPath } from "@/lib/site";
 import { useMemo, useState, type FormEvent } from "react";
 import type { Locale } from "@/content/property";
 import { buyerTypes } from "@/content/property";
@@ -22,7 +24,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
   const copy = t(locale).request;
   const [values, setValues] = useState<InquiryInput>({ ...empty, locale });
   const [errors, setErrors] = useState<Partial<Record<keyof InquiryInput, true>>>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error" | "unavailable">("idle");
 
   const errorCount = useMemo(() => Object.keys(errors).length, [errors]);
 
@@ -45,7 +47,12 @@ export function InquiryForm({ locale }: { locale: Locale }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(result.payload),
       });
-      if (!response.ok) throw new Error("failed");
+      const delivery = await response.json();
+      if (response.status === 503 || delivery.delivered === false) {
+        setStatus("unavailable");
+        return;
+      }
+      if (!response.ok || delivery.ok !== true || delivery.delivered !== true) throw new Error("failed");
       setStatus("success");
     } catch {
       setStatus("error");
@@ -137,7 +144,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
           aria-required="true"
           onChange={(event) => update("buyerType", event.target.value)}
         >
-          <option value=""></option>
+          <option value="">{copy.buyerTypePrompt}</option>
           {buyerTypes.map((type) => (
             <option key={type} value={type}>
               {copy.buyerTypes[type]}
@@ -164,6 +171,7 @@ export function InquiryForm({ locale }: { locale: Locale }) {
         <span>{copy.fields.message}</span>
         <textarea
           name="message"
+          placeholder={copy.messagePlaceholder}
           value={values.message}
           onChange={(event) => update("message", event.target.value)}
         />
@@ -181,6 +189,14 @@ export function InquiryForm({ locale }: { locale: Locale }) {
         />
         <span>{copy.fields.privacy}</span>
       </label>
+
+      <p className="mb-6 text-sm">
+        <Link href={localizedPath(locale, "/privacy")}>{copy.privacyLink}</Link>
+      </p>
+
+      {status === "unavailable" ? (
+        <p role="alert" className="mb-4 text-sm">{copy.unavailable}</p>
+      ) : null}
 
       {status === "error" ? (
         <p role="alert" className="error mb-4">

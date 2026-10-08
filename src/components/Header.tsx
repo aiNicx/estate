@@ -48,7 +48,7 @@ export function Header({ locale }: { locale: Locale }) {
           </span>
         </Link>
         <div className="hidden items-center gap-6 xl:flex">
-          <nav aria-label="Primary" className="flex items-center gap-5">
+          <nav aria-label={copy.nav.navigation} className="flex items-center gap-5">
             {primary.map((item) => (
               <Link
                 key={item.id}
@@ -85,7 +85,7 @@ export function Header({ locale }: { locale: Locale }) {
         hidden={!open}
         className="mobile-menu border-t border-[var(--line)] xl:hidden"
       >
-        <nav aria-label="Mobile" className="shell flex flex-col gap-1 py-4">
+        <nav aria-label={copy.nav.mobileNavigation} className="shell flex flex-col gap-1 py-4">
           {primary.map((item) => (
             <Link
               key={item.id}

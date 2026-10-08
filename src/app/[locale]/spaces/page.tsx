@@ -18,19 +18,19 @@ const CHAPTERS = [
     variant: "full",
   },
   {
-    images: ["terrace-wicker-sea", "balcony-arch-beach", "garden-night-terrace"],
+    images: ["terrace-wicker-sea", "balcony-arch-beach", "terrace-dining-sea"],
     variant: "cluster",
   },
   {
-    images: ["living-sea-view", "living-kitchen", "living-vaulted-tv"],
+    images: ["living-vaulted-tv", "living-teal-sofa"],
     variant: "lead-pair",
   },
   {
-    images: ["bedroom-vaulted-sea", "bedroom-balcony-sea"],
+    images: ["bedroom-view-pines", "bedroom-balcony-sea"],
     variant: "split",
   },
   {
-    images: ["kitchen-dining-majolica"],
+    images: ["kitchen-dining-majolica", "corridor-unit-doors"],
     variant: "quiet",
   },
 ] as const;
@@ -55,7 +55,7 @@ export default async function SpacesPage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const copy = t(locale).spaces;
-  const hero = availableImage("terrace-dining-sea");
+  const hero = availableImage("balcony-arch-beach");
 
   return (
     <PageShell locale={locale} pathname="/spaces" header={null}>
@@ -202,7 +202,7 @@ function SpaceChapter({
             locale={locale}
             sizes="100vw"
             className="w-full"
-            frameClassName="aspect-[4/5] md:aspect-[16/10] min-h-[28rem] md:min-h-[min(72svh,46rem)]"
+            frameClassName="aspect-[4/5] md:aspect-[4/3]"
           />
         ) : null}
         <div className="shell mt-10 grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
@@ -245,7 +245,7 @@ function SpaceChapter({
             locale={locale}
             sizes="(max-width: 1024px) 100vw, 58vw"
             className="mt-8 ml-auto max-w-[42rem] lg:mt-16"
-            frameClassName="aspect-[3/4] lg:aspect-[4/5]"
+            frameClassName="aspect-[4/5]"
           />
         ) : null}
       </section>
@@ -256,14 +256,11 @@ function SpaceChapter({
     <section className="spaces-chapter shell">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center">
         <div className="lg:pr-8">{heading}</div>
-        {images[0] ? (
-          <Photo
-            image={images[0]}
-            locale={locale}
-            sizes="(max-width: 1024px) 100vw, 42vw"
-            className="lg:max-w-[28rem] lg:justify-self-end"
-          />
-        ) : null}
+        <div className="grid gap-5 sm:grid-cols-2">
+          {images.map((image) => (
+            <Photo key={image.id} image={image} locale={locale} sizes="(max-width: 640px) 100vw, 24vw" caption />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -40,3 +40,22 @@ test("homepage editorial gallery ids stay within the image map", async () => {
     assert.ok(ids.has(id), id);
   }
 });
+
+test("replacement aerials take precedence over originals and PNG source copies", () => {
+  const { byId } = assignUploadedFiles([
+    "01-hero-cove-aerial.jpg", "02-architecture-hillside-aerial.jpg",
+    "01_new.png", "02_new.png", "01_new.jpg", "02_new.jpg",
+  ]);
+  assert.equal(byId["hero-cove-aerial"], "01_new.jpg");
+  assert.equal(byId["architecture-hillside-aerial"], "02_new.jpg");
+});
+
+test("brochure gallery publishes only the selected photos in chapter order", async () => {
+  const { BROCHURE_GALLERY_IDS, imageSpecs, imagesFor } = await import("./images.ts");
+  const catalog = new Set(imageSpecs.map((spec) => spec.id));
+  assert.equal(new Set(BROCHURE_GALLERY_IDS).size, BROCHURE_GALLERY_IDS.length);
+  for (const id of BROCHURE_GALLERY_IDS) assert.ok(catalog.has(id), id);
+  const published = imagesFor("gallery");
+  assert.ok(published.every((image) => BROCHURE_GALLERY_IDS.includes(image.id as typeof BROCHURE_GALLERY_IDS[number])));
+  assert.ok(published.every((image) => !image.src.endsWith(".png") && !image.id.startsWith("extra-")));
+});

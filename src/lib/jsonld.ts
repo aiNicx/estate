@@ -1,5 +1,5 @@
 import { property, type Locale } from "@/content/property";
-import { resolveImages } from "@/content/images";
+import { imagesFor } from "@/content/images";
 import { t } from "@/content/messages";
 import { absoluteUrl, getSiteUrl } from "@/lib/site";
 
@@ -43,7 +43,7 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     },
   };
   const page = pageDetails[pathname] ?? pageDetails[""];
-  const images = resolveImages().filter((image) => image.available);
+  const images = imagesFor("gallery");
   const imageObjects = images.map((image) => ({
     "@type": "ImageObject",
     contentUrl: `${siteUrl}${image.src}`,
@@ -127,8 +127,8 @@ export function buildJsonLd(locale: Locale, pathname: string) {
       name: locale === "it" ? "Limoneto" : "Lemon garden",
       value:
         locale === "it"
-          ? "Sì — circa 8 alberi, circa 70 anni"
-          : "Yes — approximately 8 trees, around 70 years old",
+          ? "Circa 8 alberi di limone, di circa 70 anni"
+          : "Approximately 8 lemon trees, around 70 years old",
     },
     {
       "@type": "PropertyValue",
@@ -148,8 +148,8 @@ export function buildJsonLd(locale: Locale, pathname: string) {
       name: locale === "it" ? "Accesso da terra" : "Land access",
       value:
         locale === "it"
-          ? "Pedonale · percorso a scale dal livello stradale"
-          : "Pedestrian · stepped path from road level",
+          ? "Pedonale · percorso a scale dalla strada"
+          : "Pedestrian · stepped path from the road",
     },
   ];
 
@@ -194,7 +194,7 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     businessFunction: "https://schema.org/Sell",
     itemOffered: { "@id": residence["@id"] },
     description:
-      locale === "it" ? "Prezzo disponibile su richiesta" : "Price available on request",
+      locale === "it" ? "Condizioni di vendita da approfondire con il referente" : "Sale terms to discuss with the sales contact",
   };
 
   const listing = {

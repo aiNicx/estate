@@ -21,7 +21,6 @@ export function HomeGallery({ locale }: { locale: Locale }) {
             <Photo
               image={featured}
               locale={locale}
-              priority
               sizes="(max-width: 768px) 100vw, 62vw"
               className="editorial-gallery-feature"
               frameClassName="editorial-gallery-feature-frame"

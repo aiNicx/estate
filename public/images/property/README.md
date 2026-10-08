@@ -29,12 +29,16 @@ git push -u origin cursor/marina-dalbori-estate-site-0b0b
 
 `reset --soft` toglie il commit enorme ma **tiene i file**. Dopo l’ottimizzazione il nuovo commit è quello che va pushato.
 
-Nomi in uso (prefisso numerico = ordine in galleria). L’ID in `src/content/images.ts` è lo slug dopo il numero.
+Le nuove viste aeree in uso sono `01_new.jpg` e `02_new.jpg`, derivate dai PNG forniti. I file precedenti sono conservati ma non compaiono nella brochure.
+
+La galleria pubblica contiene 16 immagini in cinque capitoli. La selezione e l'ordine sono definiti in `BROCHURE_GALLERY_GROUPS` in `src/content/images.ts`: il caricamento di un nuovo file non lo pubblica automaticamente.
+
+Catalogo delle fotografie disponibili:
 
 | File | Soggetto |
 | --- | --- |
-| `01-hero-cove-aerial.jpg` | Vista aerea della cala (**hero** del sito) |
-| `02-architecture-hillside-aerial.jpg` | Edificio e terrazze dall’alto |
+| `01_new.jpg` | Nuova vista aerea della cala (**hero** del sito) |
+| `02_new.jpg` | Nuova vista dell'edificio e delle terrazze dall’alto |
 | `03-terrace-dining-sea.jpg` | Terrazza da pranzo sul mare |
 | `04-living-kitchen.jpg` | Soggiorno / cucina open space |
 | `05-bedroom.jpg` | Camera con copriletto rosso |

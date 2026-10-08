@@ -69,7 +69,7 @@ export function validateInquiry(input: InquiryInput): {
  */
 export async function deliverInquiry(payload: InquiryPayload): Promise<{
   delivered: boolean;
-  mode: "endpoint" | "logged";
+  mode: "endpoint" | "unconfigured";
 }> {
   const endpoint = process.env.INQUIRY_ENDPOINT;
   if (endpoint) {
@@ -77,6 +77,7 @@ export async function deliverInquiry(payload: InquiryPayload): Promise<{
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(15_000),
     });
     if (!response.ok) {
       throw new Error(`Inquiry endpoint returned ${response.status}`);
@@ -84,6 +85,5 @@ export async function deliverInquiry(payload: InquiryPayload): Promise<{
     return { delivered: true, mode: "endpoint" };
   }
 
-  console.info("[inquiry]", JSON.stringify({ ...payload, privacyConsent: true }));
-  return { delivered: false, mode: "logged" };
+  return { delivered: false, mode: "unconfigured" };
 }

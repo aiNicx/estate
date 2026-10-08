@@ -19,7 +19,7 @@ export function Footer({ locale }: { locale: Locale }) {
             {copy.footer.geography}
           </p>
         </div>
-        <nav aria-label="Footer">
+        <nav aria-label={copy.nav.footerNavigation}>
           <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0 text-sm">
             {footerRoutes.map((route) => (
               <li key={route.id}>

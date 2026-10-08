@@ -102,8 +102,8 @@ export function getAssetDetailGroups(locale: Locale) {
           term: terms.hospitality,
           value: property.currentUse.holidayAccommodation
             ? en
-              ? "Holiday accommodation, in operation"
-              : "Accoglienza per vacanze, in essere"
+              ? "Some residential units used for holiday accommodation"
+              : "Parte delle abitazioni destinata all’accoglienza turistica"
             : en
               ? "Not stated"
               : "Non indicata",
@@ -112,8 +112,8 @@ export function getAssetDetailGroups(locale: Locale) {
           term: terms.restaurant,
           value: property.currentUse.restaurant
             ? en
-              ? "Existing activity"
-              : "Attività esistente"
+              ? "Existing restaurant use"
+              : "Attività di ristorazione presente"
             : en
               ? "Not stated"
               : "Non indicata",
@@ -128,8 +128,8 @@ export function getAssetDetailGroups(locale: Locale) {
           term: terms.waterfront,
           value: property.waterfront.seaRelationship
             ? en
-              ? "Waterfront cove"
-              : "Cala fronte mare"
+              ? "Overlooking the cove"
+              : "Affaccio sulla cala"
             : en
               ? "Not stated"
               : "Non indicata",
@@ -138,8 +138,8 @@ export function getAssetDetailGroups(locale: Locale) {
           term: terms.landAccess,
           value: property.landAccess.pedestrianSteppedPathFromRoadLevel
             ? en
-              ? "Pedestrian · stepped path from road level"
-              : "Pedonale · percorso a scale dal livello stradale"
+              ? "Pedestrian · stepped path from the road"
+              : "Pedonale · percorso a scale dalla strada"
             : en
               ? "Not stated"
               : "Non indicata",
@@ -148,8 +148,8 @@ export function getAssetDetailGroups(locale: Locale) {
           term: terms.pontoon,
           value: property.waterfront.seasonalPontoonConcession
             ? en
-              ? "Seasonal landing / pontoon concession"
-              : "Concessione stagionale di approdo / pontile"
+              ? "Seasonal landing and pontoon concession"
+              : "Concessione stagionale di approdo e pontile"
             : en
               ? "Not stated"
               : "Non indicata",
@@ -164,8 +164,8 @@ export function getAssetDetailGroups(locale: Locale) {
           term: terms.lemonGarden,
           value: property.lemonGarden.present
             ? en
-              ? `Approximately ${property.lemonGarden.treeCount} trees, around ${property.lemonGarden.treeAgeYears} years old`
-              : `Circa ${property.lemonGarden.treeCount} alberi, circa ${property.lemonGarden.treeAgeYears} anni`
+              ? `Approximately ${property.lemonGarden.treeCount} lemon trees, around ${property.lemonGarden.treeAgeYears} years old`
+              : `Circa ${property.lemonGarden.treeCount} alberi di limone, circa ${property.lemonGarden.treeAgeYears} anni`
             : en
               ? "Not stated"
               : "Non indicata",

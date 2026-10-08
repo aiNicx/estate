@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Locale } from "@/content/property";
+import { t } from "@/content/messages";
 import { breadcrumbItems } from "@/lib/jsonld";
 
 export function Breadcrumbs({
@@ -12,7 +13,7 @@ export function Breadcrumbs({
   const items = breadcrumbItems(locale, pathname);
   if (items.length < 2) return null;
   return (
-    <nav aria-label="Breadcrumb" className="shell py-4 text-sm text-[var(--ink-soft)]">
+    <nav aria-label={t(locale).nav.breadcrumb} className="shell py-4 text-sm text-[var(--ink-soft)]">
       <ol className="m-0 flex flex-wrap gap-2 p-0 list-none">
         {items.map((item, index) => (
           <li key={item.item} className="flex items-center gap-2">

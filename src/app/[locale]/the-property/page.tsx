@@ -29,7 +29,7 @@ export default async function PropertyPage({ params }: PageProps) {
   const copy = t(locale).property;
   const facts = t(locale).facts;
   const aerial = availableImage("architecture-hillside-aerial");
-  const pines = availableImage("exterior-pines-stream");
+  const unitDetail = availableImage("corridor-unit-doors");
   const keyFacts = getKeyFacts(locale);
   const groups = getAssetDetailGroups(locale);
   const unitCounts = [property.units.residential, property.units.commercial];
@@ -50,6 +50,7 @@ export default async function PropertyPage({ params }: PageProps) {
     >
       <div className="shell">
         <SpecBand rows={keyFacts} label={copy.factsLabel} />
+        <p className="mt-4 max-w-[42rem] text-sm text-[var(--ink-soft)]">{copy.areaNote}</p>
       </div>
 
       <section className="shell mt-[clamp(3.5rem,7vw,6.5rem)]" aria-labelledby="composition-heading">
@@ -70,7 +71,7 @@ export default async function PropertyPage({ params }: PageProps) {
         </div>
       </section>
 
-      {aerial || pines ? (
+      {aerial || unitDetail ? (
         <section className="shell mt-[clamp(3.5rem,7vw,6.5rem)]">
           <div className="grid gap-4 md:grid-cols-12 md:gap-5">
             {aerial ? (
@@ -79,12 +80,12 @@ export default async function PropertyPage({ params }: PageProps) {
                 locale={locale}
                 priority
                 sizes="(max-width: 768px) 100vw, 58vw"
-                className={pines ? "md:col-span-7" : "md:col-span-12"}
+                className={unitDetail ? "md:col-span-7" : "md:col-span-12"}
               />
             ) : null}
-            {pines ? (
+            {unitDetail ? (
               <Photo
-                image={pines}
+                image={unitDetail}
                 locale={locale}
                 sizes="(max-width: 768px) 100vw, 40vw"
                 className={aerial ? "md:col-span-5 md:mt-16 xl:mt-28" : "md:col-span-12"}

@@ -26,6 +26,7 @@ const sans = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   icons: { icon: "/icon" },
+  robots: { index: false, follow: false },
 };
 
 export function generateStaticParams() {

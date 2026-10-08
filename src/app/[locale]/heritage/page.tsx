@@ -32,7 +32,7 @@ export default async function HeritagePage({ params }: PageProps) {
   const sea = copy.items[3];
   const pergola = availableImage("garden-night-pergola");
   const mosaic = availableImage("corridor-mosaic");
-  const bath = availableImage("bathroom-majolica");
+  const ceramic = availableImage("kitchen-dining-majolica");
   const path = availableImage("path-stairs-sea");
   const rocks = availableImage("sea-rocks-buoys");
 
@@ -93,19 +93,19 @@ export default async function HeritagePage({ params }: PageProps) {
             </h2>
             <p className="lede mb-0">{vietri.body}</p>
           </div>
-          {mosaic || bath ? (
+          {mosaic || ceramic ? (
             <div className="shell mt-12 grid gap-4 md:grid-cols-12 md:gap-5">
               {mosaic ? (
                 <Photo
                   image={mosaic}
                   locale={locale}
                   sizes="(max-width: 768px) 100vw, 58vw"
-                  className={bath ? "md:col-span-7" : "md:col-span-12"}
+                  className={ceramic ? "md:col-span-7" : "md:col-span-12"}
                 />
               ) : null}
-              {bath ? (
+              {ceramic ? (
                 <Photo
-                  image={bath}
+                  image={ceramic}
                   locale={locale}
                   sizes="(max-width: 768px) 100vw, 40vw"
                   className={mosaic ? "md:col-span-5 md:mt-20 xl:mt-32" : "md:col-span-12"}

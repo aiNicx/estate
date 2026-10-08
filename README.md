@@ -1,10 +1,12 @@
 # Marina d'Albori Estate
 
-Public presentation site for a waterfront estate in Marina d'Albori, Vietri sul Mare, on the Amalfi Coast. English and Italian. Facts live in `src/content/property.ts`.
+Digital sales brochure for a waterfront estate in Marina d'Albori, Vietri sul Mare, on the Amalfi Coast, shared directly with prospective buyers and advisers. English and Italian. Facts live in `src/content/property.ts`. Pages carry `noindex, nofollow`; social link previews are retained.
 
 ## Photographs
 
 Upload files into `public/images/property/`. Preferred names are listed in that folder’s README.
+
+The current aerials are `01_new.jpg` and `02_new.jpg`, optimized from the supplied PNGs. The original files are preserved. The public gallery is an explicit selection of 16 images in five chapters, defined by `BROCHURE_GALLERY_GROUPS` in `src/content/images.ts`; additional uploads are not automatically added to the gallery.
 
 Then, from the project root:
 
@@ -38,7 +40,7 @@ npm run build
 Copy `.env.example` to `.env.local`:
 
 - `NEXT_PUBLIC_SITE_URL` — public origin, used for canonical URLs, hreflang, sitemap, Open Graph. On Vercel set this to the production domain (for example `https://www.example.com`).
-- `INQUIRY_ENDPOINT` — POST URL for the request form (Formspree, a CRM webhook, or your API). Until this is set, validated requests are only logged on the server.
+- `INQUIRY_ENDPOINT` — POST URL for the request form (Formspree, a CRM webhook, or your API). Until this is set, the form reports that website enquiries are unavailable. Successful submission is shown only when the delivery endpoint accepts the request.
 
 ### Vercel
 

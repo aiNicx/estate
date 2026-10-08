@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/content/property";
 import { t } from "@/content/messages";
-import { imageById } from "@/content/images";
 import { absoluteUrl, getSiteUrl } from "@/lib/site";
 
 export function localeMetadata(
@@ -13,8 +12,7 @@ export function localeMetadata(
   const title = overrides?.title ?? copy.meta.title;
   const description = overrides?.description ?? copy.meta.description;
   const url = absoluteUrl(locale, pathname);
-  const hero = imageById("hero-cove-aerial");
-  const ogImage = hero?.available ? `${getSiteUrl()}${hero.src}` : undefined;
+  const ogImage = absoluteUrl(locale, "/opengraph-image");
 
   return {
     metadataBase: new URL(getSiteUrl()),
@@ -36,17 +34,17 @@ export function localeMetadata(
       siteName: copy.meta.siteName,
       title: overrides?.title ?? copy.meta.ogTitle,
       description: overrides?.description ?? copy.meta.ogDescription,
-      ...(ogImage ? { images: [{ url: ogImage, alt: hero?.alt[locale] }] } : {}),
+      images: [{ url: ogImage, width: 1200, height: 630, alt: copy.meta.ogTitle }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(ogImage ? { images: [ogImage] } : {}),
+      images: [ogImage],
     },
     robots: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
     },
     other: {
       "og:locale:alternate": locale === "en" ? "it_IT" : "en_GB",

@@ -4,12 +4,10 @@ export default function NotFound() {
   return (
     <main className="shell py-24">
       <p className="kicker">Marina d&apos;Albori</p>
-      <h1 className="display mt-0 text-4xl">Not found</h1>
-      <p>
-        <Link href="/en">English</Link>
-        {" · "}
-        <Link href="/it">Italiano</Link>
-      </p>
+      <h1 className="display mt-0 text-4xl"><span lang="it">Pagina non trovata</span></h1>
+      <p lang="it">La pagina richiesta non è disponibile. Puoi tornare alla presentazione della proprietà.</p>
+      <p lang="en">The requested page is unavailable. You can return to the property presentation.</p>
+      <p><Link href="/it" lang="it">Presentazione in italiano</Link>{" · "}<Link href="/en" lang="en">English presentation</Link></p>
     </main>
   );
 }
