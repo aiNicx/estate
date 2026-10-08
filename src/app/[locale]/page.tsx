@@ -87,6 +87,10 @@ export default async function HomePage({ params }: PageProps) {
                 {paragraph}
               </p>
             ))}
+            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+              <Link className="quiet-link" href={localizedPath(locale, "/the-property")}>{copy.cta.requestDetails}</Link>
+              <Link className="quiet-link" href={localizedPath(locale, "/investment")}>{copy.cta.requestInvestment}</Link>
+            </div>
           </div>
         </div>
       </section>
@@ -94,8 +98,8 @@ export default async function HomePage({ params }: PageProps) {
       <section className="section location-band">
         <div className="shell location-band-intro">
           <p className="kicker location-kicker">{copy.location.kicker}</p>
-          <h2 className="display location-title">{copy.location.title}</h2>
-          <p className="location-intro">{copy.location.intro}</p>
+          <h2 className="display location-title">{copy.home.locationTitle}</h2>
+          <p className="location-intro">{copy.home.locationIntro}</p>
         </div>
         <div className="shell location-band-grid">
           <div className="location-sea">
@@ -142,10 +146,10 @@ export default async function HomePage({ params }: PageProps) {
         ) : null}
         <div className="heritage-home-copy">
           <p className="kicker">{copy.heritage.kicker}</p>
-          <h2 className="display heritage-home-title">{copy.heritage.title}</h2>
-          <p className="lede">{copy.heritage.intro}</p>
+          <h2 className="display heritage-home-title">{copy.home.heritageTitle}</h2>
+          <p className="lede">{copy.home.heritageIntro}</p>
           <ol className="heritage-sequence">
-            {copy.heritage.items.map((item) => (
+            {copy.heritage.items.slice(1, 3).map((item) => (
               <li key={item.title}>
                 <span className="heritage-sequence-year">{item.year ?? ""}</span>
                 <div>
@@ -161,36 +165,12 @@ export default async function HomePage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="shell section investment-home">
-        <div className="investment-home-intro">
-          <p className="kicker">{copy.investment.kicker}</p>
-          <h2 className="display investment-home-title">{copy.investment.title}</h2>
-          <p className="lede">{copy.investment.intro}</p>
-        </div>
-        <div className="investment-scenarios">
-          {copy.investment.scenarios.map((scenario) => (
-            <article key={scenario.title}>
-              <h3>{scenario.title}</h3>
-              <p>{scenario.body}</p>
-            </article>
-          ))}
-        </div>
-        <Link className="quiet-link" href={localizedPath(locale, "/investment")}>
-          {copy.cta.requestInvestment}
-        </Link>
-      </section>
-
       <section className="section dossier-band">
         <div className="shell dossier-band-inner">
           <div>
-            <p className="kicker">{copy.request.kicker}</p>
-            <h2 className="display dossier-title">{copy.request.title}</h2>
+            <p className="kicker">{copy.home.contactKicker}</p>
+            <h2 className="display dossier-title">{copy.home.contactTitle}</h2>
             <p className="dossier-intro">{copy.home.dossierIntro}</p>
-            <ul className="dossier-materials">
-              {copy.home.dossierMaterials.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
           </div>
           <Link className="btn" href={localizedPath(locale, "/request")}>
             {copy.cta.request}

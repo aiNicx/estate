@@ -30,7 +30,7 @@ export function getMetrics(locale: Locale): {
     },
     {
       label: labels.terraces,
-      value: `≈ ${property.terraces.squareMetresMin}–${property.terraces.squareMetresMax} m²`,
+      value: compactArea(property.terraces.squareMetres),
     },
     {
       label: labels.units,

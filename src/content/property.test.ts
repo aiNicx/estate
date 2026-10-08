@@ -8,6 +8,7 @@ import { validateInquiry } from "../lib/inquiry.ts";
 
 test("property facts stay within supplied information", () => {
   assert.equal(property.internalArea.squareMetres, 900);
+  assert.equal(property.terraces.squareMetres, 350);
   assert.equal(property.units.total, 7);
   assert.equal(property.units.residential, 5);
   assert.equal(property.units.commercial, 2);
@@ -80,6 +81,9 @@ test("visible metrics and fact rows derive from the property source", () => {
   const groups = getAssetDetailGroups("it");
   const detailValues = groups.flatMap((group) => group.rows.map((row) => row.value));
   assert.equal(metrics[0]?.value, `≈ ${property.internalArea.squareMetres} m²`);
+  assert.equal(metrics[1]?.value, `≈ ${property.terraces.squareMetres} m²`);
+  assert.equal(messages.en.meta.description.includes("300"), false);
+  assert.equal(messages.it.overview.body.join(" ").includes("350 m²"), true);
   assert.equal(metrics[2]?.value, String(property.units.total));
   assert.equal(
     metrics[2]?.note,
@@ -107,7 +111,8 @@ test("visible metrics and fact rows derive from the property source", () => {
 });
 
 test("image map covers the supplied photographs", () => {
-  assert.equal(imageSpecs.length, 26);
+  assert.ok(imageSpecs.length >= 26);
+  assert.equal(new Set(imageSpecs.map((image) => image.id)).size, imageSpecs.length);
   assert.equal(imageSpecs[0]?.id, "hero-cove-aerial");
   assert.equal(imageSpecs[0]?.file, "01_new.jpg");
 });

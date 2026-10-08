@@ -41,13 +41,18 @@ type Copy = {
   };
   home: {
     galleryCta: string;
+    locationTitle: string;
+    locationIntro: string;
+    heritageTitle: string;
+    heritageIntro: string;
+    contactKicker: string;
+    contactTitle: string;
     seaKicker: string;
     seaTitle: string;
     seaBody: string;
     connectionsTitle: string;
     connections: { name: string; relation: string }[];
     dossierIntro: string;
-    dossierMaterials: string[];
   };
   property: {
     kicker: string;
@@ -241,7 +246,7 @@ export const messages: Record<Locale, Copy> = {
   "en": {
     "meta": {
       "title": "Marina d'Albori | Waterfront estate in Vietri sul Mare",
-      "description": "A waterfront estate at Marina d'Albori on the Amalfi Coast: seven residential and commercial units, approximately 900 m² of internal area and 300–350 m² of terraces, with existing holiday accommodation and restaurant use.",
+      "description": "A waterfront estate at Marina d'Albori on the Amalfi Coast: seven residential and commercial units, approximately 900 m² of internal area and 350 m² of terraces, with existing holiday accommodation and restaurant use.",
       "ogTitle": "Marina d'Albori · A waterfront estate",
       "ogDescription": "Seven units, seafront terraces and a historic paper mill dating to 1830 associated with the property. An introduction to the estate and its setting in Vietri sul Mare.",
       "siteName": "Marina d'Albori"
@@ -276,16 +281,16 @@ export const messages: Record<Locale, Copy> = {
     },
     "hero": {
       "eyebrow": "Marina d'Albori",
-      "title": "A waterfront estate on the Amalfi Coast.",
-      "lead": "At Marina d'Albori, in the municipality of Vietri sul Mare.",
+      "title": "A waterfront property on the Amalfi Coast.",
+      "lead": "Marina d'Albori, Vietri sul Mare.",
       "scroll": "Continue"
     },
     "overview": {
       "kicker": "The property",
-      "title": "Seven units between the hillside and the sea.",
+      "title": "Five homes and two commercial units.",
       "body": [
-        "Five residential and two commercial units form the estate, arranged along the hillside above the cove. Terraces, views over the water and Mediterranean vegetation define the setting.",
-        "Some of the homes are already used for holiday accommodation, alongside existing restaurant use. A seasonal landing and pontoon concession is associated with the property."
+        "The estate comprises approximately 900 m² of internal space and 350 m² of terraces. Some of the homes are already used for holiday accommodation, and there is an existing restaurant.",
+        "Terraces overlook the cove. Inside are vaulted sitting rooms and maiolica floors."
       ]
     },
     "metrics": {
@@ -298,36 +303,36 @@ export const messages: Record<Locale, Copy> = {
     },
     "home": {
       "galleryCta": "View the photographs",
-      "seaKicker": "The waterfront",
-      "seaTitle": "The cove and seasonal landing.",
-      "seaBody": "The buildings and terraces overlook the cove. Details of the seasonal landing and pontoon concession can be explored through the property documentation.",
-      "connectionsTitle": "The surroundings",
+      "seaKicker": "The cove",
+      "seaTitle": "Access to the cove.",
+      "seaBody": "A stepped path leads from the road down towards the cove. A seasonal landing and pontoon concession is associated with the property.",
+      "connectionsTitle": "Nearby",
       "connections": [
         {
           "name": "Vietri sul Mare",
-          "relation": "The property's municipality, at the eastern end of the Amalfi Coast."
+          "relation": "The municipality that includes Marina d'Albori."
         },
         {
           "name": "Salerno",
-          "relation": "The nearby city and a point of access to the rail network."
+          "relation": "The city and railway station to the east of the estate."
         },
         {
-          "name": "Amalfi Coast",
-          "relation": "The coastal landscape extending towards Cetara, Amalfi and Positano."
+          "name": "Cetara, Amalfi, Positano",
+          "relation": "Along the coast, continuing west."
         }
       ],
-      "dossierIntro": "For further information about the units, documentation and sale terms, enquiries can be directed to the person handling the sale.",
-      "dossierMaterials": [
-        "Unit composition and floor areas",
-        "Floor plans and technical documentation",
-        "Seasonal landing and pontoon concession",
-        "Sale terms and arrangements for a viewing"
-      ]
+      "dossierIntro": "For sale terms, available documentation or a viewing, leave your contact details.",
+      "locationTitle": "Vietri sul Mare, Amalfi Coast.",
+      "locationIntro": "Marina d'Albori is at the start of the Amalfi Coast when approaching from Salerno, within the municipality of Vietri sul Mare.",
+      "heritageTitle": "The paper mill of 1830.",
+      "heritageIntro": "A historic paper mill dating to 1830 is associated with the property.",
+      "contactKicker": "Enquiries",
+      "contactTitle": "Information about the sale."
     },
     "property": {
       "kicker": "The property",
       "title": "Seven units on the waterfront.",
-      "intro": "Approximately 900 m² of internal area and 300–350 m² of terraces, comprising five residential and two commercial units. Homes, holiday accommodation and restaurant use within one estate.",
+      "intro": "Approximately 900 m² of internal area and 350 m² of terraces, comprising five residential and two commercial units. Homes, holiday accommodation and restaurant use within one estate.",
       "factsLabel": "Key facts",
       "compositionTitle": "The units",
       "areaNote": "Areas are approximate. The breakdown by unit and detailed measurements should be reviewed against the property documentation.",
@@ -362,7 +367,7 @@ export const messages: Record<Locale, Copy> = {
         },
         {
           "title": "The terraces",
-          "body": "Approximately 300–350 m² of terraces in total. The photographs show views over the Tyrrhenian Sea, outdoor dining spaces and balconies framed by arches."
+          "body": "Approximately 350 m² of terraces in total. The photographs show views over the Tyrrhenian Sea, outdoor dining spaces and balconies framed by arches."
         },
         {
           "title": "The residential interiors",
@@ -508,7 +513,7 @@ export const messages: Record<Locale, Copy> = {
       "present": [
         "Five independent residential units, some used for holiday accommodation.",
         "Two commercial units, including an existing restaurant.",
-        "Approximately 900 m² of internal area and 300–350 m² of terraces.",
+        "Approximately 900 m² of internal area and 350 m² of terraces.",
         "A seasonal landing and pontoon concession associated with the property."
       ],
       "possibleTitle": "Possibilities to explore",
@@ -543,11 +548,11 @@ export const messages: Record<Locale, Copy> = {
         },
         {
           "title": "The lemon grove",
-          "body": "Approximately eight lemon trees, around seventy years old, stand on the hillside terraces. Citrus cultivation is part of the landscape of this stretch of coast."
+          "body": "Approximately eight lemon trees, around seventy years old, grow on the hillside terraces."
         },
         {
           "title": "Vietri ceramic",
-          "body": "Maiolica floors, blue and white tiles and coloured mosaics feature in the interiors photographed, reflecting the ceramic tradition of Vietri sul Mare."
+          "body": "Maiolica floors, mosaics in the passageways and blue and white bathroom tiles."
         },
         {
           "title": "The cove",
@@ -681,7 +686,7 @@ export const messages: Record<Locale, Copy> = {
   "it": {
     "meta": {
       "title": "Marina d'Albori | Proprietà fronte mare a Vietri sul Mare",
-      "description": "Una proprietà fronte mare a Marina d'Albori, in Costiera Amalfitana: sette unità residenziali e commerciali, circa 900 m² interni e 300–350 m² di terrazze, con uso ricettivo e di ristorazione già in essere.",
+      "description": "Una proprietà fronte mare a Marina d'Albori, in Costiera Amalfitana: sette unità residenziali e commerciali, circa 900 m² interni e 350 m² di terrazze, con uso ricettivo e di ristorazione già in essere.",
       "ogTitle": "Marina d'Albori · Una proprietà fronte mare",
       "ogDescription": "Sette unità, terrazze sul mare e una cartiera storica del 1830 associata alla proprietà. Una presentazione della proprietà e del suo contesto a Vietri sul Mare.",
       "siteName": "Marina d'Albori"
@@ -716,16 +721,16 @@ export const messages: Record<Locale, Copy> = {
     },
     "hero": {
       "eyebrow": "Marina d'Albori",
-      "title": "Una proprietà fronte mare, in Costiera Amalfitana.",
-      "lead": "A Marina d'Albori, nel comune di Vietri sul Mare.",
+      "title": "Sul mare, in Costiera Amalfitana.",
+      "lead": "Marina d'Albori, Vietri sul Mare.",
       "scroll": "Continua"
     },
     "overview": {
       "kicker": "La proprietà",
-      "title": "Sette unità, tra il versante e il mare.",
+      "title": "Cinque abitazioni e due unità commerciali.",
       "body": [
-        "Cinque unità residenziali e due commerciali compongono la proprietà, distribuita sul versante che scende verso la cala. Le terrazze, gli affacci sull'acqua e la vegetazione mediterranea ne definiscono il contesto.",
-        "Parte delle abitazioni è già destinata all'accoglienza turistica; è inoltre presente un'attività di ristorazione. Alla proprietà è associata una concessione stagionale di approdo e pontile."
+        "Il complesso comprende circa 900 m² interni e 350 m² di terrazze. Parte delle abitazioni è già utilizzata per l'accoglienza turistica; è presente anche un'attività di ristorazione.",
+        "Le terrazze guardano la cala. Negli interni si trovano soggiorni a volta e pavimenti in maiolica."
       ]
     },
     "metrics": {
@@ -738,36 +743,36 @@ export const messages: Record<Locale, Copy> = {
     },
     "home": {
       "galleryCta": "Vedi le fotografie",
-      "seaKicker": "Il fronte mare",
-      "seaTitle": "La cala e l'approdo stagionale.",
-      "seaBody": "Gli edifici e le terrazze si affacciano sulla cala. La concessione stagionale di approdo e pontile è un elemento da approfondire nella documentazione della proprietà.",
-      "connectionsTitle": "Il contesto",
+      "seaKicker": "La cala",
+      "seaTitle": "L'accesso alla cala.",
+      "seaBody": "Un percorso a scale scende dalla strada verso la cala. Alla proprietà è associata una concessione stagionale di approdo e pontile.",
+      "connectionsTitle": "Nei dintorni",
       "connections": [
         {
           "name": "Vietri sul Mare",
-          "relation": "Il comune della proprietà, all'ingresso orientale della Costiera."
+          "relation": "Il comune di cui fa parte Marina d'Albori."
         },
         {
           "name": "Salerno",
-          "relation": "Il riferimento per i collegamenti ferroviari e il contesto urbano."
+          "relation": "La città e la stazione ferroviaria a est della proprietà."
         },
         {
-          "name": "Costiera Amalfitana",
-          "relation": "Il paesaggio costiero che si estende verso Cetara, Amalfi e Positano."
+          "name": "Cetara, Amalfi, Positano",
+          "relation": "Lungo la Costiera, proseguendo verso ovest."
         }
       ],
-      "dossierIntro": "Per approfondire la composizione della proprietà, la documentazione e le condizioni di vendita, è possibile contattare il referente della vendita.",
-      "dossierMaterials": [
-        "Composizione e superfici delle unità",
-        "Planimetrie e documentazione tecnica",
-        "Concessione stagionale di approdo e pontile",
-        "Condizioni di vendita e possibilità di visita"
-      ]
+      "dossierIntro": "Per conoscere le condizioni di vendita, richiedere la documentazione disponibile o organizzare una visita, lascia i tuoi recapiti.",
+      "locationTitle": "Vietri sul Mare, Costiera Amalfitana.",
+      "locationIntro": "Marina d'Albori si trova all'inizio della Costiera Amalfitana arrivando da Salerno, nel comune di Vietri sul Mare.",
+      "heritageTitle": "La cartiera del 1830.",
+      "heritageIntro": "Alla proprietà è associata una cartiera storica, datata 1830.",
+      "contactKicker": "Contatti",
+      "contactTitle": "Informazioni sulla vendita."
     },
     "property": {
       "kicker": "La proprietà",
       "title": "Un complesso fronte mare, in sette unità.",
-      "intro": "Circa 900 m² di superficie interna e 300–350 m² di terrazze, con cinque unità residenziali e due commerciali. Una composizione che riunisce abitazioni, accoglienza turistica e ristorazione.",
+      "intro": "Circa 900 m² di superficie interna e 350 m² di terrazze, con cinque unità residenziali e due commerciali. Una composizione che riunisce abitazioni, accoglienza turistica e ristorazione.",
       "factsLabel": "Dati principali",
       "compositionTitle": "Le unità",
       "areaNote": "Le superfici sono indicative. La ripartizione per unità e i dati di dettaglio vanno approfonditi nella documentazione della proprietà.",
@@ -802,7 +807,7 @@ export const messages: Record<Locale, Copy> = {
         },
         {
           "title": "Le terrazze",
-          "body": "Circa 300–350 m² complessivi di terrazze. Le immagini mostrano affacci sul Tirreno, spazi per il pranzo all'aperto e balconi incorniciati da archi."
+          "body": "Circa 350 m² complessivi di terrazze. Le immagini mostrano affacci sul Tirreno, spazi per il pranzo all'aperto e balconi incorniciati da archi."
         },
         {
           "title": "Gli ambienti residenziali",
@@ -948,7 +953,7 @@ export const messages: Record<Locale, Copy> = {
       "present": [
         "Cinque unità residenziali indipendenti, in parte utilizzate per l'accoglienza turistica.",
         "Due unità commerciali, con un'attività di ristorazione già presente.",
-        "Circa 900 m² di superficie interna e 300–350 m² di terrazze.",
+        "Circa 900 m² di superficie interna e 350 m² di terrazze.",
         "Una concessione stagionale di approdo e pontile associata alla proprietà."
       ],
       "possibleTitle": "Prospettive da approfondire",
@@ -983,11 +988,11 @@ export const messages: Record<Locale, Copy> = {
         },
         {
           "title": "Il limoneto",
-          "body": "Sui terrazzamenti del versante si trovano circa otto alberi di limone, di circa settant'anni. La coltivazione degli agrumi appartiene al paesaggio di questo tratto di costa."
+          "body": "Circa otto alberi di limone, di circa settant'anni, crescono sui terrazzamenti."
         },
         {
           "title": "La ceramica di Vietri",
-          "body": "Maioliche a pavimento, rivestimenti blu e bianchi e mosaici colorati caratterizzano gli interni fotografati, richiamando la tradizione ceramica di Vietri sul Mare."
+          "body": "Pavimenti in maiolica, mosaici nei corridoi e rivestimenti blu e bianchi nei bagni."
         },
         {
           "title": "La cala",

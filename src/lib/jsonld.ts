@@ -103,8 +103,7 @@ export function buildJsonLd(locale: Locale, pathname: string) {
     {
       "@type": "PropertyValue",
       name: locale === "it" ? "Terrazze" : "Terraces",
-      minValue: property.terraces.squareMetresMin,
-      maxValue: property.terraces.squareMetresMax,
+      value: property.terraces.squareMetres,
       unitCode: "MTK",
     },
     {

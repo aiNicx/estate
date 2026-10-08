@@ -73,8 +73,7 @@ export const property = {
     status: "supplied" as FactStatus,
   },
   terraces: {
-    squareMetresMin: 300,
-    squareMetresMax: 350,
+    squareMetres: 350,
     qualifier: "approximately" as FactQualifier,
     status: "supplied" as FactStatus,
   },
@@ -177,11 +176,6 @@ export function formatArea(
 }
 
 export function formatTerraceRange(locale: Locale): string {
-  const { squareMetresMin, squareMetresMax, qualifier } = property.terraces;
-  const nf = new Intl.NumberFormat(locale === "it" ? "it-IT" : "en-GB");
-  const range = `${nf.format(squareMetresMin)}–${nf.format(squareMetresMax)} m²`;
-  if (qualifier === "approximately") {
-    return locale === "it" ? `circa ${range}` : `approximately ${range}`;
-  }
-  return range;
+  const { squareMetres, qualifier } = property.terraces;
+  return formatArea(locale, squareMetres, qualifier);
 }
