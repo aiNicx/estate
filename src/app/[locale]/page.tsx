@@ -1,19 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
-import { t } from "@/content/messages";
-import { availableImage, HOME_SEA_IMAGE_IDS, imagesByIds } from "@/content/images";
+import { availableImage, imagesByIds } from "@/content/images";
+import { property } from "@/content/property";
+import { brochureCopy, brochureMetrics, brochurePhotoGroups } from "@/content/brochure";
+import { straightLineFromProperty, formatStraightLine } from "@/content/geography";
 import { localeMetadata } from "@/lib/seo";
 import { buildJsonLd } from "@/lib/jsonld";
-import { localizedPath } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
-import { MetricBand } from "@/components/MetricBand";
-import { WaveRule } from "@/components/WaveRule";
-import { CoveDiagram } from "@/components/CoveDiagram";
+import { Gallery } from "@/components/Gallery";
 import { LocationMap } from "@/components/LocationMap";
-import { HomeGallery } from "@/components/HomeGallery";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -26,155 +23,108 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const copy = t(locale);
+  const copy = brochureCopy(locale);
   const hero = availableImage("hero-cove-aerial");
-  const seaPhoto =
-    imagesByIds(HOME_SEA_IMAGE_IDS)[0] ?? availableImage("path-stairs-sea");
-  const mosaic = availableImage("corridor-mosaic");
+  const groups = brochurePhotoGroups.map((group) => ({
+    id: group.id,
+    ...copy.spaces.groups[group.id],
+    images: imagesByIds(group.imageIds),
+  }));
+  const connections = [
+    { id: "salerno-station" as const, label: copy.location.rail },
+    { id: "qsr" as const, label: copy.location.salernoAirport },
+    { id: "nap" as const, label: copy.location.naplesAirport },
+  ];
 
   return (
-    <main>
+    <main className="brochure" id="inizio">
       <JsonLd data={buildJsonLd(locale, "")} />
-
-      <section className="hero">
-        <div className="hero-media">
-          {hero ? (
-            <Image
-              src={hero.src}
-              alt={hero.alt[locale]}
-              fill
-              priority
-              fetchPriority="high"
-              sizes="(max-width: 1024px) 100vw, 56vw"
-              className="object-cover"
-              style={{ objectPosition: hero.objectPosition }}
-            />
-          ) : (
-            <CoveDiagram locale={locale} />
-          )}
+      <section className="brochure-hero" aria-labelledby="brochure-title">
+        <div className="brochure-hero-copy">
+          <p className="kicker">{copy.hero.place}</p>
+          <h1 id="brochure-title">{copy.hero.title}</h1>
+          <p className="brochure-hero-lead">{copy.hero.lead}</p>
+          <a className="quiet-link" href="#proprieta">{copy.hero.action}<span aria-hidden="true"> ↓</span></a>
         </div>
-        <div className="hero-copy">
-          <p className="kicker hero-eyebrow">{copy.hero.eyebrow}</p>
-          <h1 className="display hero-title">{copy.hero.title}</h1>
-          {copy.hero.lead ? (
-            <p className="hero-lead">{copy.hero.lead}</p>
-          ) : null}
-          <WaveRule />
-          <div className="hero-cta">
-            <Link className="btn" href={localizedPath(locale, "/request")}>
-              {copy.cta.request}
-            </Link>
+        <figure className="brochure-hero-photo">
+          <div className="brochure-hero-frame photo-frame">
+            {hero ? <Image src={hero.src} alt={hero.alt[locale]} fill priority fetchPriority="high" sizes="(max-width: 760px) 100vw, 56vw" style={{ objectPosition: hero.objectPosition }} /> : null}
+          </div>
+          <figcaption>{copy.hero.caption}</figcaption>
+        </figure>
+      </section>
+
+      <section id="proprieta" className="brochure-section shell" aria-labelledby="property-title">
+        <div className="brochure-section-heading">
+          <p className="kicker">{copy.property.kicker}</p>
+          <h2 id="property-title">{copy.property.title}</h2>
+        </div>
+        <dl className="brochure-metrics">
+          {brochureMetrics(locale).map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}
+        </dl>
+        <p className="brochure-note">{copy.property.areaNote}</p>
+        <div className="brochure-property-grid">
+          <Photo image={availableImage("architecture-hillside-aerial")} locale={locale} sizes="(max-width: 760px) 100vw, 46vw" className="brochure-property-photo" frameClassName="aspect-[4/5]" caption />
+          <div className="brochure-property-copy">
+            <p className="brochure-body">{copy.property.intro}</p>
+            <dl className="brochure-composition">
+              <div><dt>{copy.property.residential}</dt><dd>{property.units.residential}</dd></div>
+              <div><dt>{copy.property.commercial}</dt><dd>{property.units.commercial}</dd></div>
+            </dl>
+            <h3>{copy.property.useTitle}</h3>
+            <p>{copy.property.use}</p>
           </div>
         </div>
       </section>
 
-      <div className="facts-strip">
+      <section id="spazi" className="brochure-section brochure-spaces" aria-labelledby="spaces-title">
         <div className="shell">
-          <h2 className="sr-only">{copy.facts.title}</h2>
-          <MetricBand locale={locale} />
+          <div className="brochure-section-heading brochure-heading-pair">
+            <div><p className="kicker">{copy.spaces.kicker}</p><h2 id="spaces-title">{copy.spaces.title}</h2></div>
+            <div><p className="brochure-body">{copy.spaces.intro}</p><p className="brochure-note">{copy.spaces.photoHint}</p></div>
+          </div>
+          <Gallery locale={locale} groups={groups} brochure />
         </div>
-      </div>
+      </section>
 
-      <HomeGallery locale={locale} />
+      <section id="storia" className="brochure-section shell" aria-labelledby="history-title">
+        <div className="brochure-section-heading"><p className="kicker">{copy.history.kicker}</p><h2 id="history-title">{copy.history.title}</h2></div>
+        <div className="brochure-history-grid">
+          <div className="brochure-history-copy">
+            <div><h3>{copy.history.millTitle} {property.heritage.paperMillYear}</h3><p>{copy.history.mill}</p></div>
+            <div><h3>{copy.history.gardenTitle}</h3><p>{copy.history.garden}</p></div>
+            <div><h3>{copy.history.ceramicsTitle}</h3><p>{copy.history.ceramics}</p></div>
+          </div>
+          <div className="brochure-history-photos">
+            <Photo image={availableImage("corridor-mosaic")} locale={locale} sizes="(max-width: 760px) 48vw, 27vw" frameClassName="aspect-[3/4]" caption />
+            <Photo image={availableImage("kitchen-dining-majolica")} locale={locale} sizes="(max-width: 760px) 48vw, 27vw" frameClassName="aspect-[3/4]" caption />
+          </div>
+        </div>
+      </section>
 
-      <section className="section">
+      <section id="posizione" className="brochure-section brochure-location" aria-labelledby="location-title">
         <div className="shell">
-          <div className="overview-block">
-            <p className="kicker">{copy.overview.kicker}</p>
-            <h2 className="display overview-title">{copy.overview.title}</h2>
-            {copy.overview.body.map((paragraph) => (
-              <p key={paragraph} className="overview-body">
-                {paragraph}
-              </p>
-            ))}
-            <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-              <Link className="quiet-link" href={localizedPath(locale, "/the-property")}>{copy.cta.requestDetails}</Link>
-              <Link className="quiet-link" href={localizedPath(locale, "/investment")}>{copy.cta.requestInvestment}</Link>
+          <div className="brochure-section-heading brochure-heading-pair"><div><p className="kicker">{copy.location.kicker}</p><h2 id="location-title">{copy.location.title}</h2></div><p className="brochure-body">{copy.location.intro}</p></div>
+          <div className="brochure-location-grid">
+            <LocationMap locale={locale} compact />
+            <div className="brochure-access">
+              <a className="quiet-link" href={property.geo.mapsUrl} target="_blank" rel="noopener noreferrer">{copy.location.mapAction}<span aria-hidden="true"> ↗</span></a>
+              <div><h3>{copy.location.landTitle}</h3><p>{copy.location.land}</p></div>
+              <div><h3>{copy.location.seaTitle}</h3><p>{copy.location.sea}</p></div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="section location-band">
-        <div className="shell location-band-intro">
-          <p className="kicker location-kicker">{copy.location.kicker}</p>
-          <h2 className="display location-title">{copy.home.locationTitle}</h2>
-          <p className="location-intro">{copy.home.locationIntro}</p>
-        </div>
-        <div className="shell location-band-grid">
-          <div className="location-sea">
-            {seaPhoto ? (
-              <Photo
-                image={seaPhoto}
-                locale={locale}
-                sizes="(max-width: 1024px) 100vw, 42vw"
-                caption
-                frameClassName="location-sea-frame"
-              />
-            ) : null}
-            <p className="kicker location-sea-kicker">{copy.home.seaKicker}</p>
-            <h3 className="display location-sea-title">{copy.home.seaTitle}</h3>
-            <p className="location-sea-body">{copy.home.seaBody}</p>
+          <div className="brochure-travel-grid">
+            <Photo image={availableImage("path-stairs-sea")} locale={locale} sizes="(max-width: 760px) 100vw, 30vw" frameClassName="aspect-[4/5]" caption />
+            <div><h3>{copy.location.connectionsTitle}</h3><dl className="brochure-connections">{connections.map((place) => <div key={place.id}><dt>{place.label}</dt><dd>{formatStraightLine(locale, straightLineFromProperty(place.id).km)}</dd></div>)}</dl><p className="brochure-note">{copy.location.distanceNote}</p></div>
           </div>
-          <LocationMap locale={locale} compact />
-        </div>
-        <div className="shell location-connections">
-          <p className="kicker">{copy.home.connectionsTitle}</p>
-          <ul>
-            {copy.home.connections.map((item) => (
-              <li key={item.name}>
-                <strong>{item.name}</strong>
-                <span>{item.relation}</span>
-              </li>
-            ))}
-          </ul>
-          <Link className="quiet-link location-more" href={localizedPath(locale, "/location")}>
-            {copy.nav.location}
-          </Link>
         </div>
       </section>
 
-      <section className="shell section heritage-home">
-        {mosaic ? (
-          <Photo
-            image={mosaic}
-            locale={locale}
-            sizes="(max-width: 900px) 100vw, 38vw"
-            className="heritage-home-photo"
-            caption
-          />
-        ) : null}
-        <div className="heritage-home-copy">
-          <p className="kicker">{copy.heritage.kicker}</p>
-          <h2 className="display heritage-home-title">{copy.home.heritageTitle}</h2>
-          <p className="lede">{copy.home.heritageIntro}</p>
-          <ol className="heritage-sequence">
-            {copy.heritage.items.slice(1, 3).map((item) => (
-              <li key={item.title}>
-                <span className="heritage-sequence-year">{item.year ?? ""}</span>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <Link className="quiet-link" href={localizedPath(locale, "/heritage")}>
-            {copy.nav.heritage}
-          </Link>
-        </div>
-      </section>
-
-      <section className="section dossier-band">
-        <div className="shell dossier-band-inner">
-          <div>
-            <p className="kicker">{copy.home.contactKicker}</p>
-            <h2 className="display dossier-title">{copy.home.contactTitle}</h2>
-            <p className="dossier-intro">{copy.home.dossierIntro}</p>
-          </div>
-          <Link className="btn" href={localizedPath(locale, "/request")}>
-            {copy.cta.request}
-          </Link>
+      <section id="informazioni" className="brochure-section brochure-information" aria-labelledby="information-title">
+        <div className="shell">
+          <div className="brochure-information-intro"><p className="kicker">{copy.information.kicker}</p><h2 id="information-title">{copy.information.title}</h2><p>{copy.information.intro}</p></div>
+          <ul className="brochure-topics">{copy.information.topics.map((topic) => <li key={topic.title}><h3>{topic.title}</h3><p>{topic.text}</p></li>)}</ul>
+          <div className="brochure-information-end"><p>{copy.information.closing}</p><a className="quiet-link" href="#inizio">{copy.information.back}<span aria-hidden="true"> ↑</span></a></div>
         </div>
       </section>
     </main>

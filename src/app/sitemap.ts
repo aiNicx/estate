@@ -1,17 +1,7 @@
 import { locales } from "@/content/property";
 import { getSiteUrl, localizedPath } from "@/lib/site";
 
-const paths = [
-  "",
-  "/the-property",
-  "/spaces",
-  "/location",
-  "/investment",
-  "/heritage",
-  "/gallery",
-  "/request",
-  "/privacy",
-];
+const paths = ["", "/privacy"];
 
 export default function sitemap() {
   const site = getSiteUrl();

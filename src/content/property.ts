@@ -170,7 +170,7 @@ export function formatArea(
     metres,
   );
   if (qualifier === "approximately") {
-    return locale === "it" ? `circa ${number} ${unit}` : `approximately ${number} ${unit}`;
+    return `≈ ${number} ${unit}`;
   }
   return `${number} ${unit}`;
 }
