@@ -117,7 +117,7 @@ const copy = {
     information: {
       kicker: "05 / Informazioni",
       title: "Documenti, condizioni e visita",
-      intro: "Questa presentazione è riservata. Per la documentazione disponibile, le condizioni di vendita e l’organizzazione di un sopralluogo, il riferimento è il mittente dell’email con cui è stato condiviso il link.",
+      intro: "Questa presentazione è riservata. Per documenti, condizioni di vendita e un sopralluogo, rispondi all’email con cui hai ricevuto il link.",
       topics: [
         { title: "La proprietà e i documenti", text: "Definizione del perimetro di vendita, planimetrie, ripartizione delle unità e documentazione tecnica, urbanistica e catastale per la due diligence." },
         { title: "Le attività e le condizioni", text: "Usi attuali, titoli delle attività, termini della concessione stagionale del pontile e condizioni di vendita." },
@@ -201,7 +201,7 @@ const copy = {
     information: {
       kicker: "05 / Information",
       title: "Documents, terms and viewings",
-      intro: "This presentation is private. The sender of the email in which this link was shared is the contact for available documentation, sale terms and viewing arrangements.",
+      intro: "This presentation is private. For documents, sale terms and a viewing, reply to the email in which you received this link.",
       topics: [
         { title: "The property and its documents", text: "Confirmation of what is included in the sale, floor plans, the breakdown of units, and technical, planning and cadastral documentation for due diligence." },
         { title: "The businesses and sale terms", text: "Current uses, operating licences, the terms of the seasonal pontoon concession and the conditions of sale." },
