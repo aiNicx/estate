@@ -19,18 +19,18 @@ export const defaultLocale: Locale = "en";
 
 export const property = {
   id: "marina-dalbori-estate",
-  shortName: "Marina d'Albori",
+  shortName: "Marina d’Albori",
   names: {
-    en: "Marina d'Albori Estate",
-    it: "Proprietà Marina d'Albori",
+    en: "Marina d’Albori property",
+    it: "Proprietà Marina d’Albori",
   },
   /** Public marketing name used in titles. */
   listingTitle: {
-    en: "Marina d'Albori, Vietri sul Mare",
-    it: "Marina d'Albori, Vietri sul Mare",
+    en: "Marina d’Albori, Vietri sul Mare",
+    it: "Marina d’Albori, Vietri sul Mare",
   },
   location: {
-    locality: "Marina d'Albori",
+    locality: "Marina d’Albori",
     municipality: "Vietri sul Mare",
     province: "Salerno",
     region: "Campania",
@@ -45,8 +45,8 @@ export const property = {
     },
     /** Public geographic context, not a property measurement. */
     notes: {
-      en: "Marina d'Albori is a coastal locality within the municipality of Vietri sul Mare, at the eastern entrance of the Amalfi Coast in the province of Salerno, Campania.",
-      it: "Marina d'Albori è una località costiera nel comune di Vietri sul Mare, all'ingresso orientale della Costiera Amalfitana, in provincia di Salerno, Campania.",
+      en: "Marina d’Albori is a coastal locality within the municipality of Vietri sul Mare, at the eastern entrance of the Amalfi Coast in the province of Salerno, Campania.",
+      it: "Marina d’Albori è una località costiera nel comune di Vietri sul Mare, all'ingresso orientale della Costiera Amalfitana, in provincia di Salerno, Campania.",
     },
     status: "geographic-context" as FactStatus,
   },
@@ -103,21 +103,34 @@ export const property = {
     status: "supplied" as FactStatus,
   },
   /**
-   * Land approach is photograph-observable (stone staircase descending toward the sea;
-   * buildings step down the hillside). Step count is not recorded. Direct vehicular
-   * arrival at the buildings is not stated.
+   * Client-supplied indicative navigation times to the seasonal pontoon.
+   * Not derived from haversine distances; no harbour pin is published.
+   */
+  seaApproach: {
+    indicativeMinutes: {
+      salernoHarbour: 10,
+      vietri: 5,
+      cetara: 10,
+    },
+    qualifier: "approximately" as FactQualifier,
+    status: "supplied" as FactStatus,
+  },
+  /**
+   * Land approach: pedestrian stepped path from road level (photograph-observable).
+   * Step count supplied by the owner. Direct vehicular arrival at the buildings
+   * is not stated.
    */
   landAccess: {
     pedestrianSteppedPathFromRoadLevel: true,
-    stepCount: null as number | null,
+    stepCount: 200,
     vehicularAccessToBuildings: null as boolean | null,
-    status: "photograph" as FactStatus,
+    status: "supplied" as FactStatus,
   },
   heritage: {
     paperMillYear: 1830,
     paperMillNote: {
-      en: "A historic paper mill (cartiera) associated with the property dates to 1830.",
-      it: "Una cartiera storica associata alla proprietà risale al 1830.",
+      en: "The property is the paper mill of 1830 at Marina d’Albori. Remains of the maceration tanks survive in the basement.",
+      it: "La proprietà è la cartiera del 1830 a Marina d’Albori. Nel piano sotterraneo restano le vasche di macerazione.",
     },
     status: "supplied" as FactStatus,
   },

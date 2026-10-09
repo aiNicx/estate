@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { availableImage, imagesByIds } from "@/content/images";
 import { property } from "@/content/property";
-import { brochureCopy, brochureMetrics, brochurePhotoGroups } from "@/content/brochure";
+import { brochureCopy, brochureMetrics, brochurePhotoGroups, brochurePhotos } from "@/content/brochure";
 import { straightLineFromProperty, formatStraightLine } from "@/content/geography";
 import { localeMetadata } from "@/lib/seo";
 import { buildJsonLd } from "@/lib/jsonld";
@@ -24,7 +24,7 @@ export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const copy = brochureCopy(locale);
-  const hero = availableImage("hero-cove-aerial");
+  const hero = availableImage(brochurePhotos.hero);
   const groups = brochurePhotoGroups.map((group) => ({
     id: group.id,
     ...copy.spaces.groups[group.id],
@@ -50,7 +50,7 @@ export default async function HomePage({ params }: PageProps) {
           <div className="brochure-hero-frame photo-frame">
             {hero ? <Image src={hero.src} alt={hero.alt[locale]} fill priority fetchPriority="high" sizes="(max-width: 760px) 100vw, 56vw" style={{ objectPosition: hero.objectPosition }} /> : null}
           </div>
-          <figcaption>{copy.hero.caption}</figcaption>
+          <figcaption>{hero?.caption[locale]}</figcaption>
         </figure>
       </section>
 
@@ -62,9 +62,8 @@ export default async function HomePage({ params }: PageProps) {
         <dl className="brochure-metrics">
           {brochureMetrics(locale).map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}
         </dl>
-        <p className="brochure-note">{copy.property.areaNote}</p>
         <div className="brochure-property-grid">
-          <Photo image={availableImage("architecture-hillside-aerial")} locale={locale} sizes="(max-width: 760px) 100vw, 46vw" className="brochure-property-photo" frameClassName="aspect-[4/5]" caption />
+          <Photo image={availableImage(brochurePhotos.property)} locale={locale} sizes="(max-width: 760px) 100vw, 46vw" className="brochure-property-photo" frameClassName="aspect-[4/5]" caption />
           <div className="brochure-property-copy">
             <p className="brochure-body">{copy.property.intro}</p>
             <dl className="brochure-composition">
@@ -73,7 +72,13 @@ export default async function HomePage({ params }: PageProps) {
             </dl>
             <h3>{copy.property.useTitle}</h3>
             <p>{copy.property.use}</p>
+            <a className="quiet-link" href="#informazioni">{copy.property.next}<span aria-hidden="true"> ↓</span></a>
           </div>
+        </div>
+        <div className="brochure-possibilities" aria-labelledby="possibilities-title">
+          <h3 id="possibilities-title">{copy.property.possibilitiesTitle}</h3>
+          <ul className="brochure-scenarios">{copy.property.scenarios.map((scenario) => <li key={scenario.title}><h4>{scenario.title}</h4><p>{scenario.text}</p></li>)}</ul>
+          <a className="quiet-link" href="#informazioni">{copy.property.next}<span aria-hidden="true"> ↓</span></a>
         </div>
       </section>
 
@@ -88,7 +93,7 @@ export default async function HomePage({ params }: PageProps) {
       </section>
 
       <section id="storia" className="brochure-section shell" aria-labelledby="history-title">
-        <div className="brochure-section-heading"><p className="kicker">{copy.history.kicker}</p><h2 id="history-title">{copy.history.title}</h2></div>
+        <div className="brochure-section-heading brochure-heading-pair"><div><p className="kicker">{copy.history.kicker}</p><h2 id="history-title">{copy.history.title}</h2></div><p className="brochure-body">{copy.history.lead}</p></div>
         <div className="brochure-history-grid">
           <div className="brochure-history-copy">
             <div><h3>{copy.history.millTitle} {property.heritage.paperMillYear}</h3><p>{copy.history.mill}</p></div>
@@ -96,8 +101,7 @@ export default async function HomePage({ params }: PageProps) {
             <div><h3>{copy.history.ceramicsTitle}</h3><p>{copy.history.ceramics}</p></div>
           </div>
           <div className="brochure-history-photos">
-            <Photo image={availableImage("corridor-mosaic")} locale={locale} sizes="(max-width: 760px) 48vw, 27vw" frameClassName="aspect-[3/4]" caption />
-            <Photo image={availableImage("kitchen-dining-majolica")} locale={locale} sizes="(max-width: 760px) 48vw, 27vw" frameClassName="aspect-[3/4]" caption />
+            {brochurePhotos.history.map((id) => <Photo key={id} image={availableImage(id)} locale={locale} sizes="(max-width: 760px) 48vw, 27vw" frameClassName="aspect-[3/4]" caption />)}
           </div>
         </div>
       </section>
@@ -114,7 +118,7 @@ export default async function HomePage({ params }: PageProps) {
             </div>
           </div>
           <div className="brochure-travel-grid">
-            <Photo image={availableImage("path-stairs-sea")} locale={locale} sizes="(max-width: 760px) 100vw, 30vw" frameClassName="aspect-[4/5]" caption />
+            <Photo image={availableImage(brochurePhotos.access)} locale={locale} sizes="(max-width: 760px) 100vw, 30vw" frameClassName="aspect-[4/5]" caption />
             <div><h3>{copy.location.connectionsTitle}</h3><dl className="brochure-connections">{connections.map((place) => <div key={place.id}><dt>{place.label}</dt><dd>{formatStraightLine(locale, straightLineFromProperty(place.id).km)}</dd></div>)}</dl><p className="brochure-note">{copy.location.distanceNote}</p></div>
           </div>
         </div>

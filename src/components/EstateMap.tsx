@@ -198,9 +198,13 @@ export function EstateMap({
     let basemapErrors = 0;
     map.once("style.load", () => {
       configureEditorialStyle(map);
-      setStatus("ready");
     });
-    map.once("idle", minimizeAttribution);
+    // A loaded style can still have blank tiles while the worker prepares them.
+    // Keep the placeholder until the first complete render.
+    map.once("idle", () => {
+      minimizeAttribution();
+      setStatus((current) => current === "failed" ? current : "ready");
+    });
     map.on("error", (event) => {
       const sourceId = (event as { sourceId?: string }).sourceId;
       if (sourceId !== "openmaptiles") return;

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import type { Locale } from "@/content/property";
-import { t } from "@/content/messages";
-import { absoluteUrl, getSiteUrl } from "@/lib/site";
+import type { Locale } from "../content/property.ts";
+import { brochureCopy } from "../content/brochure.ts";
+import { absoluteUrl, getSiteUrl } from "./site.ts";
 
 export function localeMetadata(
   locale: Locale,
   pathname: string,
   overrides?: { title?: string; description?: string },
 ): Metadata {
-  const copy = t(locale);
+  const copy = brochureCopy(locale);
   const title = overrides?.title ?? copy.meta.title;
   const description = overrides?.description ?? copy.meta.description;
   const url = absoluteUrl(locale, pathname);
@@ -32,9 +32,9 @@ export function localeMetadata(
       alternateLocale: locale === "it" ? ["en_GB"] : ["it_IT"],
       url,
       siteName: copy.meta.siteName,
-      title: overrides?.title ?? copy.meta.ogTitle,
-      description: overrides?.description ?? copy.meta.ogDescription,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: copy.meta.ogTitle }],
+      title,
+      description,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: copy.meta.title }],
     },
     twitter: {
       card: "summary_large_image",

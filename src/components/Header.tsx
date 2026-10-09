@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
-import type { Locale } from "@/content/property";
+import { property, type Locale } from "@/content/property";
 import { brochureSections, brochurePath } from "@/content/brochure";
 import { t } from "@/content/messages";
 import { LanguageSwitch } from "./LanguageSwitch";
@@ -21,7 +21,7 @@ export function Header({ locale }: { locale: Locale }) {
     <header className="site-header brochure-header">
       <div className="shell brochure-header-inner">
         <Link href={`/${locale}`} className="brochure-brand" onClick={() => setOpen(false)}>
-          <span>Vietri sul Mare</span><span className="display">Marina d’Albori</span>
+          <span>{property.location.municipality}</span><span className="display">{property.shortName}</span>
         </Link>
         <nav aria-label={copy.nav.navigation} className="brochure-desktop-nav">
           {brochureSections.map((section) => <Link className="nav-link" key={section.id} href={brochurePath(locale, section.id)}>{section.label[locale]}</Link>)}

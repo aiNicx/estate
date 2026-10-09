@@ -1,20 +1,6 @@
-import { locales } from "@/content/property";
-import { getSiteUrl, localizedPath } from "@/lib/site";
+import type { MetadataRoute } from "next";
 
-const paths = ["", "/privacy"];
-
-export default function sitemap() {
-  const site = getSiteUrl();
-  return locales.flatMap((locale) =>
-    paths.map((pathname) => ({
-      url: `${site}${localizedPath(locale, pathname)}`,
-      alternates: {
-        languages: {
-          en: `${site}${localizedPath("en", pathname)}`,
-          it: `${site}${localizedPath("it", pathname)}`,
-          "x-default": `${site}${localizedPath("en", pathname)}`,
-        },
-      },
-    })),
-  );
+/** Direct distribution only: do not advertise the brochure for discovery. */
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [];
 }

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { isLocale } from "@/lib/i18n";
 import { t } from "@/content/messages";
+import { brochureCopy } from "@/content/brochure";
 import { localeMetadata } from "@/lib/seo";
 import { PageShell } from "@/components/PageShell";
 
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: PageProps) {
   if (!isLocale(locale)) return {};
   const copy = t(locale);
   return localeMetadata(locale, "/privacy", {
-    title: `${copy.nav.privacy} · ${copy.meta.siteName}`,
+    title: `${copy.privacy.title} · ${brochureCopy(locale).meta.siteName}`,
     description: copy.privacy.body[0],
   });
 }

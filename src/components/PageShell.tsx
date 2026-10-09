@@ -14,7 +14,7 @@ export function PageShell({
   children,
 }: {
   locale: Locale;
-  pathname: string;
+  pathname: "/privacy";
   kicker?: string;
   title?: string;
   intro?: string;

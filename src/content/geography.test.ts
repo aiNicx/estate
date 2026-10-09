@@ -11,6 +11,7 @@ import {
   places,
   straightLineFromProperty,
 } from "./geography.ts";
+import { brochureCopy } from "./brochure.ts";
 import { messages } from "./messages.ts";
 
 test("listing pin is the only supplied estate coordinate", () => {
@@ -26,13 +27,18 @@ test("listing pin is the only supplied estate coordinate", () => {
 
 test("land and sea access stay within verified facts", () => {
   assert.equal(access.land.mode, "pedestrian-stepped-path");
-  assert.equal(access.land.stepCount, null);
+  assert.equal(access.land.stepCount, 200);
   assert.equal(access.land.vehicularAccessToBuildings, null);
   assert.equal(access.sea.seasonalLandingConcession, true);
   assert.equal(access.sea.privateHarbour, false);
   assert.equal(access.sea.scheduledFerryAtProperty, false);
-  assert.equal(property.landAccess.stepCount, null);
+  assert.equal(property.landAccess.stepCount, 200);
   assert.equal(property.landAccess.vehicularAccessToBuildings, null);
+  assert.equal(property.seaApproach.indicativeMinutes.salernoHarbour, 10);
+  assert.equal(property.seaApproach.indicativeMinutes.vietri, 5);
+  assert.equal(property.seaApproach.indicativeMinutes.cetara, 10);
+  assert.equal(property.seaApproach.qualifier, "approximately");
+  assert.equal(property.seaApproach.status, "supplied");
 });
 
 test("straight-line distances are approximate and not travel times", () => {
@@ -44,6 +50,12 @@ test("straight-line distances are approximate and not travel times", () => {
   assert.match(formatStraightLine("en", vietri.km), /straight line/);
   assert.match(formatStraightLine("it", vietri.km), /linea d'aria/);
   assert.doesNotMatch(formatStraightLine("en", vietri.km), /min/);
+  assert.match(brochureCopy("en").location.distanceNote, /Straight-line/);
+  assert.match(brochureCopy("it").location.distanceNote, /linea d’aria/);
+  assert.doesNotMatch(brochureCopy("en").location.distanceNote, /approximate|indicative/i);
+  assert.doesNotMatch(brochureCopy("it").location.distanceNote, /indicativ/);
+  assert.doesNotMatch(brochureCopy("en").location.distanceNote, /\bmin\b/);
+  assert.doesNotMatch(brochureCopy("it").location.distanceNote, /\bmin\b/);
 });
 
 test("one authoritative map uses a keyless production basemap", () => {
@@ -61,25 +73,42 @@ test("one authoritative map uses a keyless production basemap", () => {
   assert.match(mapResources.terrainTiles, /^https:\/\/s3\.amazonaws\.com\//);
 });
 
-test("location copy is bilingual and states pedestrian stair access", () => {
+test("location copy is bilingual and states land stairs and seasonal sea times", () => {
   assert.deepEqual(
     Object.keys(messages.en.location.mapLabels),
     Object.keys(messages.it.location.mapLabels),
   );
   assert.equal("levels" in messages.en.location.map, false);
   assert.equal("levels" in messages.it.location.map, false);
-  assert.equal(messages.en.location.access.land.label.includes("Pedestrian"), true);
-  assert.equal(messages.it.location.access.land.label.includes("Pedonale"), true);
-  assert.equal(messages.it.location.access.land.label.includes("scale"), true);
-  assert.equal(messages.en.location.access.land.body.includes("stepped path"), true);
-  assert.doesNotMatch(messages.en.location.access.land.body, /\d+\s+steps/i);
-  assert.doesNotMatch(messages.it.location.access.land.body, /\d+\s+gradin/i);
-  assert.match(messages.en.location.access.sea.body, /seasonal.*concession/);
-  assert.match(messages.it.location.access.sea.body, /concessione stagionale/);
-  assert.doesNotMatch(messages.en.location.access.sea.body, /private harbour|year-round access/i);
-  assert.doesNotMatch(messages.it.location.access.sea.body, /porto privato|accesso garantito/i);
-  assert.doesNotMatch(messages.en.location.access.land.body, /difficult access|inconvenient|limitation/i);
-  assert.doesNotMatch(messages.it.location.access.land.body, /accesso difficil|scomodo|limitazione/i);
-  assert.equal(messages.en.location.distinct.length, 3);
-  assert.equal(messages.it.location.distinct.length, 3);
+
+  const landEn = brochureCopy("en").location.land;
+  const landIt = brochureCopy("it").location.land;
+  const seaEn = brochureCopy("en").location.sea;
+  const seaIt = brochureCopy("it").location.sea;
+
+  assert.match(landEn, /about 200 steps|staircase of about 200/);
+  assert.match(landIt, /circa 200 gradini/);
+  assert.match(landEn, /Amalfi Coast|state road/);
+  assert.match(landIt, /strada statale|Costiera/);
+  assert.doesNotMatch(landEn, /assess during a visit/i);
+  assert.doesNotMatch(landIt, /valutare durante la visita/i);
+  assert.doesNotMatch(landEn, /difficult access|inconvenient|limitation/i);
+  assert.doesNotMatch(landIt, /accesso difficil|scomodo|limitazione/i);
+
+  assert.match(seaEn, /seasonal.*concession/);
+  assert.match(seaIt, /concessione stagionale/);
+  assert.match(seaEn, /Boat journey times/);
+  assert.match(seaIt, /Tempi di navigazione/);
+  assert.doesNotMatch(seaEn, /indicative/i);
+  assert.doesNotMatch(seaIt, /indicativ/i);
+  assert.match(seaEn, /10 minutes from Salerno harbour/);
+  assert.match(seaEn, /5 minutes from Vietri/);
+  assert.match(seaEn, /10 minutes from Cetara/);
+  assert.match(seaIt, /10 minuti dal porto di Salerno/);
+  assert.match(seaIt, /5 minuti da Vietri/);
+  assert.match(seaIt, /10 minuti da Cetara/);
+  assert.doesNotMatch(seaEn, /terms and duration.*documentation/i);
+  assert.doesNotMatch(seaIt, /Termini e durata.*documentazione/);
+  assert.doesNotMatch(seaEn, /private harbour|year-round|ferry|transfer|\b3 minutes\b/i);
+  assert.doesNotMatch(seaIt, /porto privato|accesso garantito|traghetto|transfer|\b3 minut/i);
 });

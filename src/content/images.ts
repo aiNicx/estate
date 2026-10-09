@@ -1,5 +1,6 @@
 import { readdirSync, existsSync } from "node:fs";
 import path from "node:path";
+import { brochurePhotoIds } from "./brochure.ts";
 import type { Locale } from "./property.ts";
 
 export const PROPERTY_IMAGE_DIR = "images/property";
@@ -56,12 +57,12 @@ export const imageSpecs: ImageSpec[] = [
     width: 1121,
     height: 1403,
     alt: {
-      en: "Aerial view of the white buildings, terraces and cove, with the seasonal pontoon and hillside behind.",
-      it: "Vista aerea degli edifici bianchi, delle terrazze e della cala, con il pontile stagionale e il versante sullo sfondo.",
+      en: "Aerial view of the white buildings, terraces and beach, with the seasonal pontoon and hillside behind.",
+      it: "Vista aerea degli edifici bianchi, delle terrazze e della spiaggia, con il pontile stagionale e il versante sullo sfondo.",
     },
     caption: {
-      en: "The estate and the cove at Marina d'Albori.",
-      it: "La proprietà e la cala di Marina d'Albori.",
+      en: "The property and the beach at Marina d’Albori.",
+      it: "La proprietà e la spiaggia di Marina d’Albori.",
     },
     placements: ["hero", "location", "gallery"],
   },
@@ -192,12 +193,12 @@ export const imageSpecs: ImageSpec[] = [
     width: 5951,
     height: 3967,
     alt: {
-      en: "Rock formations in the cove and buoys on the water, lit by low sunlight.",
-      it: "Scogli nella cala e boe sull'acqua, illuminati dalla luce del sole basso.",
+      en: "Rock formations along the shore and buoys on the water, lit by low sunlight.",
+      it: "Scogli a mare e boe sull'acqua, illuminati dalla luce del sole basso.",
     },
     caption: {
-      en: "The rocks in the cove.",
-      it: "Gli scogli della cala.",
+      en: "The rocks by the water.",
+      it: "Gli scogli a mare.",
     },
     placements: ["location", "heritage", "gallery", "home-location"],
   },
@@ -209,12 +210,12 @@ export const imageSpecs: ImageSpec[] = [
     width: 3024,
     height: 4032,
     alt: {
-      en: "White buildings among pines, with a small stream, outdoor spaces and a wooden boat.",
-      it: "Edifici bianchi tra i pini, con un piccolo corso d'acqua, spazi all'aperto e una barca in legno.",
+      en: "White buildings among pines, with outdoor spaces and a wooden boat.",
+      it: "Edifici bianchi tra i pini, con spazi all’aperto e una barca in legno.",
     },
     caption: {
-      en: "Buildings and pines beside the stream.",
-      it: "Gli edifici e i pini, accanto al corso d'acqua.",
+      en: "Buildings among the pines.",
+      it: "Gli edifici tra i pini.",
     },
     placements: ["property", "location", "gallery"],
   },
@@ -260,12 +261,12 @@ export const imageSpecs: ImageSpec[] = [
     width: 3024,
     height: 4032,
     alt: {
-      en: "Landing with blue doors numbered 2 and 3, a terracotta floor and mosaics along the walls.",
-      it: "Pianerottolo con porte blu numerate 2 e 3, pavimento in cotto e mosaici lungo le pareti.",
+      en: "Landing with blue doors, a terracotta floor and mosaics along the walls.",
+      it: "Pianerottolo con porte blu, pavimento in cotto e mosaici lungo le pareti.",
     },
     caption: {
-      en: "Blue doors and mosaics along the passage between units.",
-      it: "Porte blu e mosaici nel percorso fra le unità.",
+      en: "Blue doors and mosaics along an interior passageway.",
+      it: "Porte blu e mosaici lungo un percorso interno.",
     },
     placements: ["property", "heritage", "gallery"],
   },
@@ -328,12 +329,12 @@ export const imageSpecs: ImageSpec[] = [
     width: 3024,
     height: 4032,
     alt: {
-      en: "Path beneath a citrus pergola, lit by lights strung between the trees.",
-      it: "Percorso sotto una pergola di agrumi, illuminato da luci sospese fra gli alberi.",
+      en: "Garden path with lights strung between the trees.",
+      it: "Percorso in giardino, con luci sospese fra gli alberi.",
     },
     caption: {
-      en: "The path beneath the citrus pergola.",
-      it: "Il percorso sotto la pergola di agrumi.",
+      en: "An evening view of the garden path.",
+      it: "Il percorso in giardino, di sera.",
     },
     placements: ["heritage", "gallery"],
   },
@@ -366,8 +367,8 @@ export const imageSpecs: ImageSpec[] = [
       it: "Scala in pietra fra foglie di fico e vegetazione mediterranea, con il mare sul fondo.",
     },
     caption: {
-      en: "The stairs towards the cove.",
-      it: "Le scale verso la cala.",
+      en: "The stairs towards the beach.",
+      it: "Le scale verso la spiaggia.",
     },
     placements: ["location", "heritage", "gallery", "home-location"],
   },
@@ -447,12 +448,12 @@ export const imageSpecs: ImageSpec[] = [
     width: 3024,
     height: 4032,
     alt: {
-      en: "Balcony beneath a white arch, with a mosaic table and views over the cove and sea.",
-      it: "Balcone sotto un arco bianco, con tavolino a mosaico e vista sulla cala e sul mare.",
+      en: "Balcony beneath a white arch, with a mosaic table and views over the beach and sea.",
+      it: "Balcone sotto un arco bianco, con tavolino a mosaico e vista sulla spiaggia e sul mare.",
     },
     caption: {
-      en: "The cove seen from the arched balcony.",
-      it: "La cala vista dal balcone ad arco.",
+      en: "The beach seen from the arched balcony.",
+      it: "La spiaggia vista dal balcone ad arco.",
     },
     placements: ["home-intro", "spaces", "gallery", "home-gallery"],
   },
@@ -502,8 +503,8 @@ export const imageSpecs: ImageSpec[] = [
       it: "Ampia terrazza con lettini e sedute, affacciata sul mare con le barche.",
     },
     caption: {
-      en: "The terrace of casa 4, open to the sea.",
-      it: "La terrazza di casa 4, aperta sul mare.",
+      en: "The open terrace overlooking the sea.",
+      it: "La terrazza aperta sul mare.",
     },
     placements: ["home-gallery", "spaces", "gallery"],
   },
@@ -519,8 +520,8 @@ export const imageSpecs: ImageSpec[] = [
       it: "Terrazza panoramica incorniciata dai pini, con sedute e un ampio affaccio sul mare.",
     },
     caption: {
-      en: "A panoramic view from the casa 4 terrace.",
-      it: "Una vista panoramica dalla terrazza di casa 4.",
+      en: "The sea beyond the terrace and pines.",
+      it: "Il mare oltre la terrazza e i pini.",
     },
     placements: ["home-gallery", "spaces", "gallery"],
   },
@@ -659,11 +660,11 @@ function extraSpec(file: string, index: number): ImageSpec {
     width: 3024,
     height: 4032,
     alt: {
-      en: `Additional photograph of the Marina d'Albori estate (${stem}).`,
-      it: `Fotografia aggiuntiva della proprietà Marina d'Albori (${stem}).`,
+      en: `Additional photograph of the Marina d’Albori property (${stem}).`,
+      it: `Fotografia aggiuntiva della proprietà Marina d’Albori (${stem}).`,
     },
     caption: {
-      en: "Additional view of the estate.",
+      en: "Additional view of the property.",
       it: "Vista aggiuntiva della proprietà.",
     },
     placements: ["gallery"],
@@ -703,29 +704,6 @@ export function imagesByIds(ids: readonly string[]): ResolvedImage[] {
     .filter((image): image is ResolvedImage => Boolean(image));
 }
 
-/** Editorial homepage gallery: one featured image, then supporting views. */
-export const HOME_GALLERY_IDS = [
-  "terrace-casa-4-panorama",
-  "balcony-arch-beach",
-  "living-sea-view",
-] as const;
-
-export const HOME_SEA_IMAGE_IDS = [
-  "sea-rocks-buoys",
-  "path-stairs-sea",
-] as const;
-
-/** Deliberate brochure selection. Uploads are never published automatically. */
-export const BROCHURE_GALLERY_GROUPS = [
-  { id: "waterfront", ids: ["hero-cove-aerial", "architecture-hillside-aerial", "sea-rocks-buoys", "path-stairs-sea"] },
-  { id: "terraces", ids: ["terrace-casa-4-panorama", "terrace-casa-4-loungers", "terrace-wicker-sea", "balcony-arch-beach", "terrace-dining-sea"] },
-  { id: "interiors", ids: ["living-vaulted-tv", "living-teal-sofa", "kitchen-dining-majolica"] },
-  { id: "hospitality", ids: ["bedroom-view-pines", "bedroom-balcony-sea"] },
-  { id: "details", ids: ["corridor-mosaic", "corridor-unit-doors", "bathroom-navy-geometric", "garden-night-pergola"] },
-] as const;
-
-export const BROCHURE_GALLERY_IDS = BROCHURE_GALLERY_GROUPS.flatMap((group) => [...group.ids]);
-
 export function imageById(id: string): ResolvedImage | undefined {
   return resolveImages().find((image) => image.id === id);
 }
@@ -733,7 +711,7 @@ export function imageById(id: string): ResolvedImage | undefined {
 export function imagesFor(
   placement: ImageSpec["placements"][number],
 ): ResolvedImage[] {
-  if (placement === "gallery") return imagesByIds(BROCHURE_GALLERY_IDS);
+  if (placement === "gallery") return imagesByIds(brochurePhotoIds);
   return resolveImages().filter(
     (image) => image.available && image.placements.includes(placement),
   );

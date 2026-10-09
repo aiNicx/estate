@@ -1,8 +1,7 @@
+import { property } from "../content/property.ts";
+
 export const site = {
-  name: {
-    en: "Marina d'Albori Estate",
-    it: "Proprietà Marina d'Albori",
-  },
+  name: property.names,
   /** Used when NEXT_PUBLIC_SITE_URL and Vercel URLs are unset. */
   defaultUrl: "http://localhost:3000",
   localePrefix: true,
@@ -40,16 +39,3 @@ export function localizedPath(locale: string, pathname = ""): string {
 export function absoluteUrl(locale: string, pathname = ""): string {
   return `${getSiteUrl()}${localizedPath(locale, pathname)}`;
 }
-
-export const routes = [
-  { href: "", id: "overview" },
-  { href: "/the-property", id: "property" },
-  { href: "/spaces", id: "spaces" },
-  { href: "/location", id: "location" },
-  { href: "/investment", id: "investment" },
-  { href: "/heritage", id: "heritage" },
-  { href: "/gallery", id: "gallery" },
-  { href: "/request", id: "request" },
-] as const;
-
-export type RouteId = (typeof routes)[number]["id"];

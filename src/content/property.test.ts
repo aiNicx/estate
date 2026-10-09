@@ -3,7 +3,8 @@ import test from "node:test";
 import { property } from "./property.ts";
 import { imageSpecs } from "./images.ts";
 import { messages } from "./messages.ts";
-import { getAssetDetailGroups, getKeyFacts, getMetrics } from "./facts.ts";
+import { brochureCopy, brochureMetrics } from "./brochure.ts";
+import { buildJsonLd } from "../lib/jsonld.ts";
 import { validateInquiry } from "../lib/inquiry.ts";
 
 test("property facts stay within supplied information", () => {
@@ -14,6 +15,18 @@ test("property facts stay within supplied information", () => {
   assert.equal(property.units.commercial, 2);
   assert.equal(property.lemonGarden.treeCount, 8);
   assert.equal(property.heritage.paperMillYear, 1830);
+  assert.match(property.heritage.paperMillNote.it, /è la cartiera/);
+  assert.match(property.heritage.paperMillNote.en, /is the paper mill/);
+  assert.match(property.heritage.paperMillNote.it, /vasche di macerazione/);
+  assert.match(property.heritage.paperMillNote.en, /maceration tanks/);
+  assert.match(property.heritage.paperMillNote.it, /1830/);
+  assert.match(property.heritage.paperMillNote.en, /1830/);
+  assert.equal(property.landAccess.stepCount, 200);
+  assert.equal(property.landAccess.vehicularAccessToBuildings, null);
+  assert.equal(property.seaApproach.indicativeMinutes.salernoHarbour, 10);
+  assert.equal(property.seaApproach.indicativeMinutes.vietri, 5);
+  assert.equal(property.seaApproach.indicativeMinutes.cetara, 10);
+  assert.equal(property.seaApproach.qualifier, "approximately");
   assert.equal(property.price.value, null);
   assert.equal(property.geo.latitude, 40.6637081);
   assert.equal(property.geo.longitude, 14.7150181);
@@ -22,92 +35,48 @@ test("property facts stay within supplied information", () => {
   assert.equal(property.seller.name, null);
 });
 
-test("english and italian copy both exist", () => {
-  assert.ok(messages.en.hero.title.length > 10);
-  assert.ok(messages.it.hero.title.length > 10);
-  assert.notEqual(messages.en.hero.title, "Marina d'Albori");
-  assert.notEqual(messages.it.hero.title, "Marina d'Albori");
-  assert.equal(messages.en.hero.eyebrow, "Marina d'Albori");
-  assert.equal(messages.it.hero.eyebrow, "Marina d'Albori");
-  assert.equal("geography" in messages.en.hero, false);
-  assert.equal("geography" in messages.it.hero, false);
-  assert.equal(messages.en.investment.scenarios.length, 3);
-  assert.equal(messages.it.investment.scenarios.length, 3);
-  assert.deepEqual(
-    Object.keys(messages.en.facts.terms),
-    Object.keys(messages.it.facts.terms),
-  );
-  assert.deepEqual(
-    Object.keys(messages.en.facts.groups),
-    Object.keys(messages.it.facts.groups),
-  );
-  assert.deepEqual(
-    Object.keys(messages.en.metrics),
-    Object.keys(messages.it.metrics),
-  );
-  assert.deepEqual(Object.keys(messages.en.home), Object.keys(messages.it.home));
-  assert.deepEqual(
-    Object.keys(messages.en.property),
-    Object.keys(messages.it.property),
-  );
-  assert.equal(
-    messages.en.spaces.chapters.length,
-    messages.it.spaces.chapters.length,
-  );
-  assert.equal(messages.en.spaces.chapters.length, 5);
-  assert.equal(
-    messages.en.heritage.items.length,
-    messages.it.heritage.items.length,
-  );
-  assert.ok(messages.en.heritage.title.length > 0);
-  assert.ok(messages.it.heritage.title.length > 0);
-  assert.notEqual(messages.en.heritage.pageTitle, messages.en.heritage.title);
-  assert.notEqual(messages.it.heritage.pageTitle, messages.it.heritage.title);
-  assert.equal(messages.en.gallery.emptyBody.length > 0, true);
-  assert.equal(messages.it.gallery.emptyBody.length > 0, true);
-  assert.equal(messages.en.investment.disclaimer.length > 0, true);
-  assert.equal(messages.it.investment.disclaimer.length > 0, true);
-  assert.equal(messages.en.location.mapLabels.property, "The estate");
+test("english and italian live copy have equivalent structure and three composition readings", () => {
+  function shape(value: unknown): unknown {
+    if (Array.isArray(value)) return value.map(shape);
+    if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, shape(child)]));
+    return typeof value;
+  }
+  assert.deepEqual(shape(brochureCopy("en")), shape(brochureCopy("it")));
+  assert.deepEqual(shape(messages.en), shape(messages.it));
+  for (const locale of ["en", "it"] as const) {
+    const copy = brochureCopy(locale);
+    assert.equal(copy.hero.title, property.shortName);
+    assert.ok(copy.hero.lead.length > 40);
+    assert.equal(copy.property.scenarios.length, 3);
+    assert.equal(Object.keys(copy.spaces.groups).length, 3);
+    assert.equal(copy.information.topics.length, 3);
+    assert.equal("possibilitiesNote" in copy.property, false);
+    assert.equal("areaNote" in copy.property, false);
+    assert.equal("investment" in messages[locale], false);
+    assert.equal("meta" in messages[locale], false);
+  }
+  assert.equal(messages.en.location.mapLabels.property, "The property");
   assert.equal(messages.it.location.mapLabels.property, "La proprietà");
-  assert.deepEqual(
-    Object.keys(messages.en.location.mapLabels),
-    Object.keys(messages.it.location.mapLabels),
-  );
 });
 
-test("visible metrics and fact rows derive from the property source", () => {
-  const metrics = getMetrics("en");
-  const keyFacts = getKeyFacts("it");
-  const groups = getAssetDetailGroups("it");
-  const detailValues = groups.flatMap((group) => group.rows.map((row) => row.value));
-  assert.equal(metrics[0]?.value, `≈ ${property.internalArea.squareMetres} m²`);
-  assert.equal(metrics[1]?.value, `≈ ${property.terraces.squareMetres} m²`);
-  assert.equal(messages.en.meta.description.includes("300"), false);
-  assert.equal(messages.it.overview.body.join(" ").includes("350 m²"), true);
-  assert.equal(metrics[2]?.value, String(property.units.total));
-  assert.equal(
-    metrics[2]?.note,
-    `${property.units.residential} residential · ${property.units.commercial} commercial`,
-  );
-  assert.equal(metrics[3]?.value, messages.en.metrics.seaAccessValue);
-  assert.equal(keyFacts[2]?.value, String(property.units.total));
-  assert.equal(keyFacts[3]?.value, String(property.units.residential));
-  assert.equal(keyFacts[4]?.value, String(property.units.commercial));
-  assert.ok(
-    keyFacts.some((row) =>
-      row.value.includes(String(property.internalArea.squareMetres)),
-    ),
-  );
-  assert.ok(
-    detailValues.some((value) =>
-      value.includes(String(property.lemonGarden.treeCount)),
-    ),
-  );
-  assert.ok(
-    detailValues.some((value) =>
-      value.includes(String(property.heritage.paperMillYear)),
-    ),
-  );
+test("visible metrics and structured facts derive from the property source", () => {
+  for (const locale of ["en", "it"] as const) {
+    const copy = brochureCopy(locale);
+    const metrics = brochureMetrics(locale);
+    assert.equal(metrics[0].value, `≈ ${property.internalArea.squareMetres} m²`);
+    assert.equal(metrics[1].value, `≈ ${property.terraces.squareMetres} m²`);
+    assert.equal(metrics[2].value, String(property.units.total));
+    assert.ok(copy.meta.description.includes(String(property.terraces.squareMetres)));
+    assert.equal(copy.meta.description.includes("300"), false);
+    assert.ok(copy.history.garden.includes(String(property.lemonGarden.treeCount)));
+    assert.ok(copy.history.garden.includes(String(property.lemonGarden.treeAgeYears)));
+    const place = buildJsonLd(locale, "")["@graph"].find(node => node["@type"] === "Place");
+    assert.ok(place && "additionalProperty" in place);
+    const rows = place.additionalProperty;
+    assert.ok(rows.some(row => row.name === copy.property.residential && row.value === String(property.units.residential)));
+    assert.ok(rows.some(row => row.name === copy.property.commercial && row.value === String(property.units.commercial)));
+    assert.ok(rows.some(row => row.name.includes(String(property.heritage.paperMillYear)) && row.value === copy.history.mill));
+  }
 });
 
 test("image map covers the supplied photographs", () => {

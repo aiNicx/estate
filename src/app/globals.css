@@ -1521,7 +1521,12 @@ h3,
 .brochure-metrics dd { margin: 0; font-family: var(--display); font-size: clamp(1.8rem, 3vw, 3.2rem); line-height: 1.1; letter-spacing: -.035em; }
 .brochure-property-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 7vw, 7rem); align-items: center; margin-top: 3rem; }
 .brochure-property-copy { max-width: 34rem; }
-.brochure-property-copy > p:last-child { margin: 0; color: var(--ink-soft); }
+.brochure-property-copy > p { color: var(--ink-soft); }
+.brochure-property-copy > .quiet-link { display: inline-block; margin-top: .5rem; }
+.brochure-possibilities { margin-top: 3rem; border-top: 1px solid var(--line); padding-top: 2rem; }
+.brochure-scenarios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; list-style: none; padding: 0; margin: 1.5rem 0; }
+.brochure-scenarios h4 { font-family: var(--display); font-size: 1.35rem; font-weight: 400; line-height: 1.3; margin: 0 0 .75rem; }
+.brochure-scenarios p { color: var(--ink-soft); font-size: .95rem; margin: 0; }
 .brochure-composition { margin: 2rem 0 3rem; border-top: 1px solid var(--line); }
 .brochure-composition div { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--line); padding: 1rem 0; }
 .brochure-composition dt { color: var(--ink-soft); }
@@ -1544,7 +1549,7 @@ h3,
 .brochure-history-photos figure:last-child { margin-top: 4rem; }
 .brochure-location { background: var(--paper-deep); }
 .brochure-location-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-.brochure-location .location-map-frame { height: 29rem; min-height: 0; }
+.brochure-location .location-map-frame { width: 100%; min-width: 0; height: 29rem; min-height: 0; aspect-ratio: auto; }
 .brochure-location .location-map { margin: 0; padding: 0; }
 .brochure-location .location-map-simple-caption { font-size: .8rem; }
 .brochure-access > div { margin-top: 2.5rem; }
@@ -1605,6 +1610,8 @@ h3,
   .brochure-property-grid { margin-top: 2rem; }
   .brochure-property-photo { max-width: 36rem; }
   .brochure-property-copy { max-width: none; }
+  .brochure-property-copy { grid-row: 1; }
+  .brochure-scenarios { grid-template-columns: 1fr; gap: 1.5rem; }
   .brochure-gallery-heading h3 { margin: 0; }
   .brochure-gallery-grid { gap: 1.5rem 1rem; }
   .brochure-gallery-terrazze li:first-child .photo-frame { aspect-ratio: 3 / 2; }
