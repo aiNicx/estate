@@ -39,3 +39,30 @@ export function localizedPath(locale: string, pathname = ""): string {
 export function absoluteUrl(locale: string, pathname = ""): string {
   return `${getSiteUrl()}${localizedPath(locale, pathname)}`;
 }
+
+/**
+ * Optional controller identity for the privacy notice, e.g.
+ * PRIVACY_CONTROLLER="Name Surname | Street, City | privacy@example.com".
+ * Read at build time; nothing is shown when it is unset.
+ */
+export function privacyController(): string[] {
+  return (process.env.PRIVACY_CONTROLLER ?? "")
+    .split(/\s*[|\n]\s*/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 6);
+}
+
+const EMAIL = /^[^\s@<>()[\]\,;:"]+@[^\s@<>()[\]\,;:"]+\.[^\s@<>()[\]\,;:"]{2,}$/;
+
+/** Address shown in the brochure for requests (CONTACT_EMAIL, read at build time). */
+export function contactEmail(env: Record<string, string | undefined> = process.env): string | null {
+  const value = env.CONTACT_EMAIL?.trim();
+  return value && EMAIL.test(value) ? value : null;
+}
+
+export function mailtoHref(email: string, subject: string, body?: string): string {
+  const params = [`subject=${encodeURIComponent(subject)}`];
+  if (body) params.push(`body=${encodeURIComponent(body)}`);
+  return `mailto:${email}?${params.join("&")}`;
+}

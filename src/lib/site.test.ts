@@ -27,3 +27,14 @@ test("getSiteUrl never throws on empty or invalid env values", () => {
     else process.env[key] = value;
   }
 });
+
+test("contact address is optional and mailto links encode subject and body", async () => {
+  const { contactEmail, mailtoHref } = await import("./site.ts");
+  assert.equal(contactEmail({}), null);
+  assert.equal(contactEmail({ CONTACT_EMAIL: "not an address" }), null);
+  assert.equal(contactEmail({ CONTACT_EMAIL: " owner@example.com " }), "owner@example.com");
+  assert.equal(
+    mailtoHref("owner@example.com", "Marina d’Albori · Viewing", "Good morning,\n\nKind regards,"),
+    "mailto:owner@example.com?subject=Marina%20d%E2%80%99Albori%20%C2%B7%20Viewing&body=Good%20morning%2C%0A%0AKind%20regards%2C",
+  );
+});

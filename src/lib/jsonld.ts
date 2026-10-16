@@ -51,7 +51,7 @@ export function buildJsonLd(locale: Locale, pathname: "" | "/privacy") {
     "@id": url,
     url,
     name: isBrochure ? copy.meta.title : `${chrome.privacy.title} · ${copy.meta.siteName}`,
-    description: isBrochure ? copy.meta.description : chrome.privacy.body[0],
+    description: isBrochure ? copy.meta.description : chrome.privacy.intro,
     inLanguage: locale,
     isPartOf: { "@id": website["@id"] },
     ...(isBrochure ? { about: { "@id": place["@id"] }, image: images, primaryImageOfPage: images[0] } : {}),

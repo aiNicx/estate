@@ -1,5 +1,9 @@
 # Revisione editoriale — Marina d’Albori
 
+> **Aggiornamento 17 ottobre 2026:** l’endpoint `/api/inquiry` e la libreria di consegna non esistono più. Il contatto avviene via email, con link mailto; la brochure è accessibile solo tramite link personali. Vedere README e STATO-COMPLETAMENTO.
+
+> **Documento storico: i prompt sotto non vanno rieseguiti come istruzioni correnti.** Le conferme del proprietario del 9 ottobre 2026 superano i passaggi su cartiera soltanto associata, perimetro incerto, documenti non dichiarati disponibili e referente da definire. La cartiera corrisponde a parte dell’edificio; si vende l’intera proprietà con le aree esterne e il limoneto; planimetrie, visure, documenti della concessione e condizioni sono disponibili; risposte e visite sono seguite dal proprietario. Fonti e formulazioni correnti in [REGISTRO-FATTI.md](REGISTRO-FATTI.md), prompt operativi in [PIANO-COMPLETAMENTO.md](PIANO-COMPLETAMENTO.md).
+
 Piano in tre fasi per correggere voce, luogo e storia della brochure. Ogni fase ha un prompt da eseguire per intero, da sola, prima di passare alla successiva. Non mescolare le fasi: la prima sistema come si parla dell’asset, la seconda rende leggibile il sito, la terza completa la storia senza inventare.
 
 ## Obiettivo del progetto

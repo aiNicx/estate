@@ -97,8 +97,8 @@ test("location copy is bilingual and states land stairs and seasonal sea times",
 
   assert.match(seaEn, /seasonal.*concession/);
   assert.match(seaIt, /concessione stagionale/);
-  assert.match(seaEn, /Boat journey times/);
-  assert.match(seaIt, /Tempi di navigazione/);
+  assert.match(seaEn, /By boat, the journey takes about/);
+  assert.match(seaIt, /In barca si arriva in circa/);
   assert.doesNotMatch(seaEn, /indicative/i);
   assert.doesNotMatch(seaIt, /indicativ/i);
   assert.match(seaEn, /10 minutes from Salerno harbour/);

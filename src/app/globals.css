@@ -1635,3 +1635,32 @@ h3,
 }
 
 .brochure .quiet-link { display: inline-flex; align-items: center; gap: .65rem; }
+
+/* Hero: sale status and second action */
+.brochure-hero-actions { display: flex; flex-wrap: wrap; gap: 1rem 2rem; }
+.quiet-link-accent { color: var(--terracotta); border-color: var(--terracotta); }
+.brochure .quiet-link-accent:hover { color: var(--ink); }
+.brochure .brochure-hero-status { margin: 2rem 0 0; font-size: .8rem; letter-spacing: .04em; color: var(--ink-soft); max-width: 27rem; width: 100%; }
+
+/* Contact, inside the dark information section */
+.brochure-information .brochure-topics .quiet-link { margin-top: 1.25rem; white-space: normal; text-align: left; }
+.brochure-contact { border-top: 1px solid #587079; padding-block: 2.5rem 3rem; display: grid; gap: .6rem; justify-items: start; }
+.brochure .brochure-contact-label { margin: 0; font-size: .75rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #d5b7a2; }
+.brochure-contact-email { font-family: var(--display); font-size: clamp(1.6rem, 3.6vw, 3rem); line-height: 1.15; letter-spacing: -.03em; color: var(--white); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; text-decoration-color: #587079; overflow-wrap: anywhere; }
+.brochure-contact-email:hover { text-decoration-color: var(--white); }
+.brochure-contact-email:focus-visible { outline: 2px solid var(--white); outline-offset: 4px; }
+.brochure .brochure-contact-note { margin: .4rem 0 0; color: #dce2de; font-size: .95rem; max-width: 36rem; }
+.brochure-information .quiet-link:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+
+@media (max-width: 640px) {
+  .brochure .brochure-hero-status { margin-top: 1.5rem; }
+}
+
+/* Privacy notice */
+.privacy-body { max-width: 44rem; }
+.privacy-body section + section { margin-top: 2.25rem; }
+.privacy-body h2 { font-size: clamp(1.3rem, 2vw, 1.6rem); margin: 0 0 .75rem; }
+.privacy-body p { color: var(--ink-soft); margin: 0 0 .9rem; }
+.privacy-body address { font-style: normal; display: grid; gap: .1rem; border-left: 2px solid var(--line); padding-left: 1rem; margin-top: 1rem; }
+.privacy-label { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--terracotta); margin-bottom: .25rem; }
+.page-header .lede { margin-top: 1.25rem; }

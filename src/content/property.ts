@@ -128,10 +128,38 @@ export const property = {
   },
   heritage: {
     paperMillYear: 1830,
+    extent: "part-of-building" as const,
+    macerationTanksInBasement: true,
+    /** Sources identified by the owner; passages not independently inspected. */
+    sources: [
+      "Testi comunali storici indicati dal proprietario",
+      "Aniello Tesauro, Le cartiere di Vietri tra Settecento ed Ottocento (2020)",
+    ],
     paperMillNote: {
-      en: "The property is the paper mill of 1830 at Marina d’Albori. Remains of the maceration tanks survive in the basement.",
-      it: "La proprietà è la cartiera del 1830 a Marina d’Albori. Nel piano sotterraneo restano le vasche di macerazione.",
+      en: "Part of the building housed the paper mill established in 1830. The maceration tanks survive in the basement.",
+      it: "Parte dell’edificio ospitava la cartiera del 1830. Nel piano sotterraneo si conservano le vasche di macerazione.",
     },
+    status: "supplied" as FactStatus,
+  },
+  /** Whole property sale confirmed by the owner; no itemised transaction scope. */
+  sale: {
+    scope: "whole-property" as const,
+    includesOutdoorAreas: true,
+    includesLemonGarden: true,
+    status: "supplied" as FactStatus,
+  },
+  availableDocuments: {
+    floorPlans: true,
+    cadastralRecords: true,
+    concessionDocuments: true,
+    saleTerms: true,
+    status: "supplied" as FactStatus,
+  },
+  contact: {
+    handledBy: "owner" as const,
+    viewingsHandledBy: "owner" as const,
+    /** Email only: a reply to the original message or the address in CONTACT_EMAIL. */
+    channel: "email" as const,
     status: "supplied" as FactStatus,
   },
   price: {
@@ -146,7 +174,7 @@ export const property = {
     email: null as string | null,
     telephone: null as string | null,
     status: "unknown" as FactStatus,
-    todo: "Add selling entity only if it should appear publicly.",
+    todo: "Contact is the owner; add personal details only if supplied for publication.",
   },
   confidentialTopics: [
     "technicalDocumentation",
@@ -161,17 +189,6 @@ export const property = {
 } as const;
 
 export type Property = typeof property;
-
-export const buyerTypes = [
-  "privateBuyer",
-  "realEstateAgency",
-  "investmentFund",
-  "familyOffice",
-  "hospitalityOperator",
-  "other",
-] as const;
-
-export type BuyerType = (typeof buyerTypes)[number];
 
 export function formatArea(
   locale: Locale,

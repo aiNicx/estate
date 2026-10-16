@@ -2,13 +2,33 @@
 
 Brochure digitale off-market per una proprietà sulla spiaggia di Marina d’Albori, a Vietri sul Mare. Si condivide direttamente via email con interessati e advisor selezionati. Italiano e inglese, una pagina per lingua, cinque sezioni: `#proprieta`, `#spazi`, `#storia`, `#posizione`, `#informazioni`.
 
-## Stato al 9 ottobre 2026
+## Stato al 17 ottobre 2026
 
-Contenuti, traduzioni, anteprime e percorso di lettura finalizzati in locale. Il passo successivo è rispondere all’email ricevuta per documenti disponibili, condizioni di vendita e sopralluogo. Nessun form esposto o collegato, nessun deploy eseguito.
+Contenuti IT/EN, fotografie e percorso di lettura completi. La brochure è **riservata**: si apre solo con un link personale, uno per destinatario. Le richieste avvengono via email.
 
-Le sei vecchie route editoriali e `/request` restituiscono 308 verso la sezione corrispondente in entrambe le lingue. `/privacy` resta separata e descrive il contatto via email e le risorse cartografiche esterne. `POST /api/inquiry` restituisce sempre 503 senza leggere o inoltrare dati, anche in presenza di variabili di invio. Il modulo di validazione/consegna in `src/lib/inquiry.ts` resta isolato e testato per la futura Fase 2.
+- **Link personali.** Hanno la forma `/v/<destinatario>.<firma>`. La firma HMAC con `ACCESS_SECRET` impedisce di inventarli o modificarli. Al primo uso il link imposta un cookie tecnico di 180 giorni e apre la brochure nella lingua indicata. Chi non ha il link, o lo ha alterato, vede una pagina neutra bilingue che non nomina la proprietà. L’informativa privacy resta pubblica.
+- **Notifica di apertura.** Quando un destinatario apre davvero la presentazione, il proprietario riceve una notifica push con nome del link, ora, lingua, dispositivo e località approssimativa. Conta solo una visita reale: la pagina deve restare visibile qualche secondo e serve un’interazione. Così gli scanner antispam che aprono i link in anticipo non generano false aperture.
+- **Contatto via email.** La sezione `#informazioni` («Richieste» / «Enquiries») mostra l’indirizzo `CONTACT_EMAIL` e tre link mailto già compilati: planimetrie e visure, concessione e condizioni, sopralluogo. Resta indicata anche la risposta all’email ricevuta. I documenti non sono pubblicati sul sito.
 
-Tutte le pagine mantengono `noindex, nofollow`. `robots.txt` permette la lettura di questi metadati e delle anteprime, senza pubblicizzare una sitemap; `/sitemap.xml` è vuota. Questa è una scelta di indicizzazione, non un controllo di accesso.
+### Creare e revocare i link
+
+```bash
+# .env.local deve contenere lo stesso ACCESS_SECRET dell’hosting e NEXT_PUBLIC_SITE_URL
+npm run link -- "Mario Rossi Family Office"
+npm run link -- --it "Anna Bianchi" "Studio Verdi"
+```
+
+Il nome diventa parte del link e compare nelle notifiche. Per disattivare un link si aggiunge il destinatario a `ACCESS_REVOKED`. Cambiare `ACCESS_SECRET` invalida tutti i link già inviati.
+
+### Notifiche gratuite con ntfy
+
+Installare l’app ntfy e iscriversi a un topic lungo e non indovinabile. Poi impostare `VIEW_NOTIFY_URL=https://ntfy.sh/<topic>`. Senza notifica configurata, le aperture restano solo nei log dell’hosting.
+
+Limite noto: le fotografie in `public/images/property/` restano raggiungibili da chi conosce l’indirizzo esatto del file. Testi, dati, mappa, pagine e anteprime social sono invece protetti. L’ottimizzazione delle immagini di Next.js richiede che i file sorgente non passino dal controllo di accesso.
+
+Le sei vecchie route editoriali e `/request` restituiscono 308 verso la sezione corrispondente, sempre dietro il link personale.
+
+Tutte le pagine mantengono `noindex, nofollow`, anche nell’intestazione `X-Robots-Tag`. `/sitemap.xml` è vuota. Il controllo di accesso è affidato ai link personali.
 
 ## Fonti dei contenuti
 
@@ -18,13 +38,13 @@ Tutte le pagine mantengono `noindex, nofollow`. `robots.txt` permette la lettura
 - `src/content/images.ts`: catalogo, risoluzione dei file, didascalie e testi alternativi.
 - `src/content/messages.ts`: solo navigazione, galleria, mappa e privacy. Nessun secondo sito editoriale.
 
-Le tre letture — residenza, accoglienza con ristorazione, uso misto — descrivono la composizione nella sezione proprietà, con un solo rinvio ai documenti, ai titoli e alle autorizzazioni applicabili. La proprietà sta sulla spiaggia di Marina d’Albori; da terra si scende per una scalinata di circa 200 gradini, via mare si arriva a un pontile in concessione stagionale. Superfici indicative e cartiera associata restano qualificati anche nei dati strutturati.
+Le tre letture — residenza, accoglienza con ristorazione, uso misto — descrivono la composizione nella sezione proprietà, con un solo rinvio ai documenti, ai titoli e alle autorizzazioni applicabili. La proprietà sta sulla spiaggia di Marina d’Albori; da terra si scende per una scalinata di circa 200 gradini, via mare si arriva a un pontile in concessione stagionale. Le superfici restano indicative. La cartiera del 1830 corrisponde a parte dell’edificio e conserva vasche di macerazione nel sotterraneo; il dato è coerente anche nei dati strutturati.
 
-La revisione editoriale della Fase 3 comprende una rilettura completa IT/EN: storia della cartiera, limoneto e ceramiche, usi possibili, descrizioni degli spazi e contatto riservato. Il contesto storico resta distinto dai fatti forniti dal committente; non prova l’inclusione della cartiera nella vendita né la provenienza delle ceramiche. Fonti e criteri in [docs/REVISIONE-EDITORIALE.md](docs/REVISIONE-EDITORIALE.md).
+La revisione editoriale della Fase 3 comprende una rilettura completa IT/EN: storia della cartiera, limoneto e ceramiche, usi possibili, descrizioni degli spazi e contatto riservato. Il proprietario conferma la vendita dell’intera proprietà, comprese le aree esterne e il limoneto, e segue personalmente risposte e sopralluoghi. Sono disponibili planimetrie, visure catastali, documenti della concessione e condizioni di vendita. Per la cartiera indica testi comunali storici e il volume di Aniello Tesauro, *Le cartiere di Vietri tra Settecento ed Ottocento*. Conferme e limiti delle fonti in [docs/REGISTRO-FATTI.md](docs/REGISTRO-FATTI.md); piano aggiornato in [docs/PIANO-COMPLETAMENTO.md](docs/PIANO-COMPLETAMENTO.md).
 
 ## Fotografie
 
-La pagina mostra **12 fotografie**: hero, seconda aerea, sette foto apribili nella galleria Spazi, due dettagli nella Storia e la scala nella Posizione. `brochurePhotos`, `brochurePhotoGroups` e `brochurePhotoIds` in `brochure.ts` definiscono un solo canone, condiviso da pagina e JSON-LD. Le due foto delle terrazze sono mantenute; la numerazione interna dei file non compare nelle didascalie.
+La pagina mostra **12 fotografie**: hero, seconda aerea, sette foto apribili nella galleria Spazi, il limoneto e il mosaico nella Storia, la scala nella Posizione. `brochurePhotos`, `brochurePhotoGroups` e `brochurePhotoIds` in `brochure.ts` definiscono un solo canone, condiviso da pagina e JSON-LD. Le due foto delle terrazze sono mantenute; la numerazione interna dei file non compare nelle didascalie.
 
 Il catalogo più ampio resta in `public/images/property/`; un nuovo upload non entra automaticamente nella brochure. Le aeree utilizzate sono `01_new.jpg` e `02_new.jpg`. Nessuna fotografia è stata modificata in questa finalizzazione.
 
@@ -49,15 +69,20 @@ npm run build
 Verifica browser ripetibile con Chrome installato, contro la build locale:
 
 ```bash
-npm run start -- --hostname 127.0.0.1 -p 3100
+CONTACT_EMAIL=richieste@example.com npm run build
+ACCESS_SECRET=prova npm run start -- --hostname 127.0.0.1 -p 3100
 # In un altro terminale:
-npm run test:browser
+BROCHURE_TEST_SECRET=prova BROCHURE_TEST_CONTACT=richieste@example.com npm run test:browser
 ```
 
-`BROCHURE_TEST_URL` può indicare un’altra origine locale. Il controllo usa Playwright e salva screenshot e report in `test-results/brochure/` (ignorata da Git). Verifica IT/EN a 1440, 820 e 390 px, immagini, mappa reale, galleria e tastiera, menu, cinque hash nel cambio lingua, 14 redirect, OG PNG, privacy, API disabilitata, sitemap e 404. Serve accesso alla rete per le risorse cartografiche esterne.
+`BROCHURE_TEST_URL` può indicare un’altra origine locale. Il controllo usa Playwright e salva screenshot e report in `test-results/brochure/` (ignorata da Git). Verifica IT/EN a 1440, 820 e 390 px, immagini, mappa reale, galleria e tastiera, menu, cinque hash nel cambio lingua, accesso con link personale e pagina neutra, link mailto, notifica di apertura dopo interazione, 14 redirect, OG PNG, privacy pubblica, sitemap e 404. Non invia email né notifiche. Serve accesso alla rete per le risorse cartografiche esterne.
 
-## Da completare con il proprietario
+## Da completare prima della pubblicazione
 
-Le **Fasi 2 e 3 di FINALIZZAZIONE** (contatto e pubblicazione, distinte dalle fasi della revisione editoriale) restano aperte: casella destinataria, soggetto di contatto e titolare privacy, URL HTTPS definitivo e hosting. Non impostare un endpoint o pubblicare prima di questi dati. L’attivazione futura del form richiede UI, informativa effettiva, protezioni dall’abuso e prova di consegna; impostare `INQUIRY_ENDPOINT` da solo non abilita l’API.
+- **Dominio:** URL HTTPS definitivo in `NEXT_PUBLIC_SITE_URL`.
+- **Segreto:** `ACCESS_SECRET` sull’hosting e in `.env.local`, per generare i link. Senza, in produzione il sito resta chiuso a tutti.
+- **Contatto:** `CONTACT_EMAIL` con l’indirizzo da cui scriverete ai destinatari.
+- **Notifiche:** topic ntfy in `VIEW_NOTIFY_URL`, facoltativo.
+- **Informativa:** nome e recapito del titolare in `PRIVACY_CONTROLLER`.
 
-`NEXT_PUBLIC_SITE_URL` rimane vuoto in `.env.example`. Senza configurazione, i link assoluti usano il fallback locale; nessun dominio di produzione viene ipotizzato. Piano e verifiche in [docs/FINALIZZAZIONE.md](docs/FINALIZZAZIONE.md).
+Tutte le variabili sono descritte in `.env.example`. Piano e verifiche in [docs/FINALIZZAZIONE.md](docs/FINALIZZAZIONE.md) e [docs/STATO-COMPLETAMENTO.md](docs/STATO-COMPLETAMENTO.md).

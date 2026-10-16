@@ -1,5 +1,9 @@
 # Marina d’Albori — chiusura del progetto
 
+> **Aggiornamento 17 ottobre 2026:** l’endpoint `/api/inquiry` e la libreria di consegna non esistono più. Il contatto avviene via email, con link mailto; la brochure è accessibile solo tramite link personali. Vedere README e STATO-COMPLETAMENTO.
+
+> Aggiornamento del 9 ottobre 2026: recepite le conferme del proprietario su cartiera, vendita in blocco, documenti e referente. Piano operativo in [PIANO-COMPLETAMENTO.md](PIANO-COMPLETAMENTO.md); fonte interna in [REGISTRO-FATTI.md](REGISTRO-FATTI.md). Le verifiche della prima finalizzazione riportate sotto restano evidenze storiche.
+
 ## Obiettivo
 
 Brochure privata di vendita, distribuita come link via email a interessati selezionati. Deve rendere leggibili composizione, carattere, usi possibili e prossimo passo, senza aggiungere fatti o promesse economiche. Una pagina per lingua: `/it` e `/en`.
@@ -34,19 +38,13 @@ Stato: finalizzata in locale il **9 ottobre 2026**, a partire dall’impianto vi
 
 Il browser integrato della sessione non era disponibile: la verifica è stata eseguita sulla build locale con Chrome e Playwright. Le risorse cartografiche richiedono rete; è stato verificato il caricamento effettivo oltre al fallback esistente.
 
-## Fase 2 — contatto: aperta, dipendente dal proprietario
+## Fase 2 — contatto diretto con il proprietario
 
-Obiettivo: una richiesta inviata dal sito arriva alla casella scelta e la conferma corrisponde a un invio realmente accettato dal servizio.
+Il proprietario segue personalmente risposte e sopralluoghi. Il percorso corrente resta la risposta all’email ricevuta; non richiede un modulo sul sito. Planimetrie, visure catastali, documentazione della concessione e condizioni di vendita sono disponibili.
 
-Dati mancanti: **casella destinataria, soggetto di contatto e dati del titolare privacy**. L’attivazione resta subordinata anche alla definizione dell’URL di produzione.
+Restano da completare i dati identificativi e il recapito per l’informativa, insieme alla configurazione effettiva dei servizi. Il form rimane un’estensione eventuale, da attivare soltanto se richiesta: servono UI, servizio di invio, informativa, protezioni dall’abuso e verifica di ricezione.
 
-1. Definire destinatario, servizio di invio e trattamento dei dati con il titolare.
-2. Progettare un form essenziale e collegarlo alla sezione Informazioni, sostituendo la chiusura via email solo quando operativo.
-3. Aggiornare la privacy sulla configurazione effettiva, senza attribuire ruoli a soggetti non confermati.
-4. Abilitare esplicitamente l’API, aggiungere protezioni dall’abuso e verificare errori e mancata consegna.
-5. Provare un invio reale e la ricezione nella casella scelta. I test di consegna attuali usano un servizio simulato.
-
-Non sono stati configurati endpoint, CRM, destinatari o titolari. `INQUIRY_ENDPOINT` è una riserva tecnica nella libreria, non un interruttore sufficiente a rendere operativo il sito.
+Nessun endpoint o CRM configurato. INQUIRY_ENDPOINT resta una riserva tecnica e non abilita l’API, che continua a restituire 503.
 
 ## Fase 3 — pubblicazione: aperta, dipendente dal proprietario
 
@@ -62,11 +60,11 @@ Dati mancanti: **URL HTTPS definitivo e hosting/account di pubblicazione**.
 
 Le superfici restano indicative: circa 900 m² interni e 350 m² di terrazze. Sette unità indipendenti, cinque residenziali e due commerciali. Solo parte delle unità residenziali è descritta come alloggio per vacanze; è presente un’attività di ristorazione, senza dedurne licenze, coperti o trasferibilità.
 
-La cartiera del 1830 resta associata/legata alla proprietà, senza affermarne l’inclusione nella vendita. Anno e legame sono dati del committente; la tradizione cartaria di Vietri sul Mare è contesto storico, non un fatto classificato come fornito dal proprietario. Il limoneto conta circa 8 alberi di circa 70 anni: il richiamo alla coltivazione costiera non attribuisce cultivar, certificazioni o produttività. Le ceramiche sono descritte attraverso i dettagli visibili nelle fotografie, senza attribuzioni di autore, data o provenienza. Fonti e limiti sono registrati in [REVISIONE-EDITORIALE.md](REVISIONE-EDITORIALE.md).
+La cartiera del 1830 corrisponde a parte dell’edificio; nel sotterraneo si conservano le vasche di macerazione. Il proprietario conferma questi dati e indica testi comunali storici e il volume di Aniello Tesauro, *Le cartiere di Vietri tra Settecento ed Ottocento*. Il riscontro bibliografico non sostituisce la consultazione dei passaggi, non effettuata in questa revisione. La vendita riguarda l’intera proprietà, comprese le aree esterne e il limoneto, senza articolare pubblicamente un inventario dei beni. Il limoneto conta circa 8 alberi di circa 70 anni: il richiamo alla coltivazione costiera non attribuisce cultivar, certificazioni o produttività. Le ceramiche sono descritte attraverso i dettagli visibili nelle fotografie, senza attribuzioni di autore, data o provenienza. Fonti e limiti sono registrati in [REVISIONE-EDITORIALE.md](REVISIONE-EDITORIALE.md).
 
 Da terra si scende a piedi per una scalinata di circa 200 gradini: il numero è fornito dal committente. L’accesso veicolare agli edifici resta sconosciuto. Il pontile resta legato a una concessione stagionale. I tre tempi di navigazione — circa 10 minuti dal porto di Salerno, 5 da Vietri, 10 da Cetara — sono forniti dal committente e indicativi, distinti dalle distanze in linea d’aria.
 
-Prezzo, planimetrie, perimetro di vendita, titoli e condizioni della concessione sono temi da richiedere al contatto, non materiali dichiarati già disponibili in pagina. Le distanze indicative in linea d’aria restano quelle derivate da `geography.ts`.
+Sono disponibili planimetrie, visure catastali, documenti della concessione e condizioni di vendita, condivisi direttamente dal proprietario. Il prezzo non viene pubblicato; non si estende la disponibilità ad altri documenti non confermati. Le distanze indicative in linea d’aria restano quelle derivate da `geography.ts`.
 
 ## File interessati
 

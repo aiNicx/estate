@@ -525,6 +525,23 @@ export const imageSpecs: ImageSpec[] = [
     },
     placements: ["home-gallery", "spaces", "gallery"],
   },
+  {
+    id: "lemon-garden",
+    file: "27-lemon-garden.jpg",
+    role: "atmosphere",
+    objectPosition: "50% 58%",
+    width: 1467,
+    height: 2200,
+    alt: {
+      en: "Lemon trees under a wooden pergola, with fallen lemons on the ground, a wooden bench and the white building behind.",
+      it: "Alberi di limone sotto un pergolato di legno, con limoni caduti a terra, una panca di legno e l’edificio bianco sullo sfondo.",
+    },
+    caption: {
+      en: "The lemon garden, beneath the wooden pergola.",
+      it: "Il limoneto, sotto il pergolato di legno.",
+    },
+    placements: ["heritage", "gallery"],
+  },
 ];
 
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
@@ -559,6 +576,7 @@ export const FILE_KEYWORDS: Record<string, string[]> = {
   "exterior-pines-stream": ["10-", "pines", "stream", "pini", "torrente"],
   "bathroom-navy-geometric": ["11-", "navy-geometric"],
   "kitchen-dining-majolica": ["12-", "kitchen-dining"],
+  "lemon-garden": ["27-", "lemon", "limoneto", "limoni"],
   "corridor-unit-doors": ["13-", "unit-doors", "porte"],
   "living-studio-daybed": ["14-", "daybed", "studio"],
   "terrace-wicker-sea": ["15-", "wicker", "rattan"],

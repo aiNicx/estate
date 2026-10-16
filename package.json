@@ -10,9 +10,10 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/content/property.test.ts src/content/images.test.ts src/content/geography.test.ts src/content/brochure.test.ts src/lib/site.test.ts src/lib/inquiry.test.ts",
+    "test": "node --experimental-strip-types --test src/content/property.test.ts src/content/images.test.ts src/content/geography.test.ts src/content/brochure.test.ts src/lib/site.test.ts src/lib/access.test.ts src/lib/views.test.ts",
     "optimize:photos": "node scripts/optimize-photos.mjs",
-    "test:browser": "node scripts/check-brochure.mjs"
+    "test:browser": "node scripts/check-brochure.mjs",
+    "link": "node --experimental-strip-types --no-warnings scripts/create-link.ts"
   },
   "engines": {
     "node": ">=20.9.0"

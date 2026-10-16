@@ -11,7 +11,7 @@ Lo script converte HEIC/PNG in JPEG, riduce il lato lungo a 2200px e **cancella 
 
 Le nuove viste aeree in uso sono `01_new.jpg` e `02_new.jpg`, derivate dai PNG forniti. I file precedenti sono conservati ma non compaiono nella brochure.
 
-La brochure mostra **12 fotografie**, di cui **7 apribili nella galleria Spazi**, in tre gruppi (terrazze, interni, camere). Selezione e ordine sono definiti da `brochurePhotos`, `brochurePhotoGroups` e `brochurePhotoIds` in `src/content/brochure.ts`, condivisi con il JSON-LD. Il caricamento di un nuovo file non lo pubblica automaticamente.
+La brochure mostra **12 fotografie**, di cui **7 apribili nella galleria Spazi**, in tre gruppi (terrazze, interni, camere). Nella Storia compaiono il limoneto (`27-lemon-garden.jpg`) e il mosaico del corridoio; la cucina in maiolica resta nel catalogo ma non è pubblicata. Selezione e ordine sono definiti da `brochurePhotos`, `brochurePhotoGroups` e `brochurePhotoIds` in `src/content/brochure.ts`, condivisi con il JSON-LD. Il caricamento di un nuovo file non lo pubblica automaticamente.
 
 Catalogo delle fotografie disponibili:
 
@@ -43,6 +43,7 @@ Catalogo delle fotografie disponibili:
 | `24-balcony-arch-beach.jpg` | Balcone ad arco sulla spiaggia |
 | `25-living-sea-view.jpg` | Open space con vista mare |
 | `26-bedroom-balcony-sea.jpg` | Camera con terrazza sul mare |
+| `27-lemon-garden.jpg` | Limoneto sotto il pergolato di legno (sezione **Storia**) |
 | `terrazzo_casa_4-01.jpg` | Terrazza con lettini e sedute |
 | `terrazzo_casa_4-02.jpg` | Terrazza e pini sul mare |
 

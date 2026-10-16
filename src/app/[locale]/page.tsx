@@ -11,6 +11,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { Photo } from "@/components/Photo";
 import { Gallery } from "@/components/Gallery";
 import { LocationMap } from "@/components/LocationMap";
+import { ViewBeacon } from "@/components/ViewBeacon";
+import { contactEmail, mailtoHref } from "@/lib/site";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -24,6 +26,7 @@ export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const copy = brochureCopy(locale);
+  const email = contactEmail();
   const hero = availableImage(brochurePhotos.hero);
   const groups = brochurePhotoGroups.map((group) => ({
     id: group.id,
@@ -39,12 +42,17 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <main className="brochure" id="inizio">
       <JsonLd data={buildJsonLd(locale, "")} />
+      <ViewBeacon locale={locale} />
       <section className="brochure-hero" aria-labelledby="brochure-title">
         <div className="brochure-hero-copy">
           <p className="kicker">{copy.hero.place}</p>
           <h1 id="brochure-title">{copy.hero.title}</h1>
           <p className="brochure-hero-lead">{copy.hero.lead}</p>
-          <a className="quiet-link" href="#proprieta">{copy.hero.action}<span aria-hidden="true"> ↓</span></a>
+          <div className="brochure-hero-actions">
+            <a className="quiet-link" href="#proprieta">{copy.hero.action}<span aria-hidden="true"> ↓</span></a>
+            <a className="quiet-link quiet-link-accent" href="#informazioni">{copy.hero.enquire}<span aria-hidden="true"> ↓</span></a>
+          </div>
+          <p className="brochure-hero-status">{copy.hero.status}</p>
         </div>
         <figure className="brochure-hero-photo">
           <div className="brochure-hero-frame photo-frame">
@@ -72,7 +80,6 @@ export default async function HomePage({ params }: PageProps) {
             </dl>
             <h3>{copy.property.useTitle}</h3>
             <p>{copy.property.use}</p>
-            <a className="quiet-link" href="#informazioni">{copy.property.next}<span aria-hidden="true"> ↓</span></a>
           </div>
         </div>
         <div className="brochure-possibilities" aria-labelledby="possibilities-title">
@@ -127,7 +134,26 @@ export default async function HomePage({ params }: PageProps) {
       <section id="informazioni" className="brochure-section brochure-information" aria-labelledby="information-title">
         <div className="shell">
           <div className="brochure-information-intro"><p className="kicker">{copy.information.kicker}</p><h2 id="information-title">{copy.information.title}</h2><p>{copy.information.intro}</p></div>
-          <ul className="brochure-topics">{copy.information.topics.map((topic) => <li key={topic.title}><h3>{topic.title}</h3><p>{topic.text}</p></li>)}</ul>
+          <ul className="brochure-topics">
+            {copy.information.topics.map((topic) => (
+              <li key={topic.title}>
+                <h3>{topic.title}</h3>
+                <p>{topic.text}</p>
+                {email ? <a className="quiet-link" href={mailtoHref(email, topic.subject, topic.body)}>{topic.action}<span aria-hidden="true"> ↗</span></a> : null}
+              </li>
+            ))}
+          </ul>
+          <div className="brochure-contact">
+            {email ? (
+              <>
+                <p className="brochure-contact-label">{copy.information.contactLabel}</p>
+                <a className="brochure-contact-email" href={mailtoHref(email, copy.information.contactSubject, copy.information.contactBody)}>{email}</a>
+                <p className="brochure-contact-note">{copy.information.replyNote}</p>
+              </>
+            ) : (
+              <p className="brochure-contact-note">{copy.information.replyOnly}</p>
+            )}
+          </div>
           <div className="brochure-information-end"><p>{copy.information.closing}</p><a className="quiet-link" href="#inizio">{copy.information.back}<span aria-hidden="true"> ↑</span></a></div>
         </div>
       </section>

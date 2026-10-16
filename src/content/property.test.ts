@@ -5,7 +5,6 @@ import { imageSpecs } from "./images.ts";
 import { messages } from "./messages.ts";
 import { brochureCopy, brochureMetrics } from "./brochure.ts";
 import { buildJsonLd } from "../lib/jsonld.ts";
-import { validateInquiry } from "../lib/inquiry.ts";
 
 test("property facts stay within supplied information", () => {
   assert.equal(property.internalArea.squareMetres, 900);
@@ -15,8 +14,19 @@ test("property facts stay within supplied information", () => {
   assert.equal(property.units.commercial, 2);
   assert.equal(property.lemonGarden.treeCount, 8);
   assert.equal(property.heritage.paperMillYear, 1830);
-  assert.match(property.heritage.paperMillNote.it, /è la cartiera/);
-  assert.match(property.heritage.paperMillNote.en, /is the paper mill/);
+  assert.equal(property.heritage.extent, "part-of-building");
+  assert.equal(property.heritage.macerationTanksInBasement, true);
+  assert.match(property.heritage.paperMillNote.it, /Parte dell’edificio/);
+  assert.match(property.heritage.paperMillNote.en, /Part of the building/);
+  assert.equal(property.sale.scope, "whole-property");
+  assert.equal(property.sale.includesOutdoorAreas, true);
+  assert.equal(property.sale.includesLemonGarden, true);
+  assert.equal(property.availableDocuments.floorPlans, true);
+  assert.equal(property.availableDocuments.cadastralRecords, true);
+  assert.equal(property.availableDocuments.concessionDocuments, true);
+  assert.equal(property.availableDocuments.saleTerms, true);
+  assert.equal(property.contact.handledBy, "owner");
+  assert.equal(property.contact.viewingsHandledBy, "owner");
   assert.match(property.heritage.paperMillNote.it, /vasche di macerazione/);
   assert.match(property.heritage.paperMillNote.en, /maceration tanks/);
   assert.match(property.heritage.paperMillNote.it, /1830/);
@@ -91,28 +101,4 @@ test("every specified photograph has filename keywords for flexible uploads", as
   for (const spec of imageSpecs) {
     assert.ok((FILE_KEYWORDS[spec.id] ?? []).length > 0, spec.id);
   }
-});
-
-test("inquiry validation rejects incomplete payloads", () => {
-  const invalid = validateInquiry({
-    name: "",
-    email: "not-an-email",
-    buyerType: "",
-    country: "",
-    locale: "en",
-    privacyConsent: false,
-  });
-  assert.ok(invalid.errors.name);
-  assert.ok(invalid.errors.email);
-  assert.ok(invalid.errors.privacyConsent);
-
-  const valid = validateInquiry({
-    name: "Anna Rossi",
-    email: "anna@example.com",
-    buyerType: "familyOffice",
-    country: "Italy",
-    locale: "it",
-    privacyConsent: true,
-  });
-  assert.ok(valid.payload);
 });
